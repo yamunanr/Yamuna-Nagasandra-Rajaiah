@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" th:href="@{css/pure/pure.css}"/>
+<script type="text/javascript" th:src="@{js/jquery/jquery-3.3.1.min.js}"></script>
+<script>
+$(function() {
+	$('#uploadFileButton').click(function() {
+		$('#uploadFileButton').prop('disabled', true);
+		var form = document.forms[0];
+		var formData = new FormData(form);
+		
+		$.ajax({
+			url : 'xmlFileUpload',
+			type : 'POST',
+			data : formData,
+			cache : false,
+			contentType : false,
+			processData : false
+			}).done(function( html ) {
+			    $( "#test1" ).append( html );
+			  });
+		
+	}) });
+</script>
+<title>Home Page</title>
+</head>
+<body>
+	<h1>Hello !</h1>
+	<p id="test1">
+		Welcome to <span th:text="${test}">Our App</span>
+	</p>
+	<form class="pure-form">
+		<fieldset>
+			<legend>Upload GLEIF ZIP File</legend>
+			<!-- <select id="xmlfiletype">
+				<option th:each="file : ${xmlFileList}" th:value="${file.key}"
+					th:text="${file.value}" />
+			</select>  -->
+			<input type="file" id="fileName" name="fileName" accept="*.zip" />
+			<button type="button" id="uploadFileButton"
+				class="pure-button pure-button-primary">Upload</button>
+		</fieldset>
+	</form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+/gleifparser/target/
+/gleifparser/.mvn/
+/gleifparser/.gitignore
+/gleifparser/src/main/resources/uploadDir
+
+### STS ###
+/gleifparser/.apt_generated
+/gleifparser/.classpath
+/gleifparser/.factorypath
+/gleifparser/.project
+/gleifparser/.settings
+/gleifparser/.springBeans
+/gleifparser/.sts4-cache
+
+### IntelliJ IDEA ###
+/gleifparser/.idea
+/gleifparser/*.iws
+/gleifparser/*.iml
+/gleifparser/*.ipr
+
+### NetBeans ###
+/gleifparser//nbproject/private/
+/gleifparser//build/
+/gleifparser//nbbuild/
+/gleifparser//dist/
+/gleifparser//nbdist/
+/gleifparser//.nb-gradle/
