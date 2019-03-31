@@ -7,23 +7,32 @@ import java.util.List;
 
 
 /**
- * The persistent class for the LEVEL1LEIRECORD database table.
+ * The persistent class for the LEVEL1_LEI_RECORD database table.
  * 
  */
 @Entity
-@NamedQuery(name="Level1leirecord.findAll", query="SELECT l FROM Level1leirecord l")
-public class Level1leirecord implements Serializable {
+@Table(name="LEVEL1_LEI_RECORD")
+@NamedQuery(name="Level1LeiRecord.findAll", query="SELECT l FROM Level1LeiRecord l")
+public class Level1LeiRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
 	private String lei;
+
+	@Column(name="ASSOCIATED_ENTITY_TYPE_ASSOCIATED_ENTITY_NAME")
+	private String associatedEntityTypeAssociatedEntityName;
+
+	@Column(name="ASSOCIATED_ENTITY_TYPE_ASSOCIATED_ENTITY_TYPE_ENUM")
+	private String associatedEntityTypeAssociatedEntityTypeEnum;
+
+	@Column(name="ASSOCIATED_ENTITY_TYPE_ASSOCIATED_LEI")
+	private String associatedEntityTypeAssociatedLei;
 
 	@Column(name="ASSOCIATED_LEI_ID")
 	private String associatedLeiId;
 
-	@Column(name="ENTITY_CATEGORY")
-	private String entityCategory;
+	@Column(name="ENTITY_CATEGORY_VALUE")
+	private String entityCategoryValue;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="ENTITY_EXPIRATION_DATE")
@@ -32,14 +41,62 @@ public class Level1leirecord implements Serializable {
 	@Column(name="ENTITY_EXPIRATION_REASON")
 	private String entityExpirationReason;
 
-	@Column(name="ENTITY_LEGAL_FORMCODE")
-	private String entityLegalFormcode;
+	@Column(name="ENTITY_LEGAL_FORM_CODE")
+	private String entityLegalFormCode;
+
+	@Column(name="ENTITY_NEXT_VERSION_TYPE_ANY")
+	private String entityNextVersionTypeAny;
 
 	@Column(name="ENTITY_STATUS")
 	private String entityStatus;
 
-	@Column(name="HQ_ADDITIONAL_ADDRESSLINE")
-	private String hqAdditionalAddressline;
+	@Column(name="ENTITY_TYPE_LEGAL_ADDRESS_ADDITIONAL_ADDRESS_LINE")
+	private String entityTypeLegalAddressAdditionalAddressLine;
+
+	@Column(name="ENTITY_TYPE_LEGAL_ADDRESS_ADDRESS_NUMBER")
+	private String entityTypeLegalAddressAddressNumber;
+
+	@Column(name="ENTITY_TYPE_LEGAL_ADDRESS_ADDRESS_NUMBER_WITHIN_BUILDING")
+	private String entityTypeLegalAddressAddressNumberWithinBuilding;
+
+	@Column(name="ENTITY_TYPE_LEGAL_ADDRESS_CITY")
+	private String entityTypeLegalAddressCity;
+
+	@Column(name="ENTITY_TYPE_LEGAL_ADDRESS_COUNTRY")
+	private String entityTypeLegalAddressCountry;
+
+	@Column(name="ENTITY_TYPE_LEGAL_ADDRESS_FIRST_ADDRESS_LINE")
+	private String entityTypeLegalAddressFirstAddressLine;
+
+	@Column(name="ENTITY_TYPE_LEGAL_ADDRESS_LANG")
+	private String entityTypeLegalAddressLang;
+
+	@Column(name="ENTITY_TYPE_LEGAL_ADDRESS_MAIL_ROUTING")
+	private String entityTypeLegalAddressMailRouting;
+
+	@Column(name="ENTITY_TYPE_LEGAL_ADDRESS_POSTALCODE")
+	private String entityTypeLegalAddressPostalcode;
+
+	@Column(name="ENTITY_TYPE_LEGAL_ADDRESS_REGION")
+	private String entityTypeLegalAddressRegion;
+
+	@Column(name="ENTITY_TYPE_LEGAL_NAME_NAME_TYPE")
+	private String entityTypeLegalNameNameType;
+
+	@Column(name="ENTITY_TYPE_LEGAL_NAME_NAME_TYPE_LANG")
+	private String entityTypeLegalNameNameTypeLang;
+
+	@Column(name="ENTITY_TYPE_OTHER_ENTITY_NAMES_TYPE")
+	private String entityTypeOtherEntityNamesType;
+
+	@Column(name="ENTITY_TYPE_TRANSLITERATED_OTHER_ENTITY_NAMES_TYPE")
+	private String entityTypeTransliteratedOtherEntityNamesType;
+
+	@Column(name="EXTENSION_TYPE")
+	private String extensionType;
+
+	@Column(name="HQ_ADDITIONAL_ADDRESS_LINE")
+	private String hqAdditionalAddressLine;
 
 	@Column(name="HQ_ADDRESS_NUMBER")
 	private String hqAddressNumber;
@@ -53,14 +110,14 @@ public class Level1leirecord implements Serializable {
 	@Column(name="HQ_COUNTRY")
 	private String hqCountry;
 
-	@Column(name="HQ_FIRSTADDRESS_LINE")
-	private String hqFirstaddressLine;
+	@Column(name="HQ_FIRST_ADDRESS_LINE")
+	private String hqFirstAddressLine;
 
 	@Column(name="HQ_LANG")
 	private String hqLang;
 
-	@Column(name="HQ_MAILROUTING")
-	private String hqMailrouting;
+	@Column(name="HQ_MAIL_ROUTING")
+	private String hqMailRouting;
 
 	@Column(name="HQ_POSTAL_CODE")
 	private String hqPostalCode;
@@ -72,8 +129,8 @@ public class Level1leirecord implements Serializable {
 	@Column(name="INITIAL_REGISTRATION_DATE")
 	private Date initialRegistrationDate;
 
-	@Column(name="L_ADDRESSNUMBER_2")
-	private String lAddressnumber2;
+	@Column(name="L_ADDRESS_NUMBER_2")
+	private String lAddressNumber2;
 
 	@Column(name="L_CITY_1")
 	private String lCity1;
@@ -81,8 +138,8 @@ public class Level1leirecord implements Serializable {
 	@Column(name="L_COUNTRY_1")
 	private String lCountry1;
 
-	@Column(name="L_FIRSTADDRESSLINE_1")
-	private String lFirstaddressline1;
+	@Column(name="L_FIRST_ADDRESS_LINE_1")
+	private String lFirstAddressLine1;
 
 	@Column(name="L_LANG_1")
 	private String lLang1;
@@ -97,8 +154,17 @@ public class Level1leirecord implements Serializable {
 	@Column(name="LAST_UPDATE_DATE")
 	private Date lastUpdateDate;
 
+	@Column(name="LEGAL_FORM_TYPE_ENTITY_LEGAL_FORM_CODE")
+	private String legalFormTypeEntityLegalFormCode;
+
+	@Column(name="LEGAL_FORM_TYPE_OTHER_LEGAL_FORM")
+	private String legalFormTypeOtherLegalForm;
+
 	@Column(name="LEGAL_JURISDICTION")
 	private String legalJurisdiction;
+
+	@Column(name="LEI_RECORD_NEXT_VERSION_TYPE")
+	private String leiRecordNextVersionType;
 
 	@Column(name="LEI_TYPE")
 	private String leiType;
@@ -110,17 +176,20 @@ public class Level1leirecord implements Serializable {
 	@Column(name="NEXT_RENEWAL_DATE")
 	private Date nextRenewalDate;
 
-	@Column(name="O_ADDITIONAL_ADDRESSLINE_1")
-	private String oAdditionalAddressline1;
+	@Column(name="O_ADDITIONAL_ADDRESS_NUMBER_2")
+	private String oAdditionalAddressNumber2;
 
-	@Column(name="O_ADDITIONAL_ADDRESSNUMBERSLINE_1")
-	private String oAdditionalAddressnumbersline1;
+	@Column(name="O_ADDITIONAL_ADDRESS_NUMBER_LINE_1")
+	private String oAdditionalAddressNumberLine1;
 
-	@Column(name="O_ADDRESSNUMBER_2")
-	private String oAddressnumber2;
+	@Column(name="O_ADDITIONAL_ADDRESS_NUMBER_WITHIN_BUILDING_1")
+	private String oAdditionalAddressNumberWithinBuilding1;
 
-	@Column(name="O_ADDRESSNUMBER_WITHINBUILDING_1")
-	private String oAddressnumberWithinbuilding1;
+	@Column(name="O_ADDRESS_NUMBER_2")
+	private String oAddressNumber2;
+
+	@Column(name="O_ADDRESS_NUMBER_WITHIN_BUILDING_1")
+	private String oAddressNumberWithinBuilding1;
 
 	@Column(name="O_CITY_1")
 	private String oCity1;
@@ -128,14 +197,14 @@ public class Level1leirecord implements Serializable {
 	@Column(name="O_COUNTRY_1")
 	private String oCountry1;
 
-	@Column(name="O_FIRSTADDRESSLINE_1")
-	private String oFirstaddressline1;
+	@Column(name="O_FIRST_ADDRESS_LINE_1")
+	private String oFirstAddressLine1;
 
 	@Column(name="O_LANG_1")
 	private String oLang1;
 
-	@Column(name="O_MAILROUTING_1")
-	private String oMailrouting1;
+	@Column(name="O_MAIL_ROUTING_1")
+	private String oMailRouting1;
 
 	@Column(name="O_POSTALCODE_1")
 	private String oPostalcode1;
@@ -152,43 +221,65 @@ public class Level1leirecord implements Serializable {
 	@Column(name="OTHER_REGISTRATION_AUTHORITY_ID")
 	private String otherRegistrationAuthorityId;
 
-	@Column(name="OTHER_VALIDATIONAUTHORITY_ID")
-	private String otherValidationauthorityId;
+	@Column(name="OTHER_VALIDATION_AUTHORITIES_TYPE")
+	private String otherValidationAuthoritiesType;
+
+	@Column(name="REGISTRATION_AUTHORITY_ENTITY_ID")
+	private String registrationAuthorityEntityId;
 
 	@Column(name="REGISTRATION_AUTHORITY_ID")
 	private String registrationAuthorityId;
 
-	@Column(name="REGISTRATION_AUTHORITYENTITY_ID")
-	private String registrationAuthorityentityId;
+	@Column(name="REGISTRATION_NEXT_VERSION_TYPE")
+	private String registrationNextVersionType;
 
 	@Column(name="REGISTRATION_STATUS")
 	private String registrationStatus;
 
+	@Column(name="SUCCESSOR_ENTITY_TYPE_SUCCESSOR_ENTITY_NAME_LANG")
+	private String successorEntityTypeSuccessorEntityNameLang;
+
+	@Column(name="SUCCESSOR_ENTITY_TYPE_SUCCESSOR_ENTITY_NAME_VALUE")
+	private String successorEntityTypeSuccessorEntityNameValue;
+
+	@Column(name="SUCCESSOR_ENTITY_TYPE_SUCCESSOR_LEI")
+	private String successorEntityTypeSuccessorLei;
+
 	@Column(name="SUCCESSOR_LEI")
 	private String successorLei;
 
-	@Column(name="TO_ADDRESSNUMBER_2")
-	private String toAddressnumber2;
+	@Column(name="TO_ADDRESS_NUMBER_2")
+	private String toAddressNumber2;
 
-	@Column(name="TO_ADDRESSNUMBER_WITHINBUILDING_1")
-	private String toAddressnumberWithinbuilding1;
+	@Column(name="TO_ADDRESS_NUMBER_WITHIN_BUILDING_1")
+	private String toAddressNumberWithinBuilding1;
 
-	@Column(name="TO_FIRSTADDRESSLINE_1")
-	private String toFirstaddressline1;
+	@Column(name="TO_FIRST_ADDRESS_LINE_1")
+	private String toFirstAddressLine1;
 
-	@Column(name="VALIDATION_AUTHORITY_ID")
-	private String validationAuthorityId;
+	@Column(name="VALIDATION_AUTHORITY_TYPE_OTHER_VALIDATION_AUTHORITY_ID")
+	private String validationAuthorityTypeOtherValidationAuthorityId;
 
-	@Column(name="VALIDATION_AUTHORITYENTITY_ID")
-	private String validationAuthorityentityId;
+	@Column(name="VALIDATION_AUTHORITY_TYPE_VALIDATION_AUTHORITY_ENTITY_ID")
+	private String validationAuthorityTypeValidationAuthorityEntityId;
 
-	private String validationsources;
+	@Column(name="VALIDATION_AUTHORITY_TYPE_VALIDATION_AUTHORITY_ID")
+	private String validationAuthorityTypeValidationAuthorityId;
 
-	//bi-directional many-to-one association to Level2relationshiprecord
-	@OneToMany(mappedBy="level1leirecord")
-	private List<Level2relationshiprecord> level2relationshiprecords;
+	@Column(name="VALIDATION_SOURCES")
+	private String validationSources;
 
-	public Level1leirecord() {
+	//bi-directional many-to-one association to Level2RelationshipRecord
+	@OneToMany(mappedBy="level1LeiRecord")
+	private List<Level2RelationshipRecord> level2RelationshipRecords;
+
+	/*
+	 * //bi-directional many-to-one association to Level2ReportingException
+	 * 
+	 * @OneToMany(mappedBy="level1LeiRecord") private List<Level2ReportingException>
+	 * level2ReportingExceptions;
+	 */
+	public Level1LeiRecord() {
 	}
 
 	public String getLei() {
@@ -199,6 +290,30 @@ public class Level1leirecord implements Serializable {
 		this.lei = lei;
 	}
 
+	public String getAssociatedEntityTypeAssociatedEntityName() {
+		return this.associatedEntityTypeAssociatedEntityName;
+	}
+
+	public void setAssociatedEntityTypeAssociatedEntityName(String associatedEntityTypeAssociatedEntityName) {
+		this.associatedEntityTypeAssociatedEntityName = associatedEntityTypeAssociatedEntityName;
+	}
+
+	public String getAssociatedEntityTypeAssociatedEntityTypeEnum() {
+		return this.associatedEntityTypeAssociatedEntityTypeEnum;
+	}
+
+	public void setAssociatedEntityTypeAssociatedEntityTypeEnum(String associatedEntityTypeAssociatedEntityTypeEnum) {
+		this.associatedEntityTypeAssociatedEntityTypeEnum = associatedEntityTypeAssociatedEntityTypeEnum;
+	}
+
+	public String getAssociatedEntityTypeAssociatedLei() {
+		return this.associatedEntityTypeAssociatedLei;
+	}
+
+	public void setAssociatedEntityTypeAssociatedLei(String associatedEntityTypeAssociatedLei) {
+		this.associatedEntityTypeAssociatedLei = associatedEntityTypeAssociatedLei;
+	}
+
 	public String getAssociatedLeiId() {
 		return this.associatedLeiId;
 	}
@@ -207,12 +322,12 @@ public class Level1leirecord implements Serializable {
 		this.associatedLeiId = associatedLeiId;
 	}
 
-	public String getEntityCategory() {
-		return this.entityCategory;
+	public String getEntityCategoryValue() {
+		return this.entityCategoryValue;
 	}
 
-	public void setEntityCategory(String entityCategory) {
-		this.entityCategory = entityCategory;
+	public void setEntityCategoryValue(String entityCategoryValue) {
+		this.entityCategoryValue = entityCategoryValue;
 	}
 
 	public Date getEntityExpirationDate() {
@@ -231,12 +346,20 @@ public class Level1leirecord implements Serializable {
 		this.entityExpirationReason = entityExpirationReason;
 	}
 
-	public String getEntityLegalFormcode() {
-		return this.entityLegalFormcode;
+	public String getEntityLegalFormCode() {
+		return this.entityLegalFormCode;
 	}
 
-	public void setEntityLegalFormcode(String entityLegalFormcode) {
-		this.entityLegalFormcode = entityLegalFormcode;
+	public void setEntityLegalFormCode(String entityLegalFormCode) {
+		this.entityLegalFormCode = entityLegalFormCode;
+	}
+
+	public String getEntityNextVersionTypeAny() {
+		return this.entityNextVersionTypeAny;
+	}
+
+	public void setEntityNextVersionTypeAny(String entityNextVersionTypeAny) {
+		this.entityNextVersionTypeAny = entityNextVersionTypeAny;
 	}
 
 	public String getEntityStatus() {
@@ -247,12 +370,132 @@ public class Level1leirecord implements Serializable {
 		this.entityStatus = entityStatus;
 	}
 
-	public String getHqAdditionalAddressline() {
-		return this.hqAdditionalAddressline;
+	public String getEntityTypeLegalAddressAdditionalAddressLine() {
+		return this.entityTypeLegalAddressAdditionalAddressLine;
 	}
 
-	public void setHqAdditionalAddressline(String hqAdditionalAddressline) {
-		this.hqAdditionalAddressline = hqAdditionalAddressline;
+	public void setEntityTypeLegalAddressAdditionalAddressLine(String entityTypeLegalAddressAdditionalAddressLine) {
+		this.entityTypeLegalAddressAdditionalAddressLine = entityTypeLegalAddressAdditionalAddressLine;
+	}
+
+	public String getEntityTypeLegalAddressAddressNumber() {
+		return this.entityTypeLegalAddressAddressNumber;
+	}
+
+	public void setEntityTypeLegalAddressAddressNumber(String entityTypeLegalAddressAddressNumber) {
+		this.entityTypeLegalAddressAddressNumber = entityTypeLegalAddressAddressNumber;
+	}
+
+	public String getEntityTypeLegalAddressAddressNumberWithinBuilding() {
+		return this.entityTypeLegalAddressAddressNumberWithinBuilding;
+	}
+
+	public void setEntityTypeLegalAddressAddressNumberWithinBuilding(String entityTypeLegalAddressAddressNumberWithinBuilding) {
+		this.entityTypeLegalAddressAddressNumberWithinBuilding = entityTypeLegalAddressAddressNumberWithinBuilding;
+	}
+
+	public String getEntityTypeLegalAddressCity() {
+		return this.entityTypeLegalAddressCity;
+	}
+
+	public void setEntityTypeLegalAddressCity(String entityTypeLegalAddressCity) {
+		this.entityTypeLegalAddressCity = entityTypeLegalAddressCity;
+	}
+
+	public String getEntityTypeLegalAddressCountry() {
+		return this.entityTypeLegalAddressCountry;
+	}
+
+	public void setEntityTypeLegalAddressCountry(String entityTypeLegalAddressCountry) {
+		this.entityTypeLegalAddressCountry = entityTypeLegalAddressCountry;
+	}
+
+	public String getEntityTypeLegalAddressFirstAddressLine() {
+		return this.entityTypeLegalAddressFirstAddressLine;
+	}
+
+	public void setEntityTypeLegalAddressFirstAddressLine(String entityTypeLegalAddressFirstAddressLine) {
+		this.entityTypeLegalAddressFirstAddressLine = entityTypeLegalAddressFirstAddressLine;
+	}
+
+	public String getEntityTypeLegalAddressLang() {
+		return this.entityTypeLegalAddressLang;
+	}
+
+	public void setEntityTypeLegalAddressLang(String entityTypeLegalAddressLang) {
+		this.entityTypeLegalAddressLang = entityTypeLegalAddressLang;
+	}
+
+	public String getEntityTypeLegalAddressMailRouting() {
+		return this.entityTypeLegalAddressMailRouting;
+	}
+
+	public void setEntityTypeLegalAddressMailRouting(String entityTypeLegalAddressMailRouting) {
+		this.entityTypeLegalAddressMailRouting = entityTypeLegalAddressMailRouting;
+	}
+
+	public String getEntityTypeLegalAddressPostalcode() {
+		return this.entityTypeLegalAddressPostalcode;
+	}
+
+	public void setEntityTypeLegalAddressPostalcode(String entityTypeLegalAddressPostalcode) {
+		this.entityTypeLegalAddressPostalcode = entityTypeLegalAddressPostalcode;
+	}
+
+	public String getEntityTypeLegalAddressRegion() {
+		return this.entityTypeLegalAddressRegion;
+	}
+
+	public void setEntityTypeLegalAddressRegion(String entityTypeLegalAddressRegion) {
+		this.entityTypeLegalAddressRegion = entityTypeLegalAddressRegion;
+	}
+
+	public String getEntityTypeLegalNameNameType() {
+		return this.entityTypeLegalNameNameType;
+	}
+
+	public void setEntityTypeLegalNameNameType(String entityTypeLegalNameNameType) {
+		this.entityTypeLegalNameNameType = entityTypeLegalNameNameType;
+	}
+
+	public String getEntityTypeLegalNameNameTypeLang() {
+		return this.entityTypeLegalNameNameTypeLang;
+	}
+
+	public void setEntityTypeLegalNameNameTypeLang(String entityTypeLegalNameNameTypeLang) {
+		this.entityTypeLegalNameNameTypeLang = entityTypeLegalNameNameTypeLang;
+	}
+
+	public String getEntityTypeOtherEntityNamesType() {
+		return this.entityTypeOtherEntityNamesType;
+	}
+
+	public void setEntityTypeOtherEntityNamesType(String entityTypeOtherEntityNamesType) {
+		this.entityTypeOtherEntityNamesType = entityTypeOtherEntityNamesType;
+	}
+
+	public String getEntityTypeTransliteratedOtherEntityNamesType() {
+		return this.entityTypeTransliteratedOtherEntityNamesType;
+	}
+
+	public void setEntityTypeTransliteratedOtherEntityNamesType(String entityTypeTransliteratedOtherEntityNamesType) {
+		this.entityTypeTransliteratedOtherEntityNamesType = entityTypeTransliteratedOtherEntityNamesType;
+	}
+
+	public String getExtensionType() {
+		return this.extensionType;
+	}
+
+	public void setExtensionType(String extensionType) {
+		this.extensionType = extensionType;
+	}
+
+	public String getHqAdditionalAddressLine() {
+		return this.hqAdditionalAddressLine;
+	}
+
+	public void setHqAdditionalAddressLine(String hqAdditionalAddressLine) {
+		this.hqAdditionalAddressLine = hqAdditionalAddressLine;
 	}
 
 	public String getHqAddressNumber() {
@@ -287,12 +530,12 @@ public class Level1leirecord implements Serializable {
 		this.hqCountry = hqCountry;
 	}
 
-	public String getHqFirstaddressLine() {
-		return this.hqFirstaddressLine;
+	public String getHqFirstAddressLine() {
+		return this.hqFirstAddressLine;
 	}
 
-	public void setHqFirstaddressLine(String hqFirstaddressLine) {
-		this.hqFirstaddressLine = hqFirstaddressLine;
+	public void setHqFirstAddressLine(String hqFirstAddressLine) {
+		this.hqFirstAddressLine = hqFirstAddressLine;
 	}
 
 	public String getHqLang() {
@@ -303,12 +546,12 @@ public class Level1leirecord implements Serializable {
 		this.hqLang = hqLang;
 	}
 
-	public String getHqMailrouting() {
-		return this.hqMailrouting;
+	public String getHqMailRouting() {
+		return this.hqMailRouting;
 	}
 
-	public void setHqMailrouting(String hqMailrouting) {
-		this.hqMailrouting = hqMailrouting;
+	public void setHqMailRouting(String hqMailRouting) {
+		this.hqMailRouting = hqMailRouting;
 	}
 
 	public String getHqPostalCode() {
@@ -335,12 +578,12 @@ public class Level1leirecord implements Serializable {
 		this.initialRegistrationDate = initialRegistrationDate;
 	}
 
-	public String getLAddressnumber2() {
-		return this.lAddressnumber2;
+	public String getLAddressNumber2() {
+		return this.lAddressNumber2;
 	}
 
-	public void setLAddressnumber2(String lAddressnumber2) {
-		this.lAddressnumber2 = lAddressnumber2;
+	public void setLAddressNumber2(String lAddressNumber2) {
+		this.lAddressNumber2 = lAddressNumber2;
 	}
 
 	public String getLCity1() {
@@ -359,12 +602,12 @@ public class Level1leirecord implements Serializable {
 		this.lCountry1 = lCountry1;
 	}
 
-	public String getLFirstaddressline1() {
-		return this.lFirstaddressline1;
+	public String getLFirstAddressLine1() {
+		return this.lFirstAddressLine1;
 	}
 
-	public void setLFirstaddressline1(String lFirstaddressline1) {
-		this.lFirstaddressline1 = lFirstaddressline1;
+	public void setLFirstAddressLine1(String lFirstAddressLine1) {
+		this.lFirstAddressLine1 = lFirstAddressLine1;
 	}
 
 	public String getLLang1() {
@@ -399,12 +642,36 @@ public class Level1leirecord implements Serializable {
 		this.lastUpdateDate = lastUpdateDate;
 	}
 
+	public String getLegalFormTypeEntityLegalFormCode() {
+		return this.legalFormTypeEntityLegalFormCode;
+	}
+
+	public void setLegalFormTypeEntityLegalFormCode(String legalFormTypeEntityLegalFormCode) {
+		this.legalFormTypeEntityLegalFormCode = legalFormTypeEntityLegalFormCode;
+	}
+
+	public String getLegalFormTypeOtherLegalForm() {
+		return this.legalFormTypeOtherLegalForm;
+	}
+
+	public void setLegalFormTypeOtherLegalForm(String legalFormTypeOtherLegalForm) {
+		this.legalFormTypeOtherLegalForm = legalFormTypeOtherLegalForm;
+	}
+
 	public String getLegalJurisdiction() {
 		return this.legalJurisdiction;
 	}
 
 	public void setLegalJurisdiction(String legalJurisdiction) {
 		this.legalJurisdiction = legalJurisdiction;
+	}
+
+	public String getLeiRecordNextVersionType() {
+		return this.leiRecordNextVersionType;
+	}
+
+	public void setLeiRecordNextVersionType(String leiRecordNextVersionType) {
+		this.leiRecordNextVersionType = leiRecordNextVersionType;
 	}
 
 	public String getLeiType() {
@@ -431,36 +698,44 @@ public class Level1leirecord implements Serializable {
 		this.nextRenewalDate = nextRenewalDate;
 	}
 
-	public String getOAdditionalAddressline1() {
-		return this.oAdditionalAddressline1;
+	public String getOAdditionalAddressNumber2() {
+		return this.oAdditionalAddressNumber2;
 	}
 
-	public void setOAdditionalAddressline1(String oAdditionalAddressline1) {
-		this.oAdditionalAddressline1 = oAdditionalAddressline1;
+	public void setOAdditionalAddressNumber2(String oAdditionalAddressNumber2) {
+		this.oAdditionalAddressNumber2 = oAdditionalAddressNumber2;
 	}
 
-	public String getOAdditionalAddressnumbersline1() {
-		return this.oAdditionalAddressnumbersline1;
+	public String getOAdditionalAddressNumberLine1() {
+		return this.oAdditionalAddressNumberLine1;
 	}
 
-	public void setOAdditionalAddressnumbersline1(String oAdditionalAddressnumbersline1) {
-		this.oAdditionalAddressnumbersline1 = oAdditionalAddressnumbersline1;
+	public void setOAdditionalAddressNumberLine1(String oAdditionalAddressNumberLine1) {
+		this.oAdditionalAddressNumberLine1 = oAdditionalAddressNumberLine1;
 	}
 
-	public String getOAddressnumber2() {
-		return this.oAddressnumber2;
+	public String getOAdditionalAddressNumberWithinBuilding1() {
+		return this.oAdditionalAddressNumberWithinBuilding1;
 	}
 
-	public void setOAddressnumber2(String oAddressnumber2) {
-		this.oAddressnumber2 = oAddressnumber2;
+	public void setOAdditionalAddressNumberWithinBuilding1(String oAdditionalAddressNumberWithinBuilding1) {
+		this.oAdditionalAddressNumberWithinBuilding1 = oAdditionalAddressNumberWithinBuilding1;
 	}
 
-	public String getOAddressnumberWithinbuilding1() {
-		return this.oAddressnumberWithinbuilding1;
+	public String getOAddressNumber2() {
+		return this.oAddressNumber2;
 	}
 
-	public void setOAddressnumberWithinbuilding1(String oAddressnumberWithinbuilding1) {
-		this.oAddressnumberWithinbuilding1 = oAddressnumberWithinbuilding1;
+	public void setOAddressNumber2(String oAddressNumber2) {
+		this.oAddressNumber2 = oAddressNumber2;
+	}
+
+	public String getOAddressNumberWithinBuilding1() {
+		return this.oAddressNumberWithinBuilding1;
+	}
+
+	public void setOAddressNumberWithinBuilding1(String oAddressNumberWithinBuilding1) {
+		this.oAddressNumberWithinBuilding1 = oAddressNumberWithinBuilding1;
 	}
 
 	public String getOCity1() {
@@ -479,12 +754,12 @@ public class Level1leirecord implements Serializable {
 		this.oCountry1 = oCountry1;
 	}
 
-	public String getOFirstaddressline1() {
-		return this.oFirstaddressline1;
+	public String getOFirstAddressLine1() {
+		return this.oFirstAddressLine1;
 	}
 
-	public void setOFirstaddressline1(String oFirstaddressline1) {
-		this.oFirstaddressline1 = oFirstaddressline1;
+	public void setOFirstAddressLine1(String oFirstAddressLine1) {
+		this.oFirstAddressLine1 = oFirstAddressLine1;
 	}
 
 	public String getOLang1() {
@@ -495,12 +770,12 @@ public class Level1leirecord implements Serializable {
 		this.oLang1 = oLang1;
 	}
 
-	public String getOMailrouting1() {
-		return this.oMailrouting1;
+	public String getOMailRouting1() {
+		return this.oMailRouting1;
 	}
 
-	public void setOMailrouting1(String oMailrouting1) {
-		this.oMailrouting1 = oMailrouting1;
+	public void setOMailRouting1(String oMailRouting1) {
+		this.oMailRouting1 = oMailRouting1;
 	}
 
 	public String getOPostalcode1() {
@@ -543,12 +818,20 @@ public class Level1leirecord implements Serializable {
 		this.otherRegistrationAuthorityId = otherRegistrationAuthorityId;
 	}
 
-	public String getOtherValidationauthorityId() {
-		return this.otherValidationauthorityId;
+	public String getOtherValidationAuthoritiesType() {
+		return this.otherValidationAuthoritiesType;
 	}
 
-	public void setOtherValidationauthorityId(String otherValidationauthorityId) {
-		this.otherValidationauthorityId = otherValidationauthorityId;
+	public void setOtherValidationAuthoritiesType(String otherValidationAuthoritiesType) {
+		this.otherValidationAuthoritiesType = otherValidationAuthoritiesType;
+	}
+
+	public String getRegistrationAuthorityEntityId() {
+		return this.registrationAuthorityEntityId;
+	}
+
+	public void setRegistrationAuthorityEntityId(String registrationAuthorityEntityId) {
+		this.registrationAuthorityEntityId = registrationAuthorityEntityId;
 	}
 
 	public String getRegistrationAuthorityId() {
@@ -559,12 +842,12 @@ public class Level1leirecord implements Serializable {
 		this.registrationAuthorityId = registrationAuthorityId;
 	}
 
-	public String getRegistrationAuthorityentityId() {
-		return this.registrationAuthorityentityId;
+	public String getRegistrationNextVersionType() {
+		return this.registrationNextVersionType;
 	}
 
-	public void setRegistrationAuthorityentityId(String registrationAuthorityentityId) {
-		this.registrationAuthorityentityId = registrationAuthorityentityId;
+	public void setRegistrationNextVersionType(String registrationNextVersionType) {
+		this.registrationNextVersionType = registrationNextVersionType;
 	}
 
 	public String getRegistrationStatus() {
@@ -575,6 +858,30 @@ public class Level1leirecord implements Serializable {
 		this.registrationStatus = registrationStatus;
 	}
 
+	public String getSuccessorEntityTypeSuccessorEntityNameLang() {
+		return this.successorEntityTypeSuccessorEntityNameLang;
+	}
+
+	public void setSuccessorEntityTypeSuccessorEntityNameLang(String successorEntityTypeSuccessorEntityNameLang) {
+		this.successorEntityTypeSuccessorEntityNameLang = successorEntityTypeSuccessorEntityNameLang;
+	}
+
+	public String getSuccessorEntityTypeSuccessorEntityNameValue() {
+		return this.successorEntityTypeSuccessorEntityNameValue;
+	}
+
+	public void setSuccessorEntityTypeSuccessorEntityNameValue(String successorEntityTypeSuccessorEntityNameValue) {
+		this.successorEntityTypeSuccessorEntityNameValue = successorEntityTypeSuccessorEntityNameValue;
+	}
+
+	public String getSuccessorEntityTypeSuccessorLei() {
+		return this.successorEntityTypeSuccessorLei;
+	}
+
+	public void setSuccessorEntityTypeSuccessorLei(String successorEntityTypeSuccessorLei) {
+		this.successorEntityTypeSuccessorLei = successorEntityTypeSuccessorLei;
+	}
+
 	public String getSuccessorLei() {
 		return this.successorLei;
 	}
@@ -583,74 +890,109 @@ public class Level1leirecord implements Serializable {
 		this.successorLei = successorLei;
 	}
 
-	public String getToAddressnumber2() {
-		return this.toAddressnumber2;
+	public String getToAddressNumber2() {
+		return this.toAddressNumber2;
 	}
 
-	public void setToAddressnumber2(String toAddressnumber2) {
-		this.toAddressnumber2 = toAddressnumber2;
+	public void setToAddressNumber2(String toAddressNumber2) {
+		this.toAddressNumber2 = toAddressNumber2;
 	}
 
-	public String getToAddressnumberWithinbuilding1() {
-		return this.toAddressnumberWithinbuilding1;
+	public String getToAddressNumberWithinBuilding1() {
+		return this.toAddressNumberWithinBuilding1;
 	}
 
-	public void setToAddressnumberWithinbuilding1(String toAddressnumberWithinbuilding1) {
-		this.toAddressnumberWithinbuilding1 = toAddressnumberWithinbuilding1;
+	public void setToAddressNumberWithinBuilding1(String toAddressNumberWithinBuilding1) {
+		this.toAddressNumberWithinBuilding1 = toAddressNumberWithinBuilding1;
 	}
 
-	public String getToFirstaddressline1() {
-		return this.toFirstaddressline1;
+	public String getToFirstAddressLine1() {
+		return this.toFirstAddressLine1;
 	}
 
-	public void setToFirstaddressline1(String toFirstaddressline1) {
-		this.toFirstaddressline1 = toFirstaddressline1;
+	public void setToFirstAddressLine1(String toFirstAddressLine1) {
+		this.toFirstAddressLine1 = toFirstAddressLine1;
 	}
 
-	public String getValidationAuthorityId() {
-		return this.validationAuthorityId;
+	public String getValidationAuthorityTypeOtherValidationAuthorityId() {
+		return this.validationAuthorityTypeOtherValidationAuthorityId;
 	}
 
-	public void setValidationAuthorityId(String validationAuthorityId) {
-		this.validationAuthorityId = validationAuthorityId;
+	public void setValidationAuthorityTypeOtherValidationAuthorityId(String validationAuthorityTypeOtherValidationAuthorityId) {
+		this.validationAuthorityTypeOtherValidationAuthorityId = validationAuthorityTypeOtherValidationAuthorityId;
 	}
 
-	public String getValidationAuthorityentityId() {
-		return this.validationAuthorityentityId;
+	public String getValidationAuthorityTypeValidationAuthorityEntityId() {
+		return this.validationAuthorityTypeValidationAuthorityEntityId;
 	}
 
-	public void setValidationAuthorityentityId(String validationAuthorityentityId) {
-		this.validationAuthorityentityId = validationAuthorityentityId;
+	public void setValidationAuthorityTypeValidationAuthorityEntityId(String validationAuthorityTypeValidationAuthorityEntityId) {
+		this.validationAuthorityTypeValidationAuthorityEntityId = validationAuthorityTypeValidationAuthorityEntityId;
 	}
 
-	public String getValidationsources() {
-		return this.validationsources;
+	public String getValidationAuthorityTypeValidationAuthorityId() {
+		return this.validationAuthorityTypeValidationAuthorityId;
 	}
 
-	public void setValidationsources(String validationsources) {
-		this.validationsources = validationsources;
+	public void setValidationAuthorityTypeValidationAuthorityId(String validationAuthorityTypeValidationAuthorityId) {
+		this.validationAuthorityTypeValidationAuthorityId = validationAuthorityTypeValidationAuthorityId;
 	}
 
-	public List<Level2relationshiprecord> getLevel2relationshiprecords() {
-		return this.level2relationshiprecords;
+	public String getValidationSources() {
+		return this.validationSources;
 	}
 
-	public void setLevel2relationshiprecords(List<Level2relationshiprecord> level2relationshiprecords) {
-		this.level2relationshiprecords = level2relationshiprecords;
+	public void setValidationSources(String validationSources) {
+		this.validationSources = validationSources;
 	}
 
-	public Level2relationshiprecord addLevel2relationshiprecord(Level2relationshiprecord level2relationshiprecord) {
-		getLevel2relationshiprecords().add(level2relationshiprecord);
-		level2relationshiprecord.setLevel1leirecord(this);
-
-		return level2relationshiprecord;
+	public List<Level2RelationshipRecord> getLevel2RelationshipRecords() {
+		return this.level2RelationshipRecords;
 	}
 
-	public Level2relationshiprecord removeLevel2relationshiprecord(Level2relationshiprecord level2relationshiprecord) {
-		getLevel2relationshiprecords().remove(level2relationshiprecord);
-		level2relationshiprecord.setLevel1leirecord(null);
-
-		return level2relationshiprecord;
+	public void setLevel2RelationshipRecords(List<Level2RelationshipRecord> level2RelationshipRecords) {
+		this.level2RelationshipRecords = level2RelationshipRecords;
 	}
+
+	public Level2RelationshipRecord addLevel2RelationshipRecord(Level2RelationshipRecord level2RelationshipRecord) {
+		getLevel2RelationshipRecords().add(level2RelationshipRecord);
+		level2RelationshipRecord.setLevel1LeiRecord(this);
+
+		return level2RelationshipRecord;
+	}
+
+	public Level2RelationshipRecord removeLevel2RelationshipRecord(Level2RelationshipRecord level2RelationshipRecord) {
+		getLevel2RelationshipRecords().remove(level2RelationshipRecord);
+		level2RelationshipRecord.setLevel1LeiRecord(null);
+
+		return level2RelationshipRecord;
+	}
+
+	/*
+	 * public List<Level2ReportingException> getLevel2ReportingExceptions() { return
+	 * this.level2ReportingExceptions; }
+	 * 
+	 * public void setLevel2ReportingExceptions(List<Level2ReportingException>
+	 * level2ReportingExceptions) { this.level2ReportingExceptions =
+	 * level2ReportingExceptions; }
+	 */
+
+	/*
+	 * public Level2ReportingException
+	 * addLevel2ReportingException(Level2ReportingException
+	 * level2ReportingException) {
+	 * getLevel2ReportingExceptions().add(level2ReportingException);
+	 * level2ReportingException.setLevel1LeiRecord(this);
+	 * 
+	 * return level2ReportingException; }
+	 * 
+	 * public Level2ReportingException
+	 * removeLevel2ReportingException(Level2ReportingException
+	 * level2ReportingException) {
+	 * getLevel2ReportingExceptions().remove(level2ReportingException);
+	 * level2ReportingException.setLevel1LeiRecord(null);
+	 * 
+	 * return level2ReportingException; }
+	 */
 
 }

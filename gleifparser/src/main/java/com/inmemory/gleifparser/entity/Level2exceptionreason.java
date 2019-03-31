@@ -5,39 +5,54 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the LEVEL2EXCEPTIONREASON database table.
+ * The persistent class for the LEVEL2_EXCEPTION_REASON database table.
  * 
  */
 @Entity
-@NamedQuery(name="Level2exceptionreason.findAll", query="SELECT l FROM Level2exceptionreason l")
-public class Level2exceptionreason implements Serializable {
+@Table(name="LEVEL2_EXCEPTION_REASON")
+@NamedQuery(name="Level2ExceptionReason.findAll", query="SELECT l FROM Level2ExceptionReason l")
+public class Level2ExceptionReason implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="EXCEPTION_CATEGORY")
-	private String exceptionCategory;
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="exceptionReasonSequenceGen")
+	@SequenceGenerator(name="exceptionReasonSequenceGen",sequenceName="LEVEL2_EXCEPTION_REASON_SEQ",allocationSize=1)
+	@Column(name="EXCEPTION_REASON_ID")
+	private Long exceptionReasonId;
 
-	//bi-directional many-to-one association to Level2reportingexception
+	@Column(name="EXCEPTION_REASON")
+	private String exceptionReason;
+
+	//bi-directional many-to-one association to Level2ReportingException
 	@ManyToOne
-	@JoinColumn(name="EXCEPTIONREASON_ID")
-	private Level2reportingexception level2reportingexception;
+	@JoinColumn(name="EXCEPTION_ID")
+	private Level2ReportingException level2ReportingException;
 
-	public Level2exceptionreason() {
+	public Level2ExceptionReason() {
 	}
 
-	public String getExceptionCategory() {
-		return this.exceptionCategory;
+	public Long getExceptionReasonId() {
+		return this.exceptionReasonId;
 	}
 
-	public void setExceptionCategory(String exceptionCategory) {
-		this.exceptionCategory = exceptionCategory;
+	public void setExceptionReasonId(Long exceptionReasonId) {
+		this.exceptionReasonId = exceptionReasonId;
 	}
 
-	public Level2reportingexception getLevel2reportingexception() {
-		return this.level2reportingexception;
+	public String getExceptionReason() {
+		return this.exceptionReason;
 	}
 
-	public void setLevel2reportingexception(Level2reportingexception level2reportingexception) {
-		this.level2reportingexception = level2reportingexception;
+	public void setExceptionReason(String exceptionReason) {
+		this.exceptionReason = exceptionReason;
+	}
+
+	public Level2ReportingException getLevel2ReportingException() {
+		return this.level2ReportingException;
+	}
+
+	public void setLevel2ReportingException(Level2ReportingException level2ReportingException) {
+		this.level2ReportingException = level2ReportingException;
 	}
 
 }

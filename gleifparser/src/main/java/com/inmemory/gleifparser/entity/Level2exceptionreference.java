@@ -5,23 +5,38 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the LEVEL2EXCEPTIONREFERENCE database table.
+ * The persistent class for the LEVEL2_EXCEPTION_REFERENCE database table.
  * 
  */
 @Entity
-@NamedQuery(name="Level2exceptionreference.findAll", query="SELECT l FROM Level2exceptionreference l")
-public class Level2exceptionreference implements Serializable {
+@Table(name="LEVEL2_EXCEPTION_REFERENCE")
+@NamedQuery(name="Level2ExceptionReference.findAll", query="SELECT l FROM Level2ExceptionReference l")
+public class Level2ExceptionReference implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="exceptionReferenceSequenceGen")
+	@SequenceGenerator(name="exceptionReferenceSequenceGen",sequenceName="LEVEL2_EXCEPTION_REFERENCE_SEQ",allocationSize=1)
+	@Column(name="EXCEPTION_REFERENCE_ID")
+	private Long exceptionReferenceId;
 
 	@Column(name="EXCEPTION_REFERENCE")
 	private String exceptionReference;
 
-	//bi-directional many-to-one association to Level2reportingexception
+	//bi-directional many-to-one association to Level2ReportingException
 	@ManyToOne
-	@JoinColumn(name="EXCEPTIONREFERENCE_ID")
-	private Level2reportingexception level2reportingexception;
+	@JoinColumn(name="EXCEPTION_ID")
+	private Level2ReportingException level2ReportingException;
 
-	public Level2exceptionreference() {
+	public Level2ExceptionReference() {
+	}
+
+	public Long getExceptionReferenceId() {
+		return this.exceptionReferenceId;
+	}
+
+	public void setExceptionReferenceId(Long exceptionReferenceId) {
+		this.exceptionReferenceId = exceptionReferenceId;
 	}
 
 	public String getExceptionReference() {
@@ -32,12 +47,12 @@ public class Level2exceptionreference implements Serializable {
 		this.exceptionReference = exceptionReference;
 	}
 
-	public Level2reportingexception getLevel2reportingexception() {
-		return this.level2reportingexception;
+	public Level2ReportingException getLevel2ReportingException() {
+		return this.level2ReportingException;
 	}
 
-	public void setLevel2reportingexception(Level2reportingexception level2reportingexception) {
-		this.level2reportingexception = level2reportingexception;
+	public void setLevel2ReportingException(Level2ReportingException level2ReportingException) {
+		this.level2ReportingException = level2ReportingException;
 	}
 
 }

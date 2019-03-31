@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.inmemory.gleifparser.model.KeyValue;
-import com.inmemory.gleifparser.utils.GleifFileService;
+import com.inmemory.gleifparser.service.GleifService;
 import com.inmemory.gleifparser.utils.ZipFileHandler;
 
 @Controller
 public class HomePageController {
 	@Autowired
-	private GleifFileService gleifService;
+	private GleifService gleifService;
 
 	@GetMapping("/")
     public String homePage(Model model) {
@@ -42,7 +42,7 @@ public class HomePageController {
 		String destFile=multipartFile.getOriginalFilename()+".xml";
 		try {
 			Path unzippefFilePath=ZipFileHandler.unzipFile(multipartFile, destFile, storageDir);
-			gleifService.parseGleifFile1(unzippefFilePath);
+			gleifService.parseGleifFile(unzippefFilePath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

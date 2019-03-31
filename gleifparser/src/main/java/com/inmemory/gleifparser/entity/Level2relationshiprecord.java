@@ -7,58 +7,78 @@ import java.util.List;
 
 
 /**
- * The persistent class for the LEVEL2RELATIONSHIPRECORD database table.
+ * The persistent class for the LEVEL2_RELATIONSHIP_RECORD database table.
  * 
  */
 @Entity
-@NamedQuery(name="Level2relationshiprecord.findAll", query="SELECT l FROM Level2relationshiprecord l")
-public class Level2relationshiprecord implements Serializable {
+@Table(name="LEVEL2_RELATIONSHIP_RECORD")
+@NamedQuery(name="Level2RelationshipRecord.findAll", query="SELECT l FROM Level2RelationshipRecord l")
+public class Level2RelationshipRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="relationshipRecordSequenceGen")
+	@SequenceGenerator(name="relationshipRecordSequenceGen",sequenceName="LEVEL2_RELATIONSHIP_RECORD_SEQ")
 	@Column(name="RR_ID")
-	private int rrId;
+	private Long rrId;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="END_DATE")
 	private Date endDate;
 
-	@Column(name="END_NODE_ID")
-	private String endNodeId;
-
-	@Column(name="END_NODE_TYPE")
-	private String endNodeType;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="INITIAL_REGISTRATION_DATE")
-	private Date initialRegistrationDate;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="LAST_UPDATE_DATE")
-	private Date lastUpdateDate;
+	@Column(name="EXTENSION_TYPE")
+	private String extensionType;
 
 	@Column(name="MANAGING_LOU")
 	private String managingLou;
 
-	@Column(name="PERIOD_TYPE")
-	private String periodType;
+	@Temporal(TemporalType.DATE)
+	@Column(name="REGISTRATION_INITIAL_REGISTRATION_DATE")
+	private Date registrationInitialRegistrationDate;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="REGISTRATION_LAST_UPDATE_DATE")
+	private Date registrationLastUpdateDate;
+
+	@Column(name="REGISTRATION_MANAGING_LOU")
+	private String registrationManagingLou;
+
+	@Column(name="REGISTRATION_NEXT_RENEWAL_DATE")
+	private String registrationNextRenewalDate;
+
+	@Column(name="REGISTRATION_NEXT_VERSION_TYPE")
+	private String registrationNextVersionType;
 
 	@Column(name="REGISTRATION_STATUS")
 	private String registrationStatus;
 
+	@Column(name="RELATIONSHIP_END_NODE_ID")
+	private String relationshipEndNodeId;
+
+	@Column(name="RELATIONSHIP_END_NODE_TYPE")
+	private String relationshipEndNodeType;
+
+	@Column(name="RELATIONSHIP_NEXT_VERSION_TYPE")
+	private String relationshipNextVersionType;
+
+	@Column(name="RELATIONSHIP_PERIOD_TYPE")
+	private String relationshipPeriodType;
+
+	@Column(name="RELATIONSHIP_RECORD_NEXT_VERSION_TYPE")
+	private String relationshipRecordNextVersionType;
+
+	@Column(name="RELATIONSHIP_RELATIONSHIP_TYPE")
+	private String relationshipRelationshipType;
+
+	@Column(name="RELATIONSHIP_START_NODE_TYPE")
+	private String relationshipStartNodeType;
+
 	@Column(name="RELATIONSHIP_STATUS")
 	private String relationshipStatus;
-
-	@Column(name="RELATIONSHIP_TYPE")
-	private String relationshipType;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="START_DATE")
 	private Date startDate;
-
-	@Column(name="START_NODE_TYPE")
-	private String startNodeType;
 
 	@Column(name="VALIDATION_DOCUMENTS")
 	private String validationDocuments;
@@ -69,27 +89,27 @@ public class Level2relationshiprecord implements Serializable {
 	@Column(name="VALIDATION_SOURCES")
 	private String validationSources;
 
-	//bi-directional many-to-one association to Level1leirecord
+	//bi-directional many-to-one association to Level1LeiRecord
 	@ManyToOne
-	@JoinColumn(name="START_NODE_ID")
-	private Level1leirecord level1leirecord;
+	@JoinColumn(name="RELATIONSHIP_START_NODE_ID")
+	private Level1LeiRecord level1LeiRecord;
 
-	//bi-directional many-to-one association to Level2rrrelationshipqualifier
-	@OneToMany(mappedBy="level2relationshiprecord")
-	private List<Level2rrrelationshipqualifier> level2rrrelationshipqualifiers;
+	//bi-directional many-to-one association to Level2RrRelationshipQualifier
+	@OneToMany(mappedBy="level2RelationshipRecord")
+	private List<Level2RrRelationshipQualifier> level2RrRelationshipQualifiers;
 
-	//bi-directional many-to-one association to Level2rrrelationshipquantifier
-	@OneToMany(mappedBy="level2relationshiprecord")
-	private List<Level2rrrelationshipquantifier> level2rrrelationshipquantifiers;
+	//bi-directional many-to-one association to Level2RrRelationshipQuantifier
+	@OneToMany(mappedBy="level2RelationshipRecord")
+	private List<Level2RrRelationshipQuantifier> level2RrRelationshipQuantifiers;
 
-	public Level2relationshiprecord() {
+	public Level2RelationshipRecord() {
 	}
 
-	public int getRrId() {
+	public Long getRrId() {
 		return this.rrId;
 	}
 
-	public void setRrId(int rrId) {
+	public void setRrId(Long rrId) {
 		this.rrId = rrId;
 	}
 
@@ -101,36 +121,12 @@ public class Level2relationshiprecord implements Serializable {
 		this.endDate = endDate;
 	}
 
-	public String getEndNodeId() {
-		return this.endNodeId;
+	public String getExtensionType() {
+		return this.extensionType;
 	}
 
-	public void setEndNodeId(String endNodeId) {
-		this.endNodeId = endNodeId;
-	}
-
-	public String getEndNodeType() {
-		return this.endNodeType;
-	}
-
-	public void setEndNodeType(String endNodeType) {
-		this.endNodeType = endNodeType;
-	}
-
-	public Date getInitialRegistrationDate() {
-		return this.initialRegistrationDate;
-	}
-
-	public void setInitialRegistrationDate(Date initialRegistrationDate) {
-		this.initialRegistrationDate = initialRegistrationDate;
-	}
-
-	public Date getLastUpdateDate() {
-		return this.lastUpdateDate;
-	}
-
-	public void setLastUpdateDate(Date lastUpdateDate) {
-		this.lastUpdateDate = lastUpdateDate;
+	public void setExtensionType(String extensionType) {
+		this.extensionType = extensionType;
 	}
 
 	public String getManagingLou() {
@@ -141,12 +137,44 @@ public class Level2relationshiprecord implements Serializable {
 		this.managingLou = managingLou;
 	}
 
-	public String getPeriodType() {
-		return this.periodType;
+	public Date getRegistrationInitialRegistrationDate() {
+		return this.registrationInitialRegistrationDate;
 	}
 
-	public void setPeriodType(String periodType) {
-		this.periodType = periodType;
+	public void setRegistrationInitialRegistrationDate(Date registrationInitialRegistrationDate) {
+		this.registrationInitialRegistrationDate = registrationInitialRegistrationDate;
+	}
+
+	public Date getRegistrationLastUpdateDate() {
+		return this.registrationLastUpdateDate;
+	}
+
+	public void setRegistrationLastUpdateDate(Date registrationLastUpdateDate) {
+		this.registrationLastUpdateDate = registrationLastUpdateDate;
+	}
+
+	public String getRegistrationManagingLou() {
+		return this.registrationManagingLou;
+	}
+
+	public void setRegistrationManagingLou(String registrationManagingLou) {
+		this.registrationManagingLou = registrationManagingLou;
+	}
+
+	public String getRegistrationNextRenewalDate() {
+		return this.registrationNextRenewalDate;
+	}
+
+	public void setRegistrationNextRenewalDate(String registrationNextRenewalDate) {
+		this.registrationNextRenewalDate = registrationNextRenewalDate;
+	}
+
+	public String getRegistrationNextVersionType() {
+		return this.registrationNextVersionType;
+	}
+
+	public void setRegistrationNextVersionType(String registrationNextVersionType) {
+		this.registrationNextVersionType = registrationNextVersionType;
 	}
 
 	public String getRegistrationStatus() {
@@ -157,6 +185,62 @@ public class Level2relationshiprecord implements Serializable {
 		this.registrationStatus = registrationStatus;
 	}
 
+	public String getRelationshipEndNodeId() {
+		return this.relationshipEndNodeId;
+	}
+
+	public void setRelationshipEndNodeId(String relationshipEndNodeId) {
+		this.relationshipEndNodeId = relationshipEndNodeId;
+	}
+
+	public String getRelationshipEndNodeType() {
+		return this.relationshipEndNodeType;
+	}
+
+	public void setRelationshipEndNodeType(String relationshipEndNodeType) {
+		this.relationshipEndNodeType = relationshipEndNodeType;
+	}
+
+	public String getRelationshipNextVersionType() {
+		return this.relationshipNextVersionType;
+	}
+
+	public void setRelationshipNextVersionType(String relationshipNextVersionType) {
+		this.relationshipNextVersionType = relationshipNextVersionType;
+	}
+
+	public String getRelationshipPeriodType() {
+		return this.relationshipPeriodType;
+	}
+
+	public void setRelationshipPeriodType(String relationshipPeriodType) {
+		this.relationshipPeriodType = relationshipPeriodType;
+	}
+
+	public String getRelationshipRecordNextVersionType() {
+		return this.relationshipRecordNextVersionType;
+	}
+
+	public void setRelationshipRecordNextVersionType(String relationshipRecordNextVersionType) {
+		this.relationshipRecordNextVersionType = relationshipRecordNextVersionType;
+	}
+
+	public String getRelationshipRelationshipType() {
+		return this.relationshipRelationshipType;
+	}
+
+	public void setRelationshipRelationshipType(String relationshipRelationshipType) {
+		this.relationshipRelationshipType = relationshipRelationshipType;
+	}
+
+	public String getRelationshipStartNodeType() {
+		return this.relationshipStartNodeType;
+	}
+
+	public void setRelationshipStartNodeType(String relationshipStartNodeType) {
+		this.relationshipStartNodeType = relationshipStartNodeType;
+	}
+
 	public String getRelationshipStatus() {
 		return this.relationshipStatus;
 	}
@@ -165,28 +249,12 @@ public class Level2relationshiprecord implements Serializable {
 		this.relationshipStatus = relationshipStatus;
 	}
 
-	public String getRelationshipType() {
-		return this.relationshipType;
-	}
-
-	public void setRelationshipType(String relationshipType) {
-		this.relationshipType = relationshipType;
-	}
-
 	public Date getStartDate() {
 		return this.startDate;
 	}
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-	}
-
-	public String getStartNodeType() {
-		return this.startNodeType;
-	}
-
-	public void setStartNodeType(String startNodeType) {
-		this.startNodeType = startNodeType;
 	}
 
 	public String getValidationDocuments() {
@@ -213,56 +281,56 @@ public class Level2relationshiprecord implements Serializable {
 		this.validationSources = validationSources;
 	}
 
-	public Level1leirecord getLevel1leirecord() {
-		return this.level1leirecord;
+	public Level1LeiRecord getLevel1LeiRecord() {
+		return this.level1LeiRecord;
 	}
 
-	public void setLevel1leirecord(Level1leirecord level1leirecord) {
-		this.level1leirecord = level1leirecord;
+	public void setLevel1LeiRecord(Level1LeiRecord level1LeiRecord) {
+		this.level1LeiRecord = level1LeiRecord;
 	}
 
-	public List<Level2rrrelationshipqualifier> getLevel2rrrelationshipqualifiers() {
-		return this.level2rrrelationshipqualifiers;
+	public List<Level2RrRelationshipQualifier> getLevel2RrRelationshipQualifiers() {
+		return this.level2RrRelationshipQualifiers;
 	}
 
-	public void setLevel2rrrelationshipqualifiers(List<Level2rrrelationshipqualifier> level2rrrelationshipqualifiers) {
-		this.level2rrrelationshipqualifiers = level2rrrelationshipqualifiers;
+	public void setLevel2RrRelationshipQualifiers(List<Level2RrRelationshipQualifier> level2RrRelationshipQualifiers) {
+		this.level2RrRelationshipQualifiers = level2RrRelationshipQualifiers;
 	}
 
-	public Level2rrrelationshipqualifier addLevel2rrrelationshipqualifier(Level2rrrelationshipqualifier level2rrrelationshipqualifier) {
-		getLevel2rrrelationshipqualifiers().add(level2rrrelationshipqualifier);
-		level2rrrelationshipqualifier.setLevel2relationshiprecord(this);
+	public Level2RrRelationshipQualifier addLevel2RrRelationshipQualifier(Level2RrRelationshipQualifier level2RrRelationshipQualifier) {
+		getLevel2RrRelationshipQualifiers().add(level2RrRelationshipQualifier);
+		level2RrRelationshipQualifier.setLevel2RelationshipRecord(this);
 
-		return level2rrrelationshipqualifier;
+		return level2RrRelationshipQualifier;
 	}
 
-	public Level2rrrelationshipqualifier removeLevel2rrrelationshipqualifier(Level2rrrelationshipqualifier level2rrrelationshipqualifier) {
-		getLevel2rrrelationshipqualifiers().remove(level2rrrelationshipqualifier);
-		level2rrrelationshipqualifier.setLevel2relationshiprecord(null);
+	public Level2RrRelationshipQualifier removeLevel2RrRelationshipQualifier(Level2RrRelationshipQualifier level2RrRelationshipQualifier) {
+		getLevel2RrRelationshipQualifiers().remove(level2RrRelationshipQualifier);
+		level2RrRelationshipQualifier.setLevel2RelationshipRecord(null);
 
-		return level2rrrelationshipqualifier;
+		return level2RrRelationshipQualifier;
 	}
 
-	public List<Level2rrrelationshipquantifier> getLevel2rrrelationshipquantifiers() {
-		return this.level2rrrelationshipquantifiers;
+	public List<Level2RrRelationshipQuantifier> getLevel2RrRelationshipQuantifiers() {
+		return this.level2RrRelationshipQuantifiers;
 	}
 
-	public void setLevel2rrrelationshipquantifiers(List<Level2rrrelationshipquantifier> level2rrrelationshipquantifiers) {
-		this.level2rrrelationshipquantifiers = level2rrrelationshipquantifiers;
+	public void setLevel2RrRelationshipQuantifiers(List<Level2RrRelationshipQuantifier> level2RrRelationshipQuantifiers) {
+		this.level2RrRelationshipQuantifiers = level2RrRelationshipQuantifiers;
 	}
 
-	public Level2rrrelationshipquantifier addLevel2rrrelationshipquantifier(Level2rrrelationshipquantifier level2rrrelationshipquantifier) {
-		getLevel2rrrelationshipquantifiers().add(level2rrrelationshipquantifier);
-		level2rrrelationshipquantifier.setLevel2relationshiprecord(this);
+	public Level2RrRelationshipQuantifier addLevel2RrRelationshipQuantifier(Level2RrRelationshipQuantifier level2RrRelationshipQuantifier) {
+		getLevel2RrRelationshipQuantifiers().add(level2RrRelationshipQuantifier);
+		level2RrRelationshipQuantifier.setLevel2RelationshipRecord(this);
 
-		return level2rrrelationshipquantifier;
+		return level2RrRelationshipQuantifier;
 	}
 
-	public Level2rrrelationshipquantifier removeLevel2rrrelationshipquantifier(Level2rrrelationshipquantifier level2rrrelationshipquantifier) {
-		getLevel2rrrelationshipquantifiers().remove(level2rrrelationshipquantifier);
-		level2rrrelationshipquantifier.setLevel2relationshiprecord(null);
+	public Level2RrRelationshipQuantifier removeLevel2RrRelationshipQuantifier(Level2RrRelationshipQuantifier level2RrRelationshipQuantifier) {
+		getLevel2RrRelationshipQuantifiers().remove(level2RrRelationshipQuantifier);
+		level2RrRelationshipQuantifier.setLevel2RelationshipRecord(null);
 
-		return level2rrrelationshipquantifier;
+		return level2RrRelationshipQuantifier;
 	}
 
 }

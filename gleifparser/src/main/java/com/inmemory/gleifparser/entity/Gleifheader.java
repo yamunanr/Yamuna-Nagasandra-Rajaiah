@@ -1,23 +1,25 @@
 package com.inmemory.gleifparser.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
- * The persistent class for the GLEIFHEADER database table.
+ * The persistent class for the GLEIF_HEADER database table.
  * 
  */
 @Entity
-@NamedQuery(name="Gleifheader.findAll", query="SELECT g FROM Gleifheader g")
-public class Gleifheader implements Serializable {
+@Table(name="GLEIF_HEADER")
+@NamedQuery(name="GleifHeader.findAll", query="SELECT g FROM GleifHeader g")
+public class GleifHeader implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="gleifSequenceGen")
+	@SequenceGenerator(name="gleifSqeuenceGen",sequenceName="GLEIF_HEADER_SEQ")
+	@Column(name="GLEIF_HEADER_ID")
+	private Long gleifHeaderId;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="CONTENT_DATE")
@@ -35,7 +37,15 @@ public class Gleifheader implements Serializable {
 	@Column(name="RECORD_COUNT")
 	private int recordCount;
 
-	public Gleifheader() {
+	public GleifHeader() {
+	}
+
+	public Long getGleifHeaderId() {
+		return this.gleifHeaderId;
+	}
+
+	public void setGleifHeaderId(Long gleifHeaderId) {
+		this.gleifHeaderId = gleifHeaderId;
 	}
 
 	public Date getContentDate() {

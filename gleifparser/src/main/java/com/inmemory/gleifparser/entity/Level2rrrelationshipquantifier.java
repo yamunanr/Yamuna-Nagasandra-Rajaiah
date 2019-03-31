@@ -5,13 +5,20 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the LEVEL2RRRELATIONSHIPQUANTIFIER database table.
+ * The persistent class for the LEVEL2_RR_RELATIONSHIP_QUANTIFIER database table.
  * 
  */
 @Entity
-@NamedQuery(name="Level2rrrelationshipquantifier.findAll", query="SELECT l FROM Level2rrrelationshipquantifier l")
-public class Level2rrrelationshipquantifier implements Serializable {
+@Table(name="LEVEL2_RR_RELATIONSHIP_QUANTIFIER")
+@NamedQuery(name="Level2RrRelationshipQuantifier.findAll", query="SELECT l FROM Level2RrRelationshipQuantifier l")
+public class Level2RrRelationshipQuantifier implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="relationshipQuantifierSequenceGen")
+	@SequenceGenerator(name="relationshipQuantifierSequenceGen",sequenceName="LEVEL2_RR_RELATIONSHIP_QUANTIFIER_SEQ")
+	@Column(name="QUANTIFIER_RR_ID")
+	private Long quantifierRrId;
 
 	@Column(name="MEASUREMENT_METHOD")
 	private String measurementMethod;
@@ -22,12 +29,20 @@ public class Level2rrrelationshipquantifier implements Serializable {
 	@Column(name="QUANTIFIER_UNITS")
 	private int quantifierUnits;
 
-	//bi-directional many-to-one association to Level2relationshiprecord
+	//bi-directional many-to-one association to Level2RelationshipRecord
 	@ManyToOne
-	@JoinColumn(name="QUANTIFIER_RR_ID")
-	private Level2relationshiprecord level2relationshiprecord;
+	@JoinColumn(name="RR_ID")
+	private Level2RelationshipRecord level2RelationshipRecord;
 
-	public Level2rrrelationshipquantifier() {
+	public Level2RrRelationshipQuantifier() {
+	}
+
+	public Long getQuantifierRrId() {
+		return this.quantifierRrId;
+	}
+
+	public void setQuantifierRrId(Long quantifierRrId) {
+		this.quantifierRrId = quantifierRrId;
 	}
 
 	public String getMeasurementMethod() {
@@ -54,12 +69,12 @@ public class Level2rrrelationshipquantifier implements Serializable {
 		this.quantifierUnits = quantifierUnits;
 	}
 
-	public Level2relationshiprecord getLevel2relationshiprecord() {
-		return this.level2relationshiprecord;
+	public Level2RelationshipRecord getLevel2RelationshipRecord() {
+		return this.level2RelationshipRecord;
 	}
 
-	public void setLevel2relationshiprecord(Level2relationshiprecord level2relationshiprecord) {
-		this.level2relationshiprecord = level2relationshiprecord;
+	public void setLevel2RelationshipRecord(Level2RelationshipRecord level2RelationshipRecord) {
+		this.level2RelationshipRecord = level2RelationshipRecord;
 	}
 
 }

@@ -6,38 +6,58 @@ import java.util.List;
 
 
 /**
- * The persistent class for the LEVEL2REPORTINGEXCEPTION database table.
+ * The persistent class for the LEVEL2_REPORTING_EXCEPTION database table.
  * 
  */
 @Entity
-@NamedQuery(name="Level2reportingexception.findAll", query="SELECT l FROM Level2reportingexception l")
-public class Level2reportingexception implements Serializable {
+@Table(name="LEVEL2_REPORTING_EXCEPTION")
+@NamedQuery(name="Level2ReportingException.findAll", query="SELECT l FROM Level2ReportingException l")
+public class Level2ReportingException implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="reportingExceptionSequenceGen")
+	@SequenceGenerator(name="reportingExceptionSequenceGen",sequenceName="LEVEL2_REPORTING_EXCEPTION_SEQ",allocationSize=1)
 	@Column(name="EXCEPTION_ID")
-	private int exceptionId;
+	private Long exceptionId;
 
 	@Column(name="EXCEPTION_CATEGORY")
 	private String exceptionCategory;
 
-	//bi-directional many-to-one association to Level2exceptionreason
-	@OneToMany(mappedBy="level2reportingexception")
-	private List<Level2exceptionreason> level2exceptionreasons;
+	@Column(name="EXCEPTION_TYPE_ANY")
+	private String exceptionTypeAny;
 
-	//bi-directional many-to-one association to Level2exceptionreference
-	@OneToMany(mappedBy="level2reportingexception")
-	private List<Level2exceptionreference> level2exceptionreferences;
+	@Column(name="NEXT_VERSION_TYPE")
+	private String nextVersionType;
 
-	public Level2reportingexception() {
+	//bi-directional many-to-one association to Level2ExceptionReason
+	@OneToMany(mappedBy="level2ReportingException",cascade=CascadeType.PERSIST)
+	private List<Level2ExceptionReason> level2ExceptionReasons;
+
+	//bi-directional many-to-one association to Level2ExceptionReferenceDAO
+	@OneToMany(mappedBy="level2ReportingException",cascade=CascadeType.PERSIST)
+	private List<Level2ExceptionReference> level2ExceptionReferences;
+
+	//bi-directional many-to-one association to Level1LeiRecord
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name="LEI",insertable=false) private Level1LeiRecord
+	 * level1LeiRecord;
+	 */
+	@Column(name="LEI")
+	private String lei;
+
+	
+
+	public Level2ReportingException() {
 	}
 
-	public int getExceptionId() {
+	public Long getExceptionId() {
 		return this.exceptionId;
 	}
 
-	public void setExceptionId(int exceptionId) {
+	public void setExceptionId(Long exceptionId) {
 		this.exceptionId = exceptionId;
 	}
 
@@ -49,48 +69,74 @@ public class Level2reportingexception implements Serializable {
 		this.exceptionCategory = exceptionCategory;
 	}
 
-	public List<Level2exceptionreason> getLevel2exceptionreasons() {
-		return this.level2exceptionreasons;
+	public String getExceptionTypeAny() {
+		return this.exceptionTypeAny;
 	}
 
-	public void setLevel2exceptionreasons(List<Level2exceptionreason> level2exceptionreasons) {
-		this.level2exceptionreasons = level2exceptionreasons;
+	public void setExceptionTypeAny(String exceptionTypeAny) {
+		this.exceptionTypeAny = exceptionTypeAny;
 	}
 
-	public Level2exceptionreason addLevel2exceptionreason(Level2exceptionreason level2exceptionreason) {
-		getLevel2exceptionreasons().add(level2exceptionreason);
-		level2exceptionreason.setLevel2reportingexception(this);
-
-		return level2exceptionreason;
+	public String getNextVersionType() {
+		return this.nextVersionType;
 	}
 
-	public Level2exceptionreason removeLevel2exceptionreason(Level2exceptionreason level2exceptionreason) {
-		getLevel2exceptionreasons().remove(level2exceptionreason);
-		level2exceptionreason.setLevel2reportingexception(null);
-
-		return level2exceptionreason;
+	public void setNextVersionType(String nextVersionType) {
+		this.nextVersionType = nextVersionType;
 	}
 
-	public List<Level2exceptionreference> getLevel2exceptionreferences() {
-		return this.level2exceptionreferences;
+	public List<Level2ExceptionReason> getLevel2ExceptionReasons() {
+		return this.level2ExceptionReasons;
 	}
 
-	public void setLevel2exceptionreferences(List<Level2exceptionreference> level2exceptionreferences) {
-		this.level2exceptionreferences = level2exceptionreferences;
+	public void setLevel2ExceptionReasons(List<Level2ExceptionReason> level2ExceptionReasons) {
+		this.level2ExceptionReasons = level2ExceptionReasons;
 	}
 
-	public Level2exceptionreference addLevel2exceptionreference(Level2exceptionreference level2exceptionreference) {
-		getLevel2exceptionreferences().add(level2exceptionreference);
-		level2exceptionreference.setLevel2reportingexception(this);
+	public Level2ExceptionReason addLevel2ExceptionReason(Level2ExceptionReason level2ExceptionReason) {
+		getLevel2ExceptionReasons().add(level2ExceptionReason);
+		level2ExceptionReason.setLevel2ReportingException(this);
 
-		return level2exceptionreference;
+		return level2ExceptionReason;
 	}
 
-	public Level2exceptionreference removeLevel2exceptionreference(Level2exceptionreference level2exceptionreference) {
-		getLevel2exceptionreferences().remove(level2exceptionreference);
-		level2exceptionreference.setLevel2reportingexception(null);
+	public Level2ExceptionReason removeLevel2ExceptionReason(Level2ExceptionReason level2ExceptionReason) {
+		getLevel2ExceptionReasons().remove(level2ExceptionReason);
+		level2ExceptionReason.setLevel2ReportingException(null);
 
-		return level2exceptionreference;
+		return level2ExceptionReason;
 	}
+
+	public List<Level2ExceptionReference> getLevel2ExceptionReferences() {
+		return this.level2ExceptionReferences;
+	}
+
+	public void setLevel2ExceptionReferences(List<Level2ExceptionReference> level2ExceptionReferences) {
+		this.level2ExceptionReferences = level2ExceptionReferences;
+	}
+
+	public Level2ExceptionReference addLevel2ExceptionReference(Level2ExceptionReference level2ExceptionReference) {
+		getLevel2ExceptionReferences().add(level2ExceptionReference);
+		level2ExceptionReference.setLevel2ReportingException(this);
+
+		return level2ExceptionReference;
+	}
+
+	public Level2ExceptionReference removeLevel2ExceptionReference(Level2ExceptionReference level2ExceptionReference) {
+		getLevel2ExceptionReferences().remove(level2ExceptionReference);
+		level2ExceptionReference.setLevel2ReportingException(null);
+
+		return level2ExceptionReference;
+	}
+
+	public String getLei() {
+		return lei;
+	}
+
+	public void setLei(String lei) {
+		this.lei = lei;
+	}
+
+	
 
 }
