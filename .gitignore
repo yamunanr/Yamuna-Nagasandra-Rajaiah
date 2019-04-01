@@ -25,3 +25,4 @@
 /gleifparser//dist/
 /gleifparser//nbdist/
 /gleifparser//.nb-gradle/
+gleifparser/src/main/lib/ngdbc.jar

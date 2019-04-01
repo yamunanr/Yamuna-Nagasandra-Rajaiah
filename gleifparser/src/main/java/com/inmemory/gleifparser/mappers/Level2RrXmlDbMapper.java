@@ -7,7 +7,7 @@ public final class Level2RrXmlDbMapper {
 
 	public static Level2RelationshipRecord convertFromXmlToEntityObject(RelationshipRecordType relationshipRecord) {
 		Level2RelationshipRecord entity = new Level2RelationshipRecord();
-
+		
 		return entity;
 	}
 }
