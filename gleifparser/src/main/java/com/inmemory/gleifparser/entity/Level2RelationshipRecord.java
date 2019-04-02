@@ -2,6 +2,9 @@ package com.inmemory.gleifparser.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.inmemory.gleifparser.constants.Constants;
+
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class Level2RelationshipRecord implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="relationshipRecordSequenceGen")
-	@SequenceGenerator(name="relationshipRecordSequenceGen",sequenceName="LEVEL2_RELATIONSHIP_RECORD_SEQ")
+	@SequenceGenerator(name="relationshipRecordSequenceGen",sequenceName="LEVEL2_RELATIONSHIP_RECORD_SEQ",allocationSize = Constants.SEQUENCE_ALLOCATION_SIZE)
 	@Column(name="RR_ID")
 	private Long rrId;
 

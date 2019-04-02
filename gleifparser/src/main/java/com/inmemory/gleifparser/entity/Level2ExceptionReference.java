@@ -3,6 +3,8 @@ package com.inmemory.gleifparser.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.inmemory.gleifparser.constants.Constants;
+
 
 /**
  * The persistent class for the LEVEL2_EXCEPTION_REFERENCE database table.
@@ -16,7 +18,7 @@ public class Level2ExceptionReference implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="exceptionReferenceSequenceGen")
-	@SequenceGenerator(name="exceptionReferenceSequenceGen",sequenceName="LEVEL2_EXCEPTION_REFERENCE_SEQ",allocationSize=1)
+	@SequenceGenerator(name="exceptionReferenceSequenceGen",sequenceName="LEVEL2_EXCEPTION_REFERENCE_SEQ",allocationSize=Constants.SEQUENCE_ALLOCATION_SIZE)
 	@Column(name="EXCEPTION_REFERENCE_ID")
 	private Long exceptionReferenceId;
 

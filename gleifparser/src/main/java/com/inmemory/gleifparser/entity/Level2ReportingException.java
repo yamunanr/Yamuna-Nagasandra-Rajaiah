@@ -2,6 +2,9 @@ package com.inmemory.gleifparser.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.inmemory.gleifparser.constants.Constants;
+
 import java.util.List;
 
 
@@ -17,7 +20,7 @@ public class Level2ReportingException implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="reportingExceptionSequenceGen")
-	@SequenceGenerator(name="reportingExceptionSequenceGen",sequenceName="LEVEL2_REPORTING_EXCEPTION_SEQ",allocationSize=1)
+	@SequenceGenerator(name="reportingExceptionSequenceGen",sequenceName="LEVEL2_REPORTING_EXCEPTION_SEQ",allocationSize=Constants.SEQUENCE_ALLOCATION_SIZE)
 	@Column(name="EXCEPTION_ID")
 	private Long exceptionId;
 

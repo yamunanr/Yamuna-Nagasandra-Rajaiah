@@ -3,6 +3,8 @@ package com.inmemory.gleifparser.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.inmemory.gleifparser.constants.Constants;
+
 
 /**
  * The persistent class for the LEVEL2_RR_RELATIONSHIP_QUALIFIER database table.
@@ -16,7 +18,7 @@ public class Level2RrRelationshipQualifier implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="relationshipQualifierSequenceGen")
-	@SequenceGenerator(name="relationshipQualifierSequenceGen",sequenceName="LEVEL2_RR_RELATIONSHIP_QUALIFIER_SEQ")
+	@SequenceGenerator(name="relationshipQualifierSequenceGen",sequenceName="LEVEL2_RR_RELATIONSHIP_QUALIFIER_SEQ",allocationSize = Constants.SEQUENCE_ALLOCATION_SIZE)
 	@Column(name="QUALIFIER_RR_ID")
 	private Long qualifierRrId;
 

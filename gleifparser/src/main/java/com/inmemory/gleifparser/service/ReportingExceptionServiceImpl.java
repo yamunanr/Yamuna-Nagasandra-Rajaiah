@@ -7,6 +7,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,7 @@ private Level2ExceptionReasonDao level2ExceptionReasonDao;
 @Autowired
 private Level2ExceptionReferenceDAO level2ExceptionReferenceDAO;
 
+private Logger logger=LoggerFactory.getLogger(ReportingExceptionServiceImpl.class);
 
 	@Override
 	public void parseAndSaveXmlFile(XMLEventReader xmlEventReader) throws XMLStreamException, JAXBException {
@@ -62,6 +65,8 @@ private Level2ExceptionReferenceDAO level2ExceptionReferenceDAO;
 		List<Level2ExceptionReference> level2ExceptionReferences=new ArrayList<>();
 		List<Level2ExceptionReason> level2ExceptionReasons=new ArrayList<>();
 		Level2ReportingException curRecord=null;
+		long count=0;
+		logger.info("Saving Reporting Exception data to database");
 		while (xmlEventReader.hasNext()) {
 			if (xmlEventReader.peek().isStartElement() && XmlDataConstants.LEVEL_2_REPORTING_EXCEPTION_RECORD
 					.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
@@ -74,6 +79,8 @@ private Level2ExceptionReferenceDAO level2ExceptionReferenceDAO;
 				//write in batches
 				if(level2ReportingExceptions.size()>=1000) {
 					saveEntitiesAndClearList(level2ReportingExceptions,level2ExceptionReferences,level2ExceptionReasons);
+					count+=1000;
+					logger.info("Number of records saved"+count);
 				}
 				
 			} else {
