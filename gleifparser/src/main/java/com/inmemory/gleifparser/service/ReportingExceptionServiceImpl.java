@@ -86,8 +86,8 @@ public class ReportingExceptionServiceImpl implements ReportingExceptionService 
 							level2ExceptionReasons);
 					count += 1000;
 					long currentTime = System.currentTimeMillis();
-					logger.info("Number of records saved" + count + " time taken so far"
-							+ ((currentTime - timeStart) / 1000));
+					logger.info("Number of records saved" + count + " time taken so far "
+							+ ((currentTime - timeStart) / 1000)+" seconds");
 				}
 
 			} else {
