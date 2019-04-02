@@ -26,16 +26,16 @@ import com.inmemory.gleifparser.utils.GleifXmlUnmarshallerFactory;
 
 @Service
 public class ReportingExceptionServiceImpl implements ReportingExceptionService {
-@Autowired
-private Level2ReportingExceptionDAO reportingExceptionDAO;
+	@Autowired
+	private Level2ReportingExceptionDAO reportingExceptionDAO;
 
-@Autowired
-private Level2ExceptionReasonDao level2ExceptionReasonDao;
+	@Autowired
+	private Level2ExceptionReasonDao level2ExceptionReasonDao;
 
-@Autowired
-private Level2ExceptionReferenceDAO level2ExceptionReferenceDAO;
+	@Autowired
+	private Level2ExceptionReferenceDAO level2ExceptionReferenceDAO;
 
-private Logger logger=LoggerFactory.getLogger(ReportingExceptionServiceImpl.class);
+	private Logger logger = LoggerFactory.getLogger(ReportingExceptionServiceImpl.class);
 
 	@Override
 	public void parseAndSaveXmlFile(XMLEventReader xmlEventReader) throws XMLStreamException, JAXBException {
@@ -44,12 +44,13 @@ private Logger logger=LoggerFactory.getLogger(ReportingExceptionServiceImpl.clas
 				if (xmlEventReader.peek().isStartElement()) {
 					if (XmlDataConstants.LEVEL_2_REPORTING_EXCEPTION_HEADER
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
-						ExceptionHeaderType header = GleifXmlUnmarshallerFactory.getReportingExceptionsJaxbUnmarshaller()
+						ExceptionHeaderType header = GleifXmlUnmarshallerFactory
+								.getReportingExceptionsJaxbUnmarshaller()
 								.unmarshal(xmlEventReader, ExceptionHeaderType.class).getValue();
 					} else if (XmlDataConstants.LEVEL_2_REPORTING_EXCEPTION_RECORDS
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
 						parseReportingExceptionRecords(xmlEventReader);
-						
+
 					}
 				}
 				xmlEventReader.nextEvent();
@@ -59,41 +60,48 @@ private Logger logger=LoggerFactory.getLogger(ReportingExceptionServiceImpl.clas
 		}
 
 	}
-	
-	private void parseReportingExceptionRecords(XMLEventReader xmlEventReader) throws XMLStreamException, JAXBException {
-		List<Level2ReportingException> level2ReportingExceptions=new ArrayList<>();
-		List<Level2ExceptionReference> level2ExceptionReferences=new ArrayList<>();
-		List<Level2ExceptionReason> level2ExceptionReasons=new ArrayList<>();
-		Level2ReportingException curRecord=null;
-		long count=0;
+
+	private void parseReportingExceptionRecords(XMLEventReader xmlEventReader)
+			throws XMLStreamException, JAXBException {
+		List<Level2ReportingException> level2ReportingExceptions = new ArrayList<>();
+		List<Level2ExceptionReference> level2ExceptionReferences = new ArrayList<>();
+		List<Level2ExceptionReason> level2ExceptionReasons = new ArrayList<>();
+		Level2ReportingException curRecord = null;
+		long timeStart = System.currentTimeMillis();
+		long count = 0;
 		logger.info("Saving Reporting Exception data to database");
 		while (xmlEventReader.hasNext()) {
 			if (xmlEventReader.peek().isStartElement() && XmlDataConstants.LEVEL_2_REPORTING_EXCEPTION_RECORD
 					.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
 				ExceptionType reportingException = GleifXmlUnmarshallerFactory.getReportingExceptionsJaxbUnmarshaller()
 						.unmarshal(xmlEventReader, ExceptionType.class).getValue();
-				curRecord=Level2RepExceptionDbMapper.convertFromXmlToEntityObject(reportingException);
+				curRecord = Level2RepExceptionDbMapper.convertFromXmlToEntityObject(reportingException);
 				level2ReportingExceptions.add(curRecord);
-				level2ExceptionReferences.addAll(curRecord.getLevel2ExceptionReferences()); 
+				level2ExceptionReferences.addAll(curRecord.getLevel2ExceptionReferences());
 				level2ExceptionReasons.addAll(curRecord.getLevel2ExceptionReasons());
-				//write in batches
-				if(level2ReportingExceptions.size()>=1000) {
-					saveEntitiesAndClearList(level2ReportingExceptions,level2ExceptionReferences,level2ExceptionReasons);
-					count+=1000;
-					logger.info("Number of records saved"+count);
+
+				// write in batches
+				if (level2ReportingExceptions.size() >= 1000) {
+					saveEntitiesAndClearList(level2ReportingExceptions, level2ExceptionReferences,
+							level2ExceptionReasons);
+					count += 1000;
+					long currentTime = System.currentTimeMillis();
+					logger.info("Number of records saved" + count + " time taken so far"
+							+ ((currentTime - timeStart) / 1000));
 				}
-				
+
 			} else {
 				xmlEventReader.nextEvent();
 			}
 
 		}
-		saveEntitiesAndClearList(level2ReportingExceptions,level2ExceptionReferences,level2ExceptionReasons);
-		
+		saveEntitiesAndClearList(level2ReportingExceptions, level2ExceptionReferences, level2ExceptionReasons);
+
 	}
-	
+
 	private void saveEntitiesAndClearList(List<Level2ReportingException> level2ReportingExceptions,
-			List<Level2ExceptionReference> level2ExceptionReferences, List<Level2ExceptionReason> level2ExceptionReasons) {
+			List<Level2ExceptionReference> level2ExceptionReferences,
+			List<Level2ExceptionReason> level2ExceptionReasons) {
 		reportingExceptionDAO.saveAll(level2ReportingExceptions);
 		reportingExceptionDAO.flush();
 		/*
@@ -102,11 +110,11 @@ private Logger logger=LoggerFactory.getLogger(ReportingExceptionServiceImpl.clas
 		 * level2ExceptionReferenceDAO.saveAll(level2ExceptionReferences);
 		 * level2ExceptionReferenceDAO.flush();
 		 */
-		//clear list
+		// clear list
 		level2ReportingExceptions.clear();
 		level2ReportingExceptions.clear();
 		level2ExceptionReasons.clear();
-		
+
 	}
 
 }
