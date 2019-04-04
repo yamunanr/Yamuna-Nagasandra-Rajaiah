@@ -1,6 +1,8 @@
 package com.inmemory.gleifparser.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 import javax.persistence.*;
 
 import com.inmemory.gleifparser.constants.Constants;
@@ -26,10 +28,10 @@ public class Level2RrRelationshipQuantifier implements Serializable {
 	private String measurementMethod;
 
 	@Column(name="QUANTIFIER_AMOUNT")
-	private int quantifierAmount;
+	private Double quantifierAmount;
 
 	@Column(name="QUANTIFIER_UNITS")
-	private int quantifierUnits;
+	private String quantifierUnits;
 
 	//bi-directional many-to-one association to Level2RelationshipRecord
 	@ManyToOne
@@ -55,19 +57,19 @@ public class Level2RrRelationshipQuantifier implements Serializable {
 		this.measurementMethod = measurementMethod;
 	}
 
-	public int getQuantifierAmount() {
+	public Double getQuantifierAmount() {
 		return this.quantifierAmount;
 	}
 
-	public void setQuantifierAmount(int quantifierAmount) {
+	public void setQuantifierAmount(Double quantifierAmount) {
 		this.quantifierAmount = quantifierAmount;
 	}
 
-	public int getQuantifierUnits() {
+	public String getQuantifierUnits() {
 		return this.quantifierUnits;
 	}
 
-	public void setQuantifierUnits(int quantifierUnits) {
+	public void setQuantifierUnits(String quantifierUnits) {
 		this.quantifierUnits = quantifierUnits;
 	}
 
