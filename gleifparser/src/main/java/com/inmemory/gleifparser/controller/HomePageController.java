@@ -37,7 +37,7 @@ public class HomePageController {
 	public String receiveXmlFile(@RequestParam("fileName") MultipartFile multipartFile) {
 		//@RequestParam("fileName") MultipartFile multipartFile,@RequestParam("xmlfiletype") String xmlFileType
 //		Path storageDir=Paths.get("/gleifparser/src/main/resources/uploadDir");
-		Path storageDir=Paths.get("J:\\gitProjects\\inmemory\\gleifparser\\src\\main\\resources\\uploadDir");
+		Path storageDir=Paths.get("D:\\projects\\gleifparserandvisualier\\gleifparser\\src\\main\\resources\\uploadDir");
 		
 		String destFile=multipartFile.getOriginalFilename()+".xml";
 		try {
