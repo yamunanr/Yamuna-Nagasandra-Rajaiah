@@ -3,9 +3,12 @@ package com.inmemory.gleifparser.controller;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,11 +38,8 @@ public class HomePageController {
 	
 	@PostMapping("/xmlFileUpload")
 	public String receiveXmlFile(@RequestParam("fileName") MultipartFile multipartFile) {
-		//@RequestParam("fileName") MultipartFile multipartFile,@RequestParam("xmlfiletype") String xmlFileType
-//		Path storageDir=Paths.get("/gleifparser/src/main/resources/uploadDir");
-		Path storageDir=Paths.get("D:\\projects\\gleifparserandvisualier\\gleifparser\\src\\main\\resources\\uploadDir");
-		
-		String destFile=multipartFile.getOriginalFilename()+".xml";
+		Path storageDir=Paths.get(".\\src\\main\\resources\\uploadDir");
+		String destFile=generateUniqueFileName();
 		try {
 			Path unzippefFilePath=ZipFileHandler.unzipFile(multipartFile, destFile, storageDir);
 			gleifService.parseGleifFile(unzippefFilePath);
@@ -49,5 +49,16 @@ public class HomePageController {
 			return "failure";
 		}
 		return "success";
+	}
+	
+	private String generateUniqueFileName() {
+	    String filename = "";
+	    String datetime = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+	    datetime = datetime.replace(" ", "");
+	    datetime = datetime.replace(":", "-");
+	    datetime = datetime.replace(".", "_");
+	    String rndchars = RandomStringUtils.randomAlphanumeric(10);
+	    filename = rndchars + "_" + datetime +".xml" ;
+	    return filename;
 	}
 }
