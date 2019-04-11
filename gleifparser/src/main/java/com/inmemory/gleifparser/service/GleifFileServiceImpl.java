@@ -64,8 +64,13 @@ public class GleifFileServiceImpl implements GleifService {
 			}
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			isExceptionOccured = true;
+			try {
+				xmlEventReader.close();
+			} catch (XMLStreamException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			xmlEventReader=null;
 			e.printStackTrace();
 		} finally {

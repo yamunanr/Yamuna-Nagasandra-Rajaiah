@@ -1,5 +1,7 @@
 package com.inmemory.gleifparser.service;
 
+import static com.inmemory.gleifparser.constants.Constants.SAVE_RECORDS_BATCH_SIZE;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inmemory.gleifparser.constants.XmlDataConstants;
-import com.inmemory.gleifparser.dao.Level2RRQualifierDAO;
-import com.inmemory.gleifparser.dao.Level2RrQuantifierDAO;
 import com.inmemory.gleifparser.dao.LevelTwoRRDao;
 import com.inmemory.gleifparser.entity.Level2RelationshipRecord;
-import com.inmemory.gleifparser.entity.Level2RrRelationshipQualifier;
-import com.inmemory.gleifparser.entity.Level2RrRelationshipQuantifier;
+import com.inmemory.gleifparser.mappers.Level2RrXmlDbMapper;
 import com.inmemory.gleifparser.model.level2_rr.RRHeaderType;
 import com.inmemory.gleifparser.model.level2_rr.RelationshipRecordType;
 import com.inmemory.gleifparser.utils.GleifXmlUnmarshallerFactory;
@@ -26,12 +25,6 @@ public class RelationshipRecordServiceImpl implements RelationshipRecordService 
 
 	@Autowired
 	private LevelTwoRRDao levelTwoRRDao;
-	
-	@Autowired
-	private Level2RrQuantifierDAO levelTwoRrQuantifierDAO;
-	
-	@Autowired
-	private Level2RRQualifierDAO levelTwoRrQualifierDAO;
 
 	@Override
 	public void parseAndSaveXmlFile(XMLEventReader xmlEventReader) throws XMLStreamException, JAXBException {
@@ -45,6 +38,7 @@ public class RelationshipRecordServiceImpl implements RelationshipRecordService 
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
 						RRHeaderType rrHeader = GleifXmlUnmarshallerFactory.getRelationshipRecordUnmarshaller()
 								.unmarshal(xmlEventReader, RRHeaderType.class).getValue();
+						//TODO save RRheader record
 
 					} else if (XmlDataConstants.LEVEL_2_RELATIONSHIP_RECORDS
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
@@ -61,20 +55,31 @@ public class RelationshipRecordServiceImpl implements RelationshipRecordService 
 	}
 
 	private void parseRelationshipRecords(XMLEventReader xmlEventReader) throws XMLStreamException, JAXBException {
-		List<Level2RelationshipRecord> level2relationshiprecords=new ArrayList<>();
-		List<Level2RrRelationshipQualifier> level2rrrelationshipqualifiers=new ArrayList<>();
-		List<Level2RrRelationshipQuantifier> level2rrrelationshipquantifiers=new ArrayList<>();
+		List<Level2RelationshipRecord> level2relationshiprecords = new ArrayList<>();
+		Level2RelationshipRecord curRecord = null;
 		while (xmlEventReader.hasNext()) {
 			if (xmlEventReader.peek().isStartElement() && XmlDataConstants.LEVEL_2_RELATIONSHIP_RECORD
 					.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
-				RelationshipRecordType relationshipRecord = GleifXmlUnmarshallerFactory.getRelationshipRecordUnmarshaller()
-						.unmarshal(xmlEventReader, RelationshipRecordType.class).getValue();
-					
-			
+				RelationshipRecordType relationshipRecord = GleifXmlUnmarshallerFactory
+						.getRelationshipRecordUnmarshaller().unmarshal(xmlEventReader, RelationshipRecordType.class)
+						.getValue();
+				curRecord = Level2RrXmlDbMapper.convertFromXmlToEntityObject(relationshipRecord);
+				level2relationshiprecords.add(curRecord);
+				// write in batches
+				if (level2relationshiprecords.size() >= SAVE_RECORDS_BATCH_SIZE) {
+					// TODO remove temporarily commented lines
+					// levelTwoRRDao.saveAll(level2relationshiprecords);
+					// levelTwoRRDao.flush();
+					level2relationshiprecords.clear();
+				}
 			} else {
 				xmlEventReader.nextEvent();
 			}
 
+		}
+		if (!level2relationshiprecords.isEmpty()) {
+			levelTwoRRDao.saveAll(level2relationshiprecords);
+			levelTwoRRDao.flush();
 		}
 	}
 

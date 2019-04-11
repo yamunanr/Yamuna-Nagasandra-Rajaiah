@@ -98,11 +98,11 @@ public class Level2RelationshipRecord implements Serializable {
 	private Level1LeiRecord level1LeiRecord;
 
 	//bi-directional many-to-one association to Level2RrRelationshipQualifier
-	@OneToMany(mappedBy="level2RelationshipRecord")
+	@OneToMany(mappedBy="level2RelationshipRecord",cascade = CascadeType.PERSIST)
 	private List<Level2RrRelationshipQualifier> level2RrRelationshipQualifiers;
 
 	//bi-directional many-to-one association to Level2RrRelationshipQuantifier
-	@OneToMany(mappedBy="level2RelationshipRecord")
+	@OneToMany(mappedBy="level2RelationshipRecord",cascade = CascadeType.PERSIST)
 	private List<Level2RrRelationshipQuantifier> level2RrRelationshipQuantifiers;
 
 	public Level2RelationshipRecord() {
