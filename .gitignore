@@ -2,6 +2,10 @@
 /gleifparser/.mvn/
 /gleifparser/.gitignore
 /gleifparser/src/main/resources/uploadDir
+/gleifparser/.gradle
+/gleifparser/bin
+/gleifparser/gradle/wrapper/gradle-wrapper.jar
+/gleifparser/build/
 
 ### STS ###
 /gleifparser/.apt_generated
@@ -26,3 +30,6 @@
 /gleifparser//nbdist/
 /gleifparser//.nb-gradle/
 gleifparser/src/main/lib/ngdbc.jar
+
+### VS Code ###
+gleifparser/vscode/

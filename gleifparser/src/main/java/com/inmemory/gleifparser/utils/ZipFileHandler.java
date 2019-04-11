@@ -22,22 +22,18 @@ public final class ZipFileHandler {
 	public static Path unzipFile(MultipartFile file, String destFile, Path destinationDir) throws IOException {
 		byte[] buffer = new byte[1024];
 		Path newFile = Paths.get(destinationDir.toAbsolutePath().toString(), destFile);
-		FileOutputStream fos = null;
-
 		ZipInputStream zis = new ZipInputStream(file.getInputStream());
-
 		ZipEntry zipEntry = zis.getNextEntry();
 		if (zipEntry != null) {
 			Files.createFile(newFile);
-			fos = new FileOutputStream(newFile.toFile());
-			int len;
-			while ((len = zis.read(buffer)) > 0) {
-				fos.write(buffer, 0, len);
+			try (FileOutputStream fos = new FileOutputStream(newFile.toFile())) {
+				int len;
+				while ((len = zis.read(buffer)) > 0) {
+					fos.write(buffer, 0, len);
+				}
 			}
 		}
-		if (fos != null) {
-			fos.close();
-		}
+
 		zis.close();
 
 		return newFile;
