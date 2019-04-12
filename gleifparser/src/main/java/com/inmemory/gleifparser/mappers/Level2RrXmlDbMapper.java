@@ -38,6 +38,7 @@ public final class Level2RrXmlDbMapper {
 		entity.setRegistrationManagingLou(relationshipRecord.getRegistration().getManagingLOU());
 
 		setRelationshipQuantifier(entity, relationshipRecord.getRelationship());
+		setRelationshipQualifier(entity, relationshipRecord.getRelationship());
 
 		entity.setValidationDocuments(relationshipRecord.getRegistration().getValidationDocuments().name());
 		entity.setValidationReference(relationshipRecord.getRegistration().getValidationReference());
@@ -54,13 +55,18 @@ public final class Level2RrXmlDbMapper {
 
 			for (RelationshipQuantifierType quantifier : quantifiers.getRelationshipQuantifier()) {
 				Level2RrRelationshipQuantifier relationshipQuantifier = new Level2RrRelationshipQuantifier();
+				
+				if ( quantifier != null && quantifier.getMeasurementMethod() != null && quantifier.getQuantifierAmount() != null
+						&& quantifier.getQuantifierUnits() != null) {
 
 				relationshipQuantifier.setQuantifierUnits(quantifier.getQuantifierUnits().value());
 				relationshipQuantifier.setQuantifierAmount(quantifier.getQuantifierAmount().doubleValue());
 				relationshipQuantifier.setMeasurementMethod(quantifier.getMeasurementMethod().name());
 				entity.getLevel2RrRelationshipQuantifiers().add(relationshipQuantifier);
 				relationshipQuantifier.setLevel2RelationshipRecord(entity);
-			}
+				}
+				
+			}	
 
 		}
 	}
@@ -73,12 +79,15 @@ public final class Level2RrXmlDbMapper {
 
 			for (RelationshipQualifierType qualifier : qualifiers.getRelationshipQualifier()) {
 				Level2RrRelationshipQualifier relationshipQualifier = new Level2RrRelationshipQualifier();
+				
+				if ( qualifier != null && qualifier.getQualifierCategory() != null && qualifier.getQualifierDimension() != null) {
 
 				relationshipQualifier.setQualifierCategory(qualifier.getQualifierCategory().name());
 				relationshipQualifier.setQualifierDimension(qualifier.getQualifierDimension().name());
 				entity.getLevel2RrRelationshipQualifiers().add(relationshipQualifier);
 				relationshipQualifier.setLevel2RelationshipRecord(entity);
-			}
+			    }
+			}	
 
 		}
 	}
