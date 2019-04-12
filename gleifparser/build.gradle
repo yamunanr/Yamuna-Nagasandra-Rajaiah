@@ -23,7 +23,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation group: 'com.sap.cloud.db.jdbc', name: 'ngdbc', version: '2.3.58'
 	implementation    'org.webjars:webjars-locator-core:0.37'
-	
+	implementation 'org.springframework.boot:spring-boot-starter-activemq'
+	implementation 'org.apache.activemq:activemq-broker:5.15.8'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
 	
 	//web jars
 	runtimeClasspath  'org.webjars:jquery:3.3.1'

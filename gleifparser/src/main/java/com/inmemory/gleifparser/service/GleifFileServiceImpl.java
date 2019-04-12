@@ -7,23 +7,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
+import com.inmemory.gleifparser.JmsConfig;
+import com.inmemory.gleifparser.beans.GleifJmsMessage;
 import com.inmemory.gleifparser.constants.XmlDataConstants;
 
 @Service
 public class GleifFileServiceImpl implements GleifService {
+
 	@Autowired
 	private Level1LeiService level1LeiService;
-	
+
 	@Autowired
 	private RelationshipRecordService relationshipRecordService;
 
@@ -41,7 +45,7 @@ public class GleifFileServiceImpl implements GleifService {
 	public String parseGleifFile(Path xmlFilePath) {
 		boolean isExceptionOccured = false;
 		long count = 0;
-		XMLEventReader xmlEventReader =null;
+		XMLEventReader xmlEventReader = null;
 		try {
 			xmlEventReader = getXmlEventReaderForXmlFile(xmlFilePath);
 			// determine the file type from root node type
@@ -74,11 +78,12 @@ public class GleifFileServiceImpl implements GleifService {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			xmlEventReader=null;
+			xmlEventReader = null;
 			e.printStackTrace();
 		} finally {
-			
+
 			try {
+				
 				Files.deleteIfExists(xmlFilePath);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -100,6 +105,12 @@ public class GleifFileServiceImpl implements GleifService {
 		final XMLInputFactory xmlInputFactory = XMLInputFactory.newFactory();
 		xmlEventReader = xmlInputFactory.createXMLEventReader(xmlStream);
 		return xmlEventReader;
+	}
+
+	@JmsListener(destination = JmsConfig.XML_PROCESSING_QUEUE)
+	public void listener(GleifJmsMessage gleifJmsMessage) {
+		Path xmlFilePath = Paths.get(gleifJmsMessage.getXmlFilePath());
+		parseGleifFile(xmlFilePath);
 	}
 
 }

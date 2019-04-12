@@ -51,7 +51,7 @@ public class Level1LeiServiceImpl implements Level1LeiService {
 	}
 
 	private void parseLeiRecords(XMLEventReader xmlEventReader) throws JAXBException, XMLStreamException {
-		List<Level1LeiRecord> leiRecords = new ArrayList();
+		List<Level1LeiRecord> leiRecords = new ArrayList<Level1LeiRecord>();
 		Level1LeiRecord curRecord = null;
 		while (xmlEventReader.hasNext()) {
 			if (XmlDataConstants.LEVEL_1_LEI_RECORD_ROOT
