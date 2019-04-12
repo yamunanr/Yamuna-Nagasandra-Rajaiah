@@ -1,7 +1,7 @@
 /gleifparser/target/
 /gleifparser/.mvn/
 /gleifparser/.gitignore
-/gleifparser/src/main/resources/uploadDir
+/gleifparser/src/main/resources/uploadDir/*.xml
 /gleifparser/.gradle
 /gleifparser/bin
 /gleifparser/gradle/wrapper/gradle-wrapper.jar
