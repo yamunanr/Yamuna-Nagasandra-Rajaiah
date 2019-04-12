@@ -26,7 +26,7 @@ import com.inmemory.gleifparser.utils.GleifXmlUnmarshallerFactory;
 public class ReportingExceptionServiceImpl implements ReportingExceptionService {
 	@Autowired
 	private Level2ReportingExceptionDAO reportingExceptionDAO;
-	
+
 	private Logger logger = LoggerFactory.getLogger(ReportingExceptionServiceImpl.class);
 
 	@Override
@@ -39,11 +39,11 @@ public class ReportingExceptionServiceImpl implements ReportingExceptionService 
 						ExceptionHeaderType header = GleifXmlUnmarshallerFactory
 								.getReportingExceptionsJaxbUnmarshaller()
 								.unmarshal(xmlEventReader, ExceptionHeaderType.class).getValue();
-							//TODO save header record
+						// TODO save header record
 					} else if (XmlDataConstants.LEVEL_2_REPORTING_EXCEPTION_RECORDS
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
 						parseReportingExceptionRecords(xmlEventReader);
-
+						break;
 					}
 				}
 				xmlEventReader.nextEvent();
@@ -68,9 +68,9 @@ public class ReportingExceptionServiceImpl implements ReportingExceptionService 
 				level2ReportingExceptions.add(curRecord);
 				// write in batches
 				if (level2ReportingExceptions.size() >= SAVE_RECORDS_BATCH_SIZE) {
-					//TODO remove temporary comments
-					//reportingExceptionDAO.saveAll(level2ReportingExceptions);
-					//reportingExceptionDAO.flush();
+					// TODO remove temporary comments
+					// reportingExceptionDAO.saveAll(level2ReportingExceptions);
+					// reportingExceptionDAO.flush();
 					level2ReportingExceptions.clear();
 				}
 			} else {

@@ -22,6 +22,9 @@ import com.inmemory.gleifparser.constants.XmlDataConstants;
 @Service
 public class GleifFileServiceImpl implements GleifService {
 	@Autowired
+	private Level1LeiService level1LeiService;
+	
+	@Autowired
 	private RelationshipRecordService relationshipRecordService;
 
 	@Autowired
@@ -46,7 +49,7 @@ public class GleifFileServiceImpl implements GleifService {
 				if (xmlEventReader.peek().isStartElement()) {
 					if (XmlDataConstants.LEVEL_1_LEI_XML_ROOT_TYPE
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
-						LevelOneLeiParseHelper.parseFile(xmlEventReader);
+						level1LeiService.parseAndSaveXmlFile(xmlEventReader);
 						break;
 					} else if (XmlDataConstants.LEVEL_2_RELATIONSHIP_RECORD_XML_ROOT_TYPE
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {

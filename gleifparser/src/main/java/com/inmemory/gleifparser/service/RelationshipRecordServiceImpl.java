@@ -43,7 +43,7 @@ public class RelationshipRecordServiceImpl implements RelationshipRecordService 
 					} else if (XmlDataConstants.LEVEL_2_RELATIONSHIP_RECORDS
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
 						parseRelationshipRecords(xmlEventReader);
-
+						break;
 					}
 				}
 				xmlEventReader.nextEvent();
