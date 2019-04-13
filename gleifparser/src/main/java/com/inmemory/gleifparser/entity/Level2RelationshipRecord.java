@@ -29,12 +29,6 @@ public class Level2RelationshipRecord implements Serializable {
 	@Column(name="END_DATE")
 	private Date endDate;
 
-	@Column(name="EXTENSION_TYPE")
-	private String extensionType;
-
-	@Column(name="MANAGING_LOU")
-	private String managingLou;
-
 	@Temporal(TemporalType.DATE)
 	@Column(name="REGISTRATION_INITIAL_REGISTRATION_DATE")
 	private Date registrationInitialRegistrationDate;
@@ -47,10 +41,7 @@ public class Level2RelationshipRecord implements Serializable {
 	private String registrationManagingLou;
 
 	@Column(name="REGISTRATION_NEXT_RENEWAL_DATE")
-	private String registrationNextRenewalDate;
-
-	@Column(name="REGISTRATION_NEXT_VERSION_TYPE")
-	private String registrationNextVersionType;
+	private Date registrationNextRenewalDate;
 
 	@Column(name="REGISTRATION_STATUS")
 	private String registrationStatus;
@@ -61,17 +52,11 @@ public class Level2RelationshipRecord implements Serializable {
 	@Column(name="RELATIONSHIP_END_NODE_TYPE")
 	private String relationshipEndNodeType;
 
-	@Column(name="RELATIONSHIP_NEXT_VERSION_TYPE")
-	private String relationshipNextVersionType;
-
 	@Column(name="RELATIONSHIP_PERIOD_TYPE")
 	private String relationshipPeriodType;
 
-	@Column(name="RELATIONSHIP_RECORD_NEXT_VERSION_TYPE")
-	private String relationshipRecordNextVersionType;
-
-	@Column(name="RELATIONSHIP_RELATIONSHIP_TYPE")
-	private String relationshipRelationshipType;
+	@Column(name="RELATIONSHIP_TYPE")
+	private String relationshipType;
 
 	@Column(name="RELATIONSHIP_START_NODE_TYPE")
 	private String relationshipStartNodeType;
@@ -91,10 +76,14 @@ public class Level2RelationshipRecord implements Serializable {
 
 	@Column(name="VALIDATION_SOURCES")
 	private String validationSources;
+	
+
+	@Column(name="RELATIONSHIP_START_NODE_ID")
+	private String relationshipStartNodeId;
 
 	//bi-directional many-to-one association to Level1LeiRecord
 	@ManyToOne
-	@JoinColumn(name="RELATIONSHIP_START_NODE_ID")
+	@JoinColumn(name="RELATIONSHIP_START_NODE_ID",insertable=false,updatable=false)
 	private Level1LeiRecord level1LeiRecord;
 
 	//bi-directional many-to-one association to Level2RrRelationshipQualifier
@@ -124,22 +113,6 @@ public class Level2RelationshipRecord implements Serializable {
 		this.endDate = endDate;
 	}
 
-	public String getExtensionType() {
-		return this.extensionType;
-	}
-
-	public void setExtensionType(String extensionType) {
-		this.extensionType = extensionType;
-	}
-
-	public String getManagingLou() {
-		return this.managingLou;
-	}
-
-	public void setManagingLou(String managingLou) {
-		this.managingLou = managingLou;
-	}
-
 	public Date getRegistrationInitialRegistrationDate() {
 		return this.registrationInitialRegistrationDate;
 	}
@@ -164,20 +137,12 @@ public class Level2RelationshipRecord implements Serializable {
 		this.registrationManagingLou = registrationManagingLou;
 	}
 
-	public String getRegistrationNextRenewalDate() {
+	public Date getRegistrationNextRenewalDate() {
 		return this.registrationNextRenewalDate;
 	}
 
-	public void setRegistrationNextRenewalDate(String registrationNextRenewalDate) {
+	public void setRegistrationNextRenewalDate(Date registrationNextRenewalDate) {
 		this.registrationNextRenewalDate = registrationNextRenewalDate;
-	}
-
-	public String getRegistrationNextVersionType() {
-		return this.registrationNextVersionType;
-	}
-
-	public void setRegistrationNextVersionType(String registrationNextVersionType) {
-		this.registrationNextVersionType = registrationNextVersionType;
 	}
 
 	public String getRegistrationStatus() {
@@ -204,14 +169,6 @@ public class Level2RelationshipRecord implements Serializable {
 		this.relationshipEndNodeType = relationshipEndNodeType;
 	}
 
-	public String getRelationshipNextVersionType() {
-		return this.relationshipNextVersionType;
-	}
-
-	public void setRelationshipNextVersionType(String relationshipNextVersionType) {
-		this.relationshipNextVersionType = relationshipNextVersionType;
-	}
-
 	public String getRelationshipPeriodType() {
 		return this.relationshipPeriodType;
 	}
@@ -220,20 +177,12 @@ public class Level2RelationshipRecord implements Serializable {
 		this.relationshipPeriodType = relationshipPeriodType;
 	}
 
-	public String getRelationshipRecordNextVersionType() {
-		return this.relationshipRecordNextVersionType;
+	public String getRelationshipType() {
+		return this.relationshipType;
 	}
 
-	public void setRelationshipRecordNextVersionType(String relationshipRecordNextVersionType) {
-		this.relationshipRecordNextVersionType = relationshipRecordNextVersionType;
-	}
-
-	public String getRelationshipRelationshipType() {
-		return this.relationshipRelationshipType;
-	}
-
-	public void setRelationshipRelationshipType(String relationshipRelationshipType) {
-		this.relationshipRelationshipType = relationshipRelationshipType;
+	public void setRelationshipType(String relationshipType) {
+		this.relationshipType = relationshipType;
 	}
 
 	public String getRelationshipStartNodeType() {
@@ -334,6 +283,14 @@ public class Level2RelationshipRecord implements Serializable {
 		level2RrRelationshipQuantifier.setLevel2RelationshipRecord(null);
 
 		return level2RrRelationshipQuantifier;
+	}
+
+	public String getRelationshipStartNodeId() {
+		return relationshipStartNodeId;
+	}
+
+	public void setRelationshipStartNodeId(String relationshipStartNodeId) {
+		this.relationshipStartNodeId = relationshipStartNodeId;
 	}
 
 }

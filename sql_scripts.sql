@@ -160,30 +160,25 @@ FOREIGN KEY (Exception_ID) REFERENCES Level2_Reporting_Exception(Exception_ID));
 
 Create table Level2_Relationship_Record(
 RR_ID INTEGER,
-Relationship_Status varchar(10),
-Relationship_Relationship_Type varchar(20),
+Relationship_Status varchar(100),
+Relationship_Type varchar(100),
 Relationship_Start_Node_ID varchar(500),
 Relationship_Start_Node_Type varchar(500),
 Relationship_End_Node_ID  varchar(500),
 Relationship_End_Node_Type varchar(500),
 Registration_Initial_Registration_Date Date,
 Registration_Last_Update_Date  Date,
-Registration_Status varchar(20),
-Validation_Sources varchar(30),
-Validation_Documents varchar(30),
+Registration_Status varchar(100),
+Validation_Sources varchar(100),
+Validation_Documents varchar(300),
 Start_Date Date,
 End_Date Date,
-Managing_LOU varchar(20),
-Relationship_Period_Type varchar(10),
-Validation_Reference varchar(10),
-Relationship_Next_Version_Type varchar(500),
-Extension_Type varchar(500),
+Relationship_Period_Type varchar(100),
+Validation_Reference varchar(500),
 Registration_Next_Renewal_Date Date,
 Registration_Managing_LOU varchar(500),
-Registration_Next_Version_Type varchar(500),
-Relationship_Record_Next_Version_Type varchar(500),
-Primary key(RR_ID),
-Foreign key (Relationship_Start_Node_ID) references Level1_Lei_Record(LEI)
+Primary key(RR_ID)
+--Foreign key (Relationship_Start_Node_ID) references Level1_Lei_Record(LEI)
 );
 
 Create table Level2_Rr_Relationship_Qualifier(
