@@ -3,347 +3,268 @@ package com.inmemory.gleifparser.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+
 
 /**
  * The persistent class for the LEVEL1_LEI_RECORD database table.
  * 
  */
 @Entity
-@Table(name = "LEVEL1_LEI_RECORD")
-@NamedQuery(name = "Level1LeiRecord.findAll", query = "SELECT l FROM Level1LeiRecord l")
+@Table(name="LEVEL1_LEI_RECORD")
+@NamedQuery(name="Level1LeiRecord.findAll", query="SELECT l FROM Level1LeiRecord l")
 public class Level1LeiRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String lei;
 
-	@Column(name = "ASSOCIATED_ENTITY_TYPE_ASSOCIATED_ENTITY_NAME")
-	private String associatedEntityTypeAssociatedEntityName;
+	@Column(name="E_ASSOCIATED_ENTITY_NAME")
+	private String eAssociatedEntityName;
 
-	@Column(name = "ASSOCIATED_ENTITY_TYPE_ASSOCIATED_ENTITY_TYPE_ENUM")
-	private String associatedEntityTypeAssociatedEntityTypeEnum;
+	@Column(name="E_ASSOCIATED_ENTITY_TYPE")
+	private String eAssociatedEntityType;
 
-	@Column(name = "ASSOCIATED_ENTITY_TYPE_ASSOCIATED_LEI")
-	private String associatedEntityTypeAssociatedLei;
+	@Column(name="E_ASSOCIATED_LEI")
+	private String eAssociatedLei;
 
-	@Column(name = "ASSOCIATED_LEI_ID")
-	private String associatedLeiId;
-
-	@Column(name = "ENTITY_CATEGORY_VALUE")
-	private String entityCategoryValue;
+	@Column(name="E_CATEGORY_TYPE")
+	private String eCategoryType;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "ENTITY_EXPIRATION_DATE")
-	private Date entityExpirationDate;
+	@Column(name="E_ENTITY_EXPIRATION_DATE")
+	private Date eEntityExpirationDate;
 
-	@Column(name = "ENTITY_EXPIRATION_REASON")
-	private String entityExpirationReason;
+	@Column(name="E_ENTITY_EXPIRATION_REASON")
+	private String eEntityExpirationReason;
 
-	@Column(name = "ENTITY_LEGAL_FORM_CODE")
-	private String entityLegalFormCode;
+	@Column(name="E_ENTITY_LEGAL_FORM_CODE")
+	private String eEntityLegalFormCode;
 
-	@Column(name = "ENTITY_NEXT_VERSION_TYPE_ANY")
-	private String entityNextVersionTypeAny;
+	@Column(name="E_ENTITY_STATUS")
+	private String eEntityStatus;
 
-	@Column(name = "ENTITY_STATUS")
-	private String entityStatus;
+	@Column(name="E_HQ_ADDITIONAL_ADDRESS_LINE_1")
+	private String eHqAdditionalAddressLine1;
 
-	@Column(name = "ENTITY_TYPE_LEGAL_ADDRESS_ADDITIONAL_ADDRESS_LINE")
-	private String entityTypeLegalAddressAdditionalAddressLine;
+	@Column(name="E_HQ_ADDITIONAL_ADDRESS_LINE_2")
+	private String eHqAdditionalAddressLine2;
 
-	@Column(name = "ENTITY_TYPE_LEGAL_ADDRESS_ADDRESS_NUMBER")
-	private String entityTypeLegalAddressAddressNumber;
+	@Column(name="E_HQ_ADDITIONAL_ADDRESS_LINE_3")
+	private String eHqAdditionalAddressLine3;
 
-	@Column(name = "ENTITY_TYPE_LEGAL_ADDRESS_ADDRESS_NUMBER_WITHIN_BUILDING")
-	private String entityTypeLegalAddressAddressNumberWithinBuilding;
+	@Column(name="E_HQ_ADDRESS_NUMBER")
+	private String eHqAddressNumber;
 
-	@Column(name = "ENTITY_TYPE_LEGAL_ADDRESS_CITY")
-	private String entityTypeLegalAddressCity;
+	@Column(name="E_HQ_ADDRESSNUMBER_WITHIN_BUILDING")
+	private String eHqAddressnumberWithinBuilding;
 
-	@Column(name = "ENTITY_TYPE_LEGAL_ADDRESS_COUNTRY")
-	private String entityTypeLegalAddressCountry;
+	@Column(name="E_HQ_CITY")
+	private String eHqCity;
 
-	@Column(name = "ENTITY_TYPE_LEGAL_ADDRESS_FIRST_ADDRESS_LINE")
-	private String entityTypeLegalAddressFirstAddressLine;
+	@Column(name="E_HQ_COUNTRY")
+	private String eHqCountry;
 
-	@Column(name = "ENTITY_TYPE_LEGAL_ADDRESS_LANG")
-	private String entityTypeLegalAddressLang;
+	@Column(name="E_HQ_FIRST_ADDRESS_LINE")
+	private String eHqFirstAddressLine;
 
-	@Column(name = "ENTITY_TYPE_LEGAL_ADDRESS_MAIL_ROUTING")
-	private String entityTypeLegalAddressMailRouting;
+	@Column(name="E_HQ_LANG")
+	private String eHqLang;
 
-	@Column(name = "ENTITY_TYPE_LEGAL_ADDRESS_POSTALCODE")
-	private String entityTypeLegalAddressPostalcode;
+	@Column(name="E_HQ_MAIL_ROUTING")
+	private String eHqMailRouting;
 
-	@Column(name = "ENTITY_TYPE_LEGAL_ADDRESS_REGION")
-	private String entityTypeLegalAddressRegion;
+	@Column(name="E_HQ_POSTAL_CODE")
+	private String eHqPostalCode;
 
-	@Column(name = "ENTITY_TYPE_LEGAL_NAME_NAME_TYPE")
-	private String entityTypeLegalNameNameType;
+	@Column(name="E_HQ_REGION")
+	private String eHqRegion;
 
-	@Column(name = "ENTITY_TYPE_LEGAL_NAME_NAME_TYPE_LANG")
-	private String entityTypeLegalNameNameTypeLang;
+	@Column(name="E_LEGAL_ADDRESS_ADDITIONAL_ADDRESS_LINE_1")
+	private String eLegalAddressAdditionalAddressLine1;
 
-	@Column(name = "ENTITY_TYPE_OTHER_ENTITY_NAMES_TYPE")
-	private String entityTypeOtherEntityNamesType;
+	@Column(name="E_LEGAL_ADDRESS_ADDITIONAL_ADDRESS_LINE_2")
+	private String eLegalAddressAdditionalAddressLine2;
 
-	@Column(name = "ENTITY_TYPE_TRANSLITERATED_OTHER_ENTITY_NAMES_TYPE")
-	private String entityTypeTransliteratedOtherEntityNamesType;
+	@Column(name="E_LEGAL_ADDRESS_ADDITIONAL_ADDRESS_LINE_3")
+	private String eLegalAddressAdditionalAddressLine3;
 
-	@Column(name = "EXTENSION_TYPE")
-	private String extensionType;
+	@Column(name="E_LEGAL_ADDRESS_ADDRESS_NUMBER")
+	private String eLegalAddressAddressNumber;
 
-	@Column(name = "HQ_ADDITIONAL_ADDRESS_LINE")
-	private String hqAdditionalAddressLine;
+	@Column(name="E_LEGAL_ADDRESS_ADDRESS_NUMBER_WITHIN_BUILDING")
+	private String eLegalAddressAddressNumberWithinBuilding;
 
-	@Column(name = "HQ_ADDRESS_NUMBER")
-	private String hqAddressNumber;
+	@Column(name="E_LEGAL_ADDRESS_CITY")
+	private String eLegalAddressCity;
 
-	@Column(name = "HQ_ADDRESSNUMBER_WITHIN_BUILDING")
-	private String hqAddressnumberWithinBuilding;
+	@Column(name="E_LEGAL_ADDRESS_COUNTRY")
+	private String eLegalAddressCountry;
 
-	@Column(name = "HQ_CITY")
-	private String hqCity;
+	@Column(name="E_LEGAL_ADDRESS_FIRST_ADDRESS_LINE")
+	private String eLegalAddressFirstAddressLine;
 
-	@Column(name = "HQ_COUNTRY")
-	private String hqCountry;
+	@Column(name="E_LEGAL_ADDRESS_LANG")
+	private String eLegalAddressLang;
 
-	@Column(name = "HQ_FIRST_ADDRESS_LINE")
-	private String hqFirstAddressLine;
+	@Column(name="E_LEGAL_ADDRESS_MAIL_ROUTING")
+	private String eLegalAddressMailRouting;
 
-	@Column(name = "HQ_LANG")
-	private String hqLang;
+	@Column(name="E_LEGAL_ADDRESS_POSTALCODE")
+	private String eLegalAddressPostalcode;
 
-	@Column(name = "HQ_MAIL_ROUTING")
-	private String hqMailRouting;
+	@Column(name="E_LEGAL_ADDRESS_REGION")
+	private String eLegalAddressRegion;
 
-	@Column(name = "HQ_POSTAL_CODE")
-	private String hqPostalCode;
+	@Column(name="E_LEGAL_JURISDICTION")
+	private String eLegalJurisdiction;
 
-	@Column(name = "HQ_REGION")
-	private String hqRegion;
+	@Column(name="E_LEGAL_NAME_TYPE_LANG")
+	private String eLegalNameTypeLang;
+
+	@Column(name="E_LEGAL_NAME_TYPE_VALUE")
+	private String eLegalNameTypeValue;
+
+	@Column(name="E_O_ADDITIONAL_ADDRESS_LINE_1")
+	private String eOAdditionalAddressLine1;
+
+	@Column(name="E_O_ADDITIONAL_ADDRESS_LINE_2")
+	private String eOAdditionalAddressLine2;
+
+	@Column(name="E_O_ADDITIONAL_ADDRESS_LINE_3")
+	private String eOAdditionalAddressLine3;
+
+	@Column(name="E_O_ADDITIONAL_ADDRESS_NUMBER")
+	private String eOAdditionalAddressNumber;
+
+	@Column(name="E_O_ADDITIONAL_ADDRESS_NUMBER_WITHIN_BUILDING")
+	private String eOAdditionalAddressNumberWithinBuilding;
+
+	@Column(name="E_O_ADDRESS_NUMBER")
+	private String eOAddressNumber;
+
+	@Column(name="E_O_ADDRESS_NUMBER_WITHIN_BUILDING")
+	private String eOAddressNumberWithinBuilding;
+
+	@Column(name="E_O_ADDRESS_TYPE")
+	private String eOAddressType;
+
+	@Column(name="E_O_CITY")
+	private String eOCity;
+
+	@Column(name="E_O_COUNTRY")
+	private String eOCountry;
+
+	@Column(name="E_O_FIRST_ADDRESS_LINE")
+	private String eOFirstAddressLine;
+
+	@Column(name="E_O_LANG")
+	private String eOLang;
+
+	@Column(name="E_O_MAIL_ROUTING_1")
+	private String eOMailRouting1;
+
+	@Column(name="E_O_POSTALCODE")
+	private String eOPostalcode;
+
+	@Column(name="E_O_REGION")
+	private String eORegion;
+
+	@Column(name="E_OTHER_ENTITY_NAMES_TYPE")
+	private String eOtherEntityNamesType;
+
+	@Column(name="E_OTHER_LEGAL_FORM")
+	private String eOtherLegalForm;
+
+	@Column(name="E_OTHER_REGISTRATION_AUTHORITY_ID")
+	private String eOtherRegistrationAuthorityId;
+
+	@Column(name="E_REGISTRATION_AUTHORITY_ENTITY_ID")
+	private String eRegistrationAuthorityEntityId;
+
+	@Column(name="E_REGISTRATION_AUTHORITY_ID")
+	private String eRegistrationAuthorityId;
+
+	@Column(name="E_SUCCESSOR_ENTITY_NAME")
+	private String eSuccessorEntityName;
+
+	@Column(name="E_SUCCESSOR_LEI")
+	private String eSuccessorLei;
+
+	@Column(name="E_TO_ADDITIONAL_ADDRESS_LINE_1")
+	private String eToAdditionalAddressLine1;
+
+	@Column(name="E_TO_ADDITIONAL_ADDRESS_LINE_2")
+	private String eToAdditionalAddressLine2;
+
+	@Column(name="E_TO_ADDITIONAL_ADDRESS_LINE_3")
+	private String eToAdditionalAddressLine3;
+
+	@Column(name="E_TO_ADDRESS_NUMBER")
+	private String eToAddressNumber;
+
+	@Column(name="E_TO_ADDRESS_NUMBER_WITHIN_BUILDING")
+	private String eToAddressNumberWithinBuilding;
+
+	@Column(name="E_TO_ADDRESS_TYPE")
+	private String eToAddressType;
+
+	@Column(name="E_TO_CITY")
+	private String eToCity;
+
+	@Column(name="E_TO_COUNTRY")
+	private String eToCountry;
+
+	@Column(name="E_TO_FIRST_ADDRESS_LINE")
+	private String eToFirstAddressLine;
+
+	@Column(name="E_TO_LANG")
+	private String eToLang;
+
+	@Column(name="E_TO_MAIL_ROUTING")
+	private String eToMailRouting;
+
+	@Column(name="E_TO_POSTALCODE")
+	private String eToPostalcode;
+
+	@Column(name="E_TO_REGION")
+	private String eToRegion;
+
+	@Column(name="E_TRANSLITERATED_OTHER_ENTITY_NAMES_TYPE")
+	private String eTransliteratedOtherEntityNamesType;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "INITIAL_REGISTRATION_DATE")
-	private Date initialRegistrationDate;
-
-	@Column(name = "L_ADDRESS_NUMBER_2")
-	private String lAddressNumber2;
-
-	@Column(name = "L_CITY_1")
-	private String lCity1;
-
-	@Column(name = "L_COUNTRY_1")
-	private String lCountry1;
-
-	@Column(name = "L_FIRST_ADDRESS_LINE_1")
-	private String lFirstAddressLine1;
-
-	@Column(name = "L_LANG_1")
-	private String lLang1;
-
-	@Column(name = "L_POSTALCODE_1")
-	private String lPostalcode1;
-
-	@Column(name = "L_REGION_1")
-	private String lRegion1;
+	@Column(name="R_INITIAL_REGISTRATION_DATE")
+	private Date rInitialRegistrationDate;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "LAST_UPDATE_DATE")
-	private Date lastUpdateDate;
+	@Column(name="R_LAST_UPDATE_DATE")
+	private Date rLastUpdateDate;
 
-	@Column(name = "LEGAL_FORM_TYPE_ENTITY_LEGAL_FORM_CODE")
-	private String legalFormTypeEntityLegalFormCode;
-
-	@Column(name = "LEGAL_FORM_TYPE_OTHER_LEGAL_FORM")
-	private String legalFormTypeOtherLegalForm;
-
-	@Column(name = "LEGAL_JURISDICTION")
-	private String legalJurisdiction;
-
-	@Column(name = "LEI_RECORD_NEXT_VERSION_TYPE")
-	private String leiRecordNextVersionType;
-
-	@Column(name = "LEI_TYPE")
-	private String leiType;
-
-	@Column(name = "MANAGING_LOU")
-	private String managingLou;
+	@Column(name="R_MANAGING_LOU")
+	private String rManagingLou;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "NEXT_RENEWAL_DATE")
-	private Date nextRenewalDate;
+	@Column(name="R_NEXT_RENEWAL_DATE")
+	private Date rNextRenewalDate;
 
-	@Column(name = "O_ADDITIONAL_ADDRESS_NUMBER_2")
-	private String oAdditionalAddressNumber2;
+	@Column(name="R_OTHER_VALIDATION_AUTHORITIES_TYPE")
+	private String rOtherValidationAuthoritiesType;
 
-	@Column(name = "O_ADDITIONAL_ADDRESS_NUMBER_LINE_1")
-	private String oAdditionalAddressNumberLine1;
+	@Column(name="R_OTHER_VALIDATION_AUTHORITY_ID")
+	private String rOtherValidationAuthorityId;
 
-	@Column(name = "O_ADDITIONAL_ADDRESS_NUMBER_WITHIN_BUILDING_1")
-	private String oAdditionalAddressNumberWithinBuilding1;
+	@Column(name="R_REGISTRATION_STATUS")
+	private String rRegistrationStatus;
 
-	@Column(name = "O_ADDRESS_NUMBER_2")
-	private String oAddressNumber2;
+	@Column(name="R_VALIDATION_AUTHORITY_ENTITY_ID")
+	private String rValidationAuthorityEntityId;
 
-	@Column(name = "O_ADDRESS_NUMBER_WITHIN_BUILDING_1")
-	private String oAddressNumberWithinBuilding1;
+	@Column(name="R_VALIDATION_AUTHORITY_ID")
+	private String rValidationAuthorityId;
 
-	@Column(name = "O_CITY_1")
-	private String oCity1;
+	@Column(name="R_VALIDATION_SOURCES")
+	private String rValidationSources;
 
-	@Column(name = "O_COUNTRY_1")
-	private String oCountry1;
-
-	@Column(name = "O_FIRST_ADDRESS_LINE_1")
-	private String oFirstAddressLine1;
-
-	@Column(name = "O_LANG_1")
-	private String oLang1;
-
-	@Column(name = "O_MAIL_ROUTING_1")
-	private String oMailRouting1;
-
-	@Column(name = "O_POSTALCODE_1")
-	private String oPostalcode1;
-
-	@Column(name = "O_REGION_1")
-	private String oRegion1;
-
-	@Column(name = "O_TYPE")
-	private String oType;
-
-	@Column(name = "OTHER_LEGAL_FORM")
-	private String otherLegalForm;
-
-	@Column(name = "OTHER_REGISTRATION_AUTHORITY_ID")
-	private String otherRegistrationAuthorityId;
-
-	@Column(name = "OTHER_VALIDATION_AUTHORITIES_TYPE")
-	private String otherValidationAuthoritiesType;
-
-	@Column(name = "REGISTRATION_AUTHORITY_ENTITY_ID")
-	private String registrationAuthorityEntityId;
-
-	@Column(name = "REGISTRATION_AUTHORITY_ID")
-	private String registrationAuthorityId;
-
-	@Column(name = "REGISTRATION_NEXT_VERSION_TYPE")
-	private String registrationNextVersionType;
-
-	@Column(name = "REGISTRATION_STATUS")
-	private String registrationStatus;
-
-	@Column(name = "SUCCESSOR_ENTITY_TYPE_SUCCESSOR_ENTITY_NAME_LANG")
-	private String successorEntityTypeSuccessorEntityNameLang;
-
-	@Column(name = "SUCCESSOR_ENTITY_TYPE_SUCCESSOR_ENTITY_NAME_VALUE")
-	private String successorEntityTypeSuccessorEntityNameValue;
-
-	@Column(name = "SUCCESSOR_ENTITY_TYPE_SUCCESSOR_LEI")
-	private String successorEntityTypeSuccessorLei;
-
-	@Column(name = "SUCCESSOR_LEI")
-	private String successorLei;
-
-	@Column(name = "TO_ADDRESS_NUMBER_2")
-	private String toAddressNumber2;
-
-	@Column(name = "TO_ADDRESS_NUMBER_WITHIN_BUILDING_1")
-	private String toAddressNumberWithinBuilding1;
-
-	@Column(name = "TO_FIRST_ADDRESS_LINE_1")
-	private String toFirstAddressLine1;
-
-	@Column(name = "TO_Mail_Routing_1")
-	private String toMailRouting1;
-
-	@Column(name = "TO_Additional_Address_Number_Line_1")
-	private String toAdditionalAddressNumberLine1;
-
-	@Column(name = "TO_Country_1")
-	private String toCountry1;
-
-	@Column(name = "To_Region_1")
-	private String toRegion1;
-
-	public String getToMailRouting1() {
-		return toMailRouting1;
-	}
-
-	public void setToMailRouting1(String toMailRouting1) {
-		this.toMailRouting1 = toMailRouting1;
-	}
-
-	public String getToAdditionalAddressNumberLine1() {
-		return toAdditionalAddressNumberLine1;
-	}
-
-	public void setToAdditionalAddressNumberLine1(String toAdditionalAddressNumberLine1) {
-		this.toAdditionalAddressNumberLine1 = toAdditionalAddressNumberLine1;
-	}
-
-	public String getToCountry1() {
-		return toCountry1;
-	}
-
-	public void setToCountry1(String toCountry1) {
-		this.toCountry1 = toCountry1;
-	}
-
-	public String getToRegion1() {
-		return toRegion1;
-	}
-
-	public void setToRegion1(String toRegion1) {
-		this.toRegion1 = toRegion1;
-	}
-
-	public String getToCity1() {
-		return toCity1;
-	}
-
-	public void setToCity1(String toCity1) {
-		this.toCity1 = toCity1;
-	}
-
-	public String getToPostalcode1() {
-		return toPostalcode1;
-	}
-
-	public void setToPostalcode1(String toPostalcode1) {
-		this.toPostalcode1 = toPostalcode1;
-	}
-
-	@Column(name = "TO_CITY_1")
-	private String toCity1;
-
-	@Column(name = "TO_POSTALCODE_1")
-	private String toPostalcode1;
-
-	@Column(name = "VALIDATION_AUTHORITY_TYPE_OTHER_VALIDATION_AUTHORITY_ID")
-	private String validationAuthorityTypeOtherValidationAuthorityId;
-
-	@Column(name = "VALIDATION_AUTHORITY_TYPE_VALIDATION_AUTHORITY_ENTITY_ID")
-	private String validationAuthorityTypeValidationAuthorityEntityId;
-
-	@Column(name = "VALIDATION_AUTHORITY_TYPE_VALIDATION_AUTHORITY_ID")
-	private String validationAuthorityTypeValidationAuthorityId;
-
-	@Column(name = "VALIDATION_SOURCES")
-	private String validationSources;
-
-	// bi-directional many-to-one association to Level2RelationshipRecord
-	@OneToMany(mappedBy = "level1LeiRecord")
-	private List<Level2RelationshipRecord> level2RelationshipRecords;
-
-	/*
-	 * //bi-directional many-to-one association to Level2ReportingException
-	 * 
-	 * @OneToMany(mappedBy="level1LeiRecord") private List<Level2ReportingException>
-	 * level2ReportingExceptions;
-	 */
 	public Level1LeiRecord() {
 	}
 
@@ -355,712 +276,652 @@ public class Level1LeiRecord implements Serializable {
 		this.lei = lei;
 	}
 
-	public String getAssociatedEntityTypeAssociatedEntityName() {
-		return this.associatedEntityTypeAssociatedEntityName;
+	public String getEAssociatedEntityName() {
+		return this.eAssociatedEntityName;
 	}
 
-	public void setAssociatedEntityTypeAssociatedEntityName(String associatedEntityTypeAssociatedEntityName) {
-		this.associatedEntityTypeAssociatedEntityName = associatedEntityTypeAssociatedEntityName;
+	public void setEAssociatedEntityName(String eAssociatedEntityName) {
+		this.eAssociatedEntityName = eAssociatedEntityName;
 	}
 
-	public String getAssociatedEntityTypeAssociatedEntityTypeEnum() {
-		return this.associatedEntityTypeAssociatedEntityTypeEnum;
+	public String getEAssociatedEntityType() {
+		return this.eAssociatedEntityType;
 	}
 
-	public void setAssociatedEntityTypeAssociatedEntityTypeEnum(String associatedEntityTypeAssociatedEntityTypeEnum) {
-		this.associatedEntityTypeAssociatedEntityTypeEnum = associatedEntityTypeAssociatedEntityTypeEnum;
+	public void setEAssociatedEntityType(String eAssociatedEntityType) {
+		this.eAssociatedEntityType = eAssociatedEntityType;
 	}
 
-	public String getAssociatedEntityTypeAssociatedLei() {
-		return this.associatedEntityTypeAssociatedLei;
+	public String getEAssociatedLei() {
+		return this.eAssociatedLei;
 	}
 
-	public void setAssociatedEntityTypeAssociatedLei(String associatedEntityTypeAssociatedLei) {
-		this.associatedEntityTypeAssociatedLei = associatedEntityTypeAssociatedLei;
+	public void setEAssociatedLei(String eAssociatedLei) {
+		this.eAssociatedLei = eAssociatedLei;
 	}
 
-	public String getAssociatedLeiId() {
-		return this.associatedLeiId;
+	public String getECategoryType() {
+		return this.eCategoryType;
 	}
 
-	public void setAssociatedLeiId(String associatedLeiId) {
-		this.associatedLeiId = associatedLeiId;
+	public void setECategoryType(String eCategoryType) {
+		this.eCategoryType = eCategoryType;
 	}
 
-	public String getEntityCategoryValue() {
-		return this.entityCategoryValue;
+	public Date getEEntityExpirationDate() {
+		return this.eEntityExpirationDate;
 	}
 
-	public void setEntityCategoryValue(String entityCategoryValue) {
-		this.entityCategoryValue = entityCategoryValue;
+	public void setEEntityExpirationDate(Date eEntityExpirationDate) {
+		this.eEntityExpirationDate = eEntityExpirationDate;
 	}
 
-	public Date getEntityExpirationDate() {
-		return this.entityExpirationDate;
+	public String getEEntityExpirationReason() {
+		return this.eEntityExpirationReason;
 	}
 
-	public void setEntityExpirationDate(Date entityExpirationDate) {
-		this.entityExpirationDate = entityExpirationDate;
+	public void setEEntityExpirationReason(String eEntityExpirationReason) {
+		this.eEntityExpirationReason = eEntityExpirationReason;
 	}
 
-	public String getEntityExpirationReason() {
-		return this.entityExpirationReason;
+	public String getEEntityLegalFormCode() {
+		return this.eEntityLegalFormCode;
 	}
 
-	public void setEntityExpirationReason(String entityExpirationReason) {
-		this.entityExpirationReason = entityExpirationReason;
+	public void setEEntityLegalFormCode(String eEntityLegalFormCode) {
+		this.eEntityLegalFormCode = eEntityLegalFormCode;
 	}
 
-	public String getEntityLegalFormCode() {
-		return this.entityLegalFormCode;
+	public String getEEntityStatus() {
+		return this.eEntityStatus;
 	}
 
-	public void setEntityLegalFormCode(String entityLegalFormCode) {
-		this.entityLegalFormCode = entityLegalFormCode;
+	public void setEEntityStatus(String eEntityStatus) {
+		this.eEntityStatus = eEntityStatus;
 	}
 
-	public String getEntityNextVersionTypeAny() {
-		return this.entityNextVersionTypeAny;
+	public String getEHqAdditionalAddressLine1() {
+		return this.eHqAdditionalAddressLine1;
 	}
 
-	public void setEntityNextVersionTypeAny(String entityNextVersionTypeAny) {
-		this.entityNextVersionTypeAny = entityNextVersionTypeAny;
+	public void setEHqAdditionalAddressLine1(String eHqAdditionalAddressLine1) {
+		this.eHqAdditionalAddressLine1 = eHqAdditionalAddressLine1;
 	}
 
-	public String getEntityStatus() {
-		return this.entityStatus;
+	public String getEHqAdditionalAddressLine2() {
+		return this.eHqAdditionalAddressLine2;
 	}
 
-	public void setEntityStatus(String entityStatus) {
-		this.entityStatus = entityStatus;
+	public void setEHqAdditionalAddressLine2(String eHqAdditionalAddressLine2) {
+		this.eHqAdditionalAddressLine2 = eHqAdditionalAddressLine2;
 	}
 
-	public String getEntityTypeLegalAddressAdditionalAddressLine() {
-		return this.entityTypeLegalAddressAdditionalAddressLine;
+	public String getEHqAdditionalAddressLine3() {
+		return this.eHqAdditionalAddressLine3;
 	}
 
-	public void setEntityTypeLegalAddressAdditionalAddressLine(String entityTypeLegalAddressAdditionalAddressLine) {
-		this.entityTypeLegalAddressAdditionalAddressLine = entityTypeLegalAddressAdditionalAddressLine;
+	public void setEHqAdditionalAddressLine3(String eHqAdditionalAddressLine3) {
+		this.eHqAdditionalAddressLine3 = eHqAdditionalAddressLine3;
 	}
 
-	public String getEntityTypeLegalAddressAddressNumber() {
-		return this.entityTypeLegalAddressAddressNumber;
+	public String getEHqAddressNumber() {
+		return this.eHqAddressNumber;
 	}
 
-	public void setEntityTypeLegalAddressAddressNumber(String entityTypeLegalAddressAddressNumber) {
-		this.entityTypeLegalAddressAddressNumber = entityTypeLegalAddressAddressNumber;
+	public void setEHqAddressNumber(String eHqAddressNumber) {
+		this.eHqAddressNumber = eHqAddressNumber;
 	}
 
-	public String getEntityTypeLegalAddressAddressNumberWithinBuilding() {
-		return this.entityTypeLegalAddressAddressNumberWithinBuilding;
+	public String getEHqAddressnumberWithinBuilding() {
+		return this.eHqAddressnumberWithinBuilding;
 	}
 
-	public void setEntityTypeLegalAddressAddressNumberWithinBuilding(
-			String entityTypeLegalAddressAddressNumberWithinBuilding) {
-		this.entityTypeLegalAddressAddressNumberWithinBuilding = entityTypeLegalAddressAddressNumberWithinBuilding;
+	public void setEHqAddressnumberWithinBuilding(String eHqAddressnumberWithinBuilding) {
+		this.eHqAddressnumberWithinBuilding = eHqAddressnumberWithinBuilding;
 	}
 
-	public String getEntityTypeLegalAddressCity() {
-		return this.entityTypeLegalAddressCity;
+	public String getEHqCity() {
+		return this.eHqCity;
 	}
 
-	public void setEntityTypeLegalAddressCity(String entityTypeLegalAddressCity) {
-		this.entityTypeLegalAddressCity = entityTypeLegalAddressCity;
+	public void setEHqCity(String eHqCity) {
+		this.eHqCity = eHqCity;
 	}
 
-	public String getEntityTypeLegalAddressCountry() {
-		return this.entityTypeLegalAddressCountry;
+	public String getEHqCountry() {
+		return this.eHqCountry;
 	}
 
-	public void setEntityTypeLegalAddressCountry(String entityTypeLegalAddressCountry) {
-		this.entityTypeLegalAddressCountry = entityTypeLegalAddressCountry;
+	public void setEHqCountry(String eHqCountry) {
+		this.eHqCountry = eHqCountry;
 	}
 
-	public String getEntityTypeLegalAddressFirstAddressLine() {
-		return this.entityTypeLegalAddressFirstAddressLine;
+	public String getEHqFirstAddressLine() {
+		return this.eHqFirstAddressLine;
 	}
 
-	public void setEntityTypeLegalAddressFirstAddressLine(String entityTypeLegalAddressFirstAddressLine) {
-		this.entityTypeLegalAddressFirstAddressLine = entityTypeLegalAddressFirstAddressLine;
+	public void setEHqFirstAddressLine(String eHqFirstAddressLine) {
+		this.eHqFirstAddressLine = eHqFirstAddressLine;
 	}
 
-	public String getEntityTypeLegalAddressLang() {
-		return this.entityTypeLegalAddressLang;
+	public String getEHqLang() {
+		return this.eHqLang;
 	}
 
-	public void setEntityTypeLegalAddressLang(String entityTypeLegalAddressLang) {
-		this.entityTypeLegalAddressLang = entityTypeLegalAddressLang;
+	public void setEHqLang(String eHqLang) {
+		this.eHqLang = eHqLang;
 	}
 
-	public String getEntityTypeLegalAddressMailRouting() {
-		return this.entityTypeLegalAddressMailRouting;
+	public String getEHqMailRouting() {
+		return this.eHqMailRouting;
 	}
 
-	public void setEntityTypeLegalAddressMailRouting(String entityTypeLegalAddressMailRouting) {
-		this.entityTypeLegalAddressMailRouting = entityTypeLegalAddressMailRouting;
+	public void setEHqMailRouting(String eHqMailRouting) {
+		this.eHqMailRouting = eHqMailRouting;
 	}
 
-	public String getEntityTypeLegalAddressPostalcode() {
-		return this.entityTypeLegalAddressPostalcode;
+	public String getEHqPostalCode() {
+		return this.eHqPostalCode;
 	}
 
-	public void setEntityTypeLegalAddressPostalcode(String entityTypeLegalAddressPostalcode) {
-		this.entityTypeLegalAddressPostalcode = entityTypeLegalAddressPostalcode;
+	public void setEHqPostalCode(String eHqPostalCode) {
+		this.eHqPostalCode = eHqPostalCode;
 	}
 
-	public String getEntityTypeLegalAddressRegion() {
-		return this.entityTypeLegalAddressRegion;
+	public String getEHqRegion() {
+		return this.eHqRegion;
 	}
 
-	public void setEntityTypeLegalAddressRegion(String entityTypeLegalAddressRegion) {
-		this.entityTypeLegalAddressRegion = entityTypeLegalAddressRegion;
+	public void setEHqRegion(String eHqRegion) {
+		this.eHqRegion = eHqRegion;
 	}
 
-	public String getEntityTypeLegalNameNameType() {
-		return this.entityTypeLegalNameNameType;
+	public String getELegalAddressAdditionalAddressLine1() {
+		return this.eLegalAddressAdditionalAddressLine1;
 	}
 
-	public void setEntityTypeLegalNameNameType(String entityTypeLegalNameNameType) {
-		this.entityTypeLegalNameNameType = entityTypeLegalNameNameType;
+	public void setELegalAddressAdditionalAddressLine1(String eLegalAddressAdditionalAddressLine1) {
+		this.eLegalAddressAdditionalAddressLine1 = eLegalAddressAdditionalAddressLine1;
 	}
 
-	public String getEntityTypeLegalNameNameTypeLang() {
-		return this.entityTypeLegalNameNameTypeLang;
+	public String getELegalAddressAdditionalAddressLine2() {
+		return this.eLegalAddressAdditionalAddressLine2;
 	}
 
-	public void setEntityTypeLegalNameNameTypeLang(String entityTypeLegalNameNameTypeLang) {
-		this.entityTypeLegalNameNameTypeLang = entityTypeLegalNameNameTypeLang;
+	public void setELegalAddressAdditionalAddressLine2(String eLegalAddressAdditionalAddressLine2) {
+		this.eLegalAddressAdditionalAddressLine2 = eLegalAddressAdditionalAddressLine2;
 	}
 
-	public String getEntityTypeOtherEntityNamesType() {
-		return this.entityTypeOtherEntityNamesType;
+	public String getELegalAddressAdditionalAddressLine3() {
+		return this.eLegalAddressAdditionalAddressLine3;
 	}
 
-	public void setEntityTypeOtherEntityNamesType(String entityTypeOtherEntityNamesType) {
-		this.entityTypeOtherEntityNamesType = entityTypeOtherEntityNamesType;
+	public void setELegalAddressAdditionalAddressLine3(String eLegalAddressAdditionalAddressLine3) {
+		this.eLegalAddressAdditionalAddressLine3 = eLegalAddressAdditionalAddressLine3;
 	}
 
-	public String getEntityTypeTransliteratedOtherEntityNamesType() {
-		return this.entityTypeTransliteratedOtherEntityNamesType;
+	public String getELegalAddressAddressNumber() {
+		return this.eLegalAddressAddressNumber;
 	}
 
-	public void setEntityTypeTransliteratedOtherEntityNamesType(String entityTypeTransliteratedOtherEntityNamesType) {
-		this.entityTypeTransliteratedOtherEntityNamesType = entityTypeTransliteratedOtherEntityNamesType;
+	public void setELegalAddressAddressNumber(String eLegalAddressAddressNumber) {
+		this.eLegalAddressAddressNumber = eLegalAddressAddressNumber;
 	}
 
-	public String getExtensionType() {
-		return this.extensionType;
+	public String getELegalAddressAddressNumberWithinBuilding() {
+		return this.eLegalAddressAddressNumberWithinBuilding;
 	}
 
-	public void setExtensionType(String extensionType) {
-		this.extensionType = extensionType;
+	public void setELegalAddressAddressNumberWithinBuilding(String eLegalAddressAddressNumberWithinBuilding) {
+		this.eLegalAddressAddressNumberWithinBuilding = eLegalAddressAddressNumberWithinBuilding;
 	}
 
-	public String getHqAdditionalAddressLine() {
-		return this.hqAdditionalAddressLine;
+	public String getELegalAddressCity() {
+		return this.eLegalAddressCity;
 	}
 
-	public void setHqAdditionalAddressLine(String hqAdditionalAddressLine) {
-		this.hqAdditionalAddressLine = hqAdditionalAddressLine;
+	public void setELegalAddressCity(String eLegalAddressCity) {
+		this.eLegalAddressCity = eLegalAddressCity;
 	}
 
-	public String getHqAddressNumber() {
-		return this.hqAddressNumber;
+	public String getELegalAddressCountry() {
+		return this.eLegalAddressCountry;
 	}
 
-	public void setHqAddressNumber(String hqAddressNumber) {
-		this.hqAddressNumber = hqAddressNumber;
+	public void setELegalAddressCountry(String eLegalAddressCountry) {
+		this.eLegalAddressCountry = eLegalAddressCountry;
 	}
 
-	public String getHqAddressnumberWithinBuilding() {
-		return this.hqAddressnumberWithinBuilding;
+	public String getELegalAddressFirstAddressLine() {
+		return this.eLegalAddressFirstAddressLine;
 	}
 
-	public void setHqAddressnumberWithinBuilding(String hqAddressnumberWithinBuilding) {
-		this.hqAddressnumberWithinBuilding = hqAddressnumberWithinBuilding;
+	public void setELegalAddressFirstAddressLine(String eLegalAddressFirstAddressLine) {
+		this.eLegalAddressFirstAddressLine = eLegalAddressFirstAddressLine;
 	}
 
-	public String getHqCity() {
-		return this.hqCity;
+	public String getELegalAddressLang() {
+		return this.eLegalAddressLang;
 	}
 
-	public void setHqCity(String hqCity) {
-		this.hqCity = hqCity;
+	public void setELegalAddressLang(String eLegalAddressLang) {
+		this.eLegalAddressLang = eLegalAddressLang;
 	}
 
-	public String getHqCountry() {
-		return this.hqCountry;
+	public String getELegalAddressMailRouting() {
+		return this.eLegalAddressMailRouting;
 	}
 
-	public void setHqCountry(String hqCountry) {
-		this.hqCountry = hqCountry;
+	public void setELegalAddressMailRouting(String eLegalAddressMailRouting) {
+		this.eLegalAddressMailRouting = eLegalAddressMailRouting;
 	}
 
-	public String getHqFirstAddressLine() {
-		return this.hqFirstAddressLine;
+	public String getELegalAddressPostalcode() {
+		return this.eLegalAddressPostalcode;
 	}
 
-	public void setHqFirstAddressLine(String hqFirstAddressLine) {
-		this.hqFirstAddressLine = hqFirstAddressLine;
+	public void setELegalAddressPostalcode(String eLegalAddressPostalcode) {
+		this.eLegalAddressPostalcode = eLegalAddressPostalcode;
 	}
 
-	public String getHqLang() {
-		return this.hqLang;
+	public String getELegalAddressRegion() {
+		return this.eLegalAddressRegion;
 	}
 
-	public void setHqLang(String hqLang) {
-		this.hqLang = hqLang;
+	public void setELegalAddressRegion(String eLegalAddressRegion) {
+		this.eLegalAddressRegion = eLegalAddressRegion;
 	}
 
-	public String getHqMailRouting() {
-		return this.hqMailRouting;
+	public String getELegalJurisdiction() {
+		return this.eLegalJurisdiction;
 	}
 
-	public void setHqMailRouting(String hqMailRouting) {
-		this.hqMailRouting = hqMailRouting;
+	public void setELegalJurisdiction(String eLegalJurisdiction) {
+		this.eLegalJurisdiction = eLegalJurisdiction;
 	}
 
-	public String getHqPostalCode() {
-		return this.hqPostalCode;
+	public String getELegalNameTypeLang() {
+		return this.eLegalNameTypeLang;
 	}
 
-	public void setHqPostalCode(String hqPostalCode) {
-		this.hqPostalCode = hqPostalCode;
+	public void setELegalNameTypeLang(String eLegalNameTypeLang) {
+		this.eLegalNameTypeLang = eLegalNameTypeLang;
 	}
 
-	public String getHqRegion() {
-		return this.hqRegion;
+	public String getELegalNameTypeValue() {
+		return this.eLegalNameTypeValue;
 	}
 
-	public void setHqRegion(String hqRegion) {
-		this.hqRegion = hqRegion;
+	public void setELegalNameTypeValue(String eLegalNameTypeValue) {
+		this.eLegalNameTypeValue = eLegalNameTypeValue;
 	}
 
-	public Date getInitialRegistrationDate() {
-		return this.initialRegistrationDate;
+	public String getEOAdditionalAddressLine1() {
+		return this.eOAdditionalAddressLine1;
 	}
 
-	public void setInitialRegistrationDate(Date initialRegistrationDate) {
-		this.initialRegistrationDate = initialRegistrationDate;
+	public void setEOAdditionalAddressLine1(String eOAdditionalAddressLine1) {
+		this.eOAdditionalAddressLine1 = eOAdditionalAddressLine1;
 	}
 
-	public String getLAddressNumber2() {
-		return this.lAddressNumber2;
+	public String getEOAdditionalAddressLine2() {
+		return this.eOAdditionalAddressLine2;
 	}
 
-	public void setLAddressNumber2(String lAddressNumber2) {
-		this.lAddressNumber2 = lAddressNumber2;
+	public void setEOAdditionalAddressLine2(String eOAdditionalAddressLine2) {
+		this.eOAdditionalAddressLine2 = eOAdditionalAddressLine2;
 	}
 
-	public String getLCity1() {
-		return this.lCity1;
+	public String getEOAdditionalAddressLine3() {
+		return this.eOAdditionalAddressLine3;
 	}
 
-	public void setLCity1(String lCity1) {
-		this.lCity1 = lCity1;
+	public void setEOAdditionalAddressLine3(String eOAdditionalAddressLine3) {
+		this.eOAdditionalAddressLine3 = eOAdditionalAddressLine3;
 	}
 
-	public String getLCountry1() {
-		return this.lCountry1;
+	public String getEOAdditionalAddressNumber() {
+		return this.eOAdditionalAddressNumber;
 	}
 
-	public void setLCountry1(String lCountry1) {
-		this.lCountry1 = lCountry1;
+	public void setEOAdditionalAddressNumber(String eOAdditionalAddressNumber) {
+		this.eOAdditionalAddressNumber = eOAdditionalAddressNumber;
 	}
 
-	public String getLFirstAddressLine1() {
-		return this.lFirstAddressLine1;
+	public String getEOAdditionalAddressNumberWithinBuilding() {
+		return this.eOAdditionalAddressNumberWithinBuilding;
 	}
 
-	public void setLFirstAddressLine1(String lFirstAddressLine1) {
-		this.lFirstAddressLine1 = lFirstAddressLine1;
+	public void setEOAdditionalAddressNumberWithinBuilding(String eOAdditionalAddressNumberWithinBuilding) {
+		this.eOAdditionalAddressNumberWithinBuilding = eOAdditionalAddressNumberWithinBuilding;
 	}
 
-	public String getLLang1() {
-		return this.lLang1;
+	public String getEOAddressNumber() {
+		return this.eOAddressNumber;
 	}
 
-	public void setLLang1(String lLang1) {
-		this.lLang1 = lLang1;
+	public void setEOAddressNumber(String eOAddressNumber) {
+		this.eOAddressNumber = eOAddressNumber;
 	}
 
-	public String getLPostalcode1() {
-		return this.lPostalcode1;
+	public String getEOAddressNumberWithinBuilding() {
+		return this.eOAddressNumberWithinBuilding;
 	}
 
-	public void setLPostalcode1(String lPostalcode1) {
-		this.lPostalcode1 = lPostalcode1;
+	public void setEOAddressNumberWithinBuilding(String eOAddressNumberWithinBuilding) {
+		this.eOAddressNumberWithinBuilding = eOAddressNumberWithinBuilding;
 	}
 
-	public String getLRegion1() {
-		return this.lRegion1;
+	public String getEOAddressType() {
+		return this.eOAddressType;
 	}
 
-	public void setLRegion1(String lRegion1) {
-		this.lRegion1 = lRegion1;
+	public void setEOAddressType(String eOAddressType) {
+		this.eOAddressType = eOAddressType;
 	}
 
-	public Date getLastUpdateDate() {
-		return this.lastUpdateDate;
+	public String getEOCity() {
+		return this.eOCity;
 	}
 
-	public void setLastUpdateDate(Date lastUpdateDate) {
-		this.lastUpdateDate = lastUpdateDate;
+	public void setEOCity(String eOCity) {
+		this.eOCity = eOCity;
 	}
 
-	public String getLegalFormTypeEntityLegalFormCode() {
-		return this.legalFormTypeEntityLegalFormCode;
+	public String getEOCountry() {
+		return this.eOCountry;
 	}
 
-	public void setLegalFormTypeEntityLegalFormCode(String legalFormTypeEntityLegalFormCode) {
-		this.legalFormTypeEntityLegalFormCode = legalFormTypeEntityLegalFormCode;
+	public void setEOCountry(String eOCountry) {
+		this.eOCountry = eOCountry;
 	}
 
-	public String getLegalFormTypeOtherLegalForm() {
-		return this.legalFormTypeOtherLegalForm;
+	public String getEOFirstAddressLine() {
+		return this.eOFirstAddressLine;
 	}
 
-	public void setLegalFormTypeOtherLegalForm(String legalFormTypeOtherLegalForm) {
-		this.legalFormTypeOtherLegalForm = legalFormTypeOtherLegalForm;
+	public void setEOFirstAddressLine(String eOFirstAddressLine) {
+		this.eOFirstAddressLine = eOFirstAddressLine;
 	}
 
-	public String getLegalJurisdiction() {
-		return this.legalJurisdiction;
+	public String getEOLang() {
+		return this.eOLang;
 	}
 
-	public void setLegalJurisdiction(String legalJurisdiction) {
-		this.legalJurisdiction = legalJurisdiction;
+	public void setEOLang(String eOLang) {
+		this.eOLang = eOLang;
 	}
 
-	public String getLeiRecordNextVersionType() {
-		return this.leiRecordNextVersionType;
+	public String getEOMailRouting1() {
+		return this.eOMailRouting1;
 	}
 
-	public void setLeiRecordNextVersionType(String leiRecordNextVersionType) {
-		this.leiRecordNextVersionType = leiRecordNextVersionType;
+	public void setEOMailRouting1(String eOMailRouting1) {
+		this.eOMailRouting1 = eOMailRouting1;
 	}
 
-	public String getLeiType() {
-		return this.leiType;
+	public String getEOPostalcode() {
+		return this.eOPostalcode;
 	}
 
-	public void setLeiType(String leiType) {
-		this.leiType = leiType;
+	public void setEOPostalcode(String eOPostalcode) {
+		this.eOPostalcode = eOPostalcode;
 	}
 
-	public String getManagingLou() {
-		return this.managingLou;
+	public String getEORegion() {
+		return this.eORegion;
 	}
 
-	public void setManagingLou(String managingLou) {
-		this.managingLou = managingLou;
+	public void setEORegion(String eORegion) {
+		this.eORegion = eORegion;
 	}
 
-	public Date getNextRenewalDate() {
-		return this.nextRenewalDate;
+	public String getEOtherEntityNamesType() {
+		return this.eOtherEntityNamesType;
 	}
 
-	public void setNextRenewalDate(Date nextRenewalDate) {
-		this.nextRenewalDate = nextRenewalDate;
+	public void setEOtherEntityNamesType(String eOtherEntityNamesType) {
+		this.eOtherEntityNamesType = eOtherEntityNamesType;
 	}
 
-	public String getOAdditionalAddressNumber2() {
-		return this.oAdditionalAddressNumber2;
+	public String getEOtherLegalForm() {
+		return this.eOtherLegalForm;
 	}
 
-	public void setOAdditionalAddressNumber2(String oAdditionalAddressNumber2) {
-		this.oAdditionalAddressNumber2 = oAdditionalAddressNumber2;
+	public void setEOtherLegalForm(String eOtherLegalForm) {
+		this.eOtherLegalForm = eOtherLegalForm;
 	}
 
-	public String getOAdditionalAddressNumberLine1() {
-		return this.oAdditionalAddressNumberLine1;
+	public String getEOtherRegistrationAuthorityId() {
+		return this.eOtherRegistrationAuthorityId;
 	}
 
-	public void setOAdditionalAddressNumberLine1(String oAdditionalAddressNumberLine1) {
-		this.oAdditionalAddressNumberLine1 = oAdditionalAddressNumberLine1;
+	public void setEOtherRegistrationAuthorityId(String eOtherRegistrationAuthorityId) {
+		this.eOtherRegistrationAuthorityId = eOtherRegistrationAuthorityId;
 	}
 
-	public String getOAdditionalAddressNumberWithinBuilding1() {
-		return this.oAdditionalAddressNumberWithinBuilding1;
+	public String getERegistrationAuthorityEntityId() {
+		return this.eRegistrationAuthorityEntityId;
 	}
 
-	public void setOAdditionalAddressNumberWithinBuilding1(String oAdditionalAddressNumberWithinBuilding1) {
-		this.oAdditionalAddressNumberWithinBuilding1 = oAdditionalAddressNumberWithinBuilding1;
+	public void setERegistrationAuthorityEntityId(String eRegistrationAuthorityEntityId) {
+		this.eRegistrationAuthorityEntityId = eRegistrationAuthorityEntityId;
 	}
 
-	public String getOAddressNumber2() {
-		return this.oAddressNumber2;
+	public String getERegistrationAuthorityId() {
+		return this.eRegistrationAuthorityId;
 	}
 
-	public void setOAddressNumber2(String oAddressNumber2) {
-		this.oAddressNumber2 = oAddressNumber2;
+	public void setERegistrationAuthorityId(String eRegistrationAuthorityId) {
+		this.eRegistrationAuthorityId = eRegistrationAuthorityId;
 	}
 
-	public String getOAddressNumberWithinBuilding1() {
-		return this.oAddressNumberWithinBuilding1;
+	public String getESuccessorEntityName() {
+		return this.eSuccessorEntityName;
 	}
 
-	public void setOAddressNumberWithinBuilding1(String oAddressNumberWithinBuilding1) {
-		this.oAddressNumberWithinBuilding1 = oAddressNumberWithinBuilding1;
+	public void setESuccessorEntityName(String eSuccessorEntityName) {
+		this.eSuccessorEntityName = eSuccessorEntityName;
 	}
 
-	public String getOCity1() {
-		return this.oCity1;
+	public String getESuccessorLei() {
+		return this.eSuccessorLei;
 	}
 
-	public void setOCity1(String oCity1) {
-		this.oCity1 = oCity1;
+	public void setESuccessorLei(String eSuccessorLei) {
+		this.eSuccessorLei = eSuccessorLei;
 	}
 
-	public String getOCountry1() {
-		return this.oCountry1;
+	public String getEToAdditionalAddressLine1() {
+		return this.eToAdditionalAddressLine1;
 	}
 
-	public void setOCountry1(String oCountry1) {
-		this.oCountry1 = oCountry1;
+	public void setEToAdditionalAddressLine1(String eToAdditionalAddressLine1) {
+		this.eToAdditionalAddressLine1 = eToAdditionalAddressLine1;
 	}
 
-	public String getOFirstAddressLine1() {
-		return this.oFirstAddressLine1;
+	public String getEToAdditionalAddressLine2() {
+		return this.eToAdditionalAddressLine2;
 	}
 
-	public void setOFirstAddressLine1(String oFirstAddressLine1) {
-		this.oFirstAddressLine1 = oFirstAddressLine1;
+	public void setEToAdditionalAddressLine2(String eToAdditionalAddressLine2) {
+		this.eToAdditionalAddressLine2 = eToAdditionalAddressLine2;
 	}
 
-	public String getOLang1() {
-		return this.oLang1;
+	public String getEToAdditionalAddressLine3() {
+		return this.eToAdditionalAddressLine3;
 	}
 
-	public void setOLang1(String oLang1) {
-		this.oLang1 = oLang1;
+	public void setEToAdditionalAddressLine3(String eToAdditionalAddressLine3) {
+		this.eToAdditionalAddressLine3 = eToAdditionalAddressLine3;
 	}
 
-	public String getOMailRouting1() {
-		return this.oMailRouting1;
+	public String getEToAddressNumber() {
+		return this.eToAddressNumber;
 	}
 
-	public void setOMailRouting1(String oMailRouting1) {
-		this.oMailRouting1 = oMailRouting1;
+	public void setEToAddressNumber(String eToAddressNumber) {
+		this.eToAddressNumber = eToAddressNumber;
 	}
 
-	public String getOPostalcode1() {
-		return this.oPostalcode1;
+	public String getEToAddressNumberWithinBuilding() {
+		return this.eToAddressNumberWithinBuilding;
 	}
 
-	public void setOPostalcode1(String oPostalcode1) {
-		this.oPostalcode1 = oPostalcode1;
+	public void setEToAddressNumberWithinBuilding(String eToAddressNumberWithinBuilding) {
+		this.eToAddressNumberWithinBuilding = eToAddressNumberWithinBuilding;
 	}
 
-	public String getORegion1() {
-		return this.oRegion1;
+	public String getEToAddressType() {
+		return this.eToAddressType;
 	}
 
-	public void setORegion1(String oRegion1) {
-		this.oRegion1 = oRegion1;
+	public void setEToAddressType(String eToAddressType) {
+		this.eToAddressType = eToAddressType;
 	}
 
-	public String getOType() {
-		return this.oType;
+	public String getEToCity() {
+		return this.eToCity;
 	}
 
-	public void setOType(String oType) {
-		this.oType = oType;
+	public void setEToCity(String eToCity) {
+		this.eToCity = eToCity;
 	}
 
-	public String getOtherLegalForm() {
-		return this.otherLegalForm;
+	public String getEToCountry() {
+		return this.eToCountry;
 	}
 
-	public void setOtherLegalForm(String otherLegalForm) {
-		this.otherLegalForm = otherLegalForm;
+	public void setEToCountry(String eToCountry) {
+		this.eToCountry = eToCountry;
 	}
 
-	public String getOtherRegistrationAuthorityId() {
-		return this.otherRegistrationAuthorityId;
+	public String getEToFirstAddressLine() {
+		return this.eToFirstAddressLine;
 	}
 
-	public void setOtherRegistrationAuthorityId(String otherRegistrationAuthorityId) {
-		this.otherRegistrationAuthorityId = otherRegistrationAuthorityId;
+	public void setEToFirstAddressLine(String eToFirstAddressLine) {
+		this.eToFirstAddressLine = eToFirstAddressLine;
 	}
 
-	public String getOtherValidationAuthoritiesType() {
-		return this.otherValidationAuthoritiesType;
+	public String getEToLang() {
+		return this.eToLang;
 	}
 
-	public void setOtherValidationAuthoritiesType(String otherValidationAuthoritiesType) {
-		this.otherValidationAuthoritiesType = otherValidationAuthoritiesType;
+	public void setEToLang(String eToLang) {
+		this.eToLang = eToLang;
 	}
 
-	public String getRegistrationAuthorityEntityId() {
-		return this.registrationAuthorityEntityId;
+	public String getEToMailRouting() {
+		return this.eToMailRouting;
 	}
 
-	public void setRegistrationAuthorityEntityId(String registrationAuthorityEntityId) {
-		this.registrationAuthorityEntityId = registrationAuthorityEntityId;
+	public void setEToMailRouting(String eToMailRouting) {
+		this.eToMailRouting = eToMailRouting;
 	}
 
-	public String getRegistrationAuthorityId() {
-		return this.registrationAuthorityId;
+	public String getEToPostalcode() {
+		return this.eToPostalcode;
 	}
 
-	public void setRegistrationAuthorityId(String registrationAuthorityId) {
-		this.registrationAuthorityId = registrationAuthorityId;
+	public void setEToPostalcode(String eToPostalcode) {
+		this.eToPostalcode = eToPostalcode;
 	}
 
-	public String getRegistrationNextVersionType() {
-		return this.registrationNextVersionType;
+	public String getEToRegion() {
+		return this.eToRegion;
 	}
 
-	public void setRegistrationNextVersionType(String registrationNextVersionType) {
-		this.registrationNextVersionType = registrationNextVersionType;
+	public void setEToRegion(String eToRegion) {
+		this.eToRegion = eToRegion;
 	}
 
-	public String getRegistrationStatus() {
-		return this.registrationStatus;
+	public String getETransliteratedOtherEntityNamesType() {
+		return this.eTransliteratedOtherEntityNamesType;
 	}
 
-	public void setRegistrationStatus(String registrationStatus) {
-		this.registrationStatus = registrationStatus;
+	public void setETransliteratedOtherEntityNamesType(String eTransliteratedOtherEntityNamesType) {
+		this.eTransliteratedOtherEntityNamesType = eTransliteratedOtherEntityNamesType;
 	}
 
-	public String getSuccessorEntityTypeSuccessorEntityNameLang() {
-		return this.successorEntityTypeSuccessorEntityNameLang;
+	public Date getRInitialRegistrationDate() {
+		return this.rInitialRegistrationDate;
 	}
 
-	public void setSuccessorEntityTypeSuccessorEntityNameLang(String successorEntityTypeSuccessorEntityNameLang) {
-		this.successorEntityTypeSuccessorEntityNameLang = successorEntityTypeSuccessorEntityNameLang;
+	public void setRInitialRegistrationDate(Date rInitialRegistrationDate) {
+		this.rInitialRegistrationDate = rInitialRegistrationDate;
 	}
 
-	public String getSuccessorEntityTypeSuccessorEntityNameValue() {
-		return this.successorEntityTypeSuccessorEntityNameValue;
+	public Date getRLastUpdateDate() {
+		return this.rLastUpdateDate;
 	}
 
-	public void setSuccessorEntityTypeSuccessorEntityNameValue(String successorEntityTypeSuccessorEntityNameValue) {
-		this.successorEntityTypeSuccessorEntityNameValue = successorEntityTypeSuccessorEntityNameValue;
+	public void setRLastUpdateDate(Date rLastUpdateDate) {
+		this.rLastUpdateDate = rLastUpdateDate;
 	}
 
-	public String getSuccessorEntityTypeSuccessorLei() {
-		return this.successorEntityTypeSuccessorLei;
+	public String getRManagingLou() {
+		return this.rManagingLou;
 	}
 
-	public void setSuccessorEntityTypeSuccessorLei(String successorEntityTypeSuccessorLei) {
-		this.successorEntityTypeSuccessorLei = successorEntityTypeSuccessorLei;
+	public void setRManagingLou(String rManagingLou) {
+		this.rManagingLou = rManagingLou;
 	}
 
-	public String getSuccessorLei() {
-		return this.successorLei;
+	public Date getRNextRenewalDate() {
+		return this.rNextRenewalDate;
 	}
 
-	public void setSuccessorLei(String successorLei) {
-		this.successorLei = successorLei;
+	public void setRNextRenewalDate(Date rNextRenewalDate) {
+		this.rNextRenewalDate = rNextRenewalDate;
 	}
 
-	public String getToAddressNumber2() {
-		return this.toAddressNumber2;
+	public String getROtherValidationAuthoritiesType() {
+		return this.rOtherValidationAuthoritiesType;
 	}
 
-	public void setToAddressNumber2(String toAddressNumber2) {
-		this.toAddressNumber2 = toAddressNumber2;
+	public void setROtherValidationAuthoritiesType(String rOtherValidationAuthoritiesType) {
+		this.rOtherValidationAuthoritiesType = rOtherValidationAuthoritiesType;
 	}
 
-	public String getToAddressNumberWithinBuilding1() {
-		return this.toAddressNumberWithinBuilding1;
+	public String getROtherValidationAuthorityId() {
+		return this.rOtherValidationAuthorityId;
 	}
 
-	public void setToAddressNumberWithinBuilding1(String toAddressNumberWithinBuilding1) {
-		this.toAddressNumberWithinBuilding1 = toAddressNumberWithinBuilding1;
+	public void setROtherValidationAuthorityId(String rOtherValidationAuthorityId) {
+		this.rOtherValidationAuthorityId = rOtherValidationAuthorityId;
 	}
 
-	public String getToFirstAddressLine1() {
-		return this.toFirstAddressLine1;
+	public String getRRegistrationStatus() {
+		return this.rRegistrationStatus;
 	}
 
-	public void setToFirstAddressLine1(String toFirstAddressLine1) {
-		this.toFirstAddressLine1 = toFirstAddressLine1;
+	public void setRRegistrationStatus(String rRegistrationStatus) {
+		this.rRegistrationStatus = rRegistrationStatus;
 	}
 
-	public String getValidationAuthorityTypeOtherValidationAuthorityId() {
-		return this.validationAuthorityTypeOtherValidationAuthorityId;
+	public String getRValidationAuthorityEntityId() {
+		return this.rValidationAuthorityEntityId;
 	}
 
-	public void setValidationAuthorityTypeOtherValidationAuthorityId(
-			String validationAuthorityTypeOtherValidationAuthorityId) {
-		this.validationAuthorityTypeOtherValidationAuthorityId = validationAuthorityTypeOtherValidationAuthorityId;
+	public void setRValidationAuthorityEntityId(String rValidationAuthorityEntityId) {
+		this.rValidationAuthorityEntityId = rValidationAuthorityEntityId;
 	}
 
-	public String getValidationAuthorityTypeValidationAuthorityEntityId() {
-		return this.validationAuthorityTypeValidationAuthorityEntityId;
+	public String getRValidationAuthorityId() {
+		return this.rValidationAuthorityId;
 	}
 
-	public void setValidationAuthorityTypeValidationAuthorityEntityId(
-			String validationAuthorityTypeValidationAuthorityEntityId) {
-		this.validationAuthorityTypeValidationAuthorityEntityId = validationAuthorityTypeValidationAuthorityEntityId;
+	public void setRValidationAuthorityId(String rValidationAuthorityId) {
+		this.rValidationAuthorityId = rValidationAuthorityId;
 	}
 
-	public String getValidationAuthorityTypeValidationAuthorityId() {
-		return this.validationAuthorityTypeValidationAuthorityId;
+	public String getRValidationSources() {
+		return this.rValidationSources;
 	}
 
-	public void setValidationAuthorityTypeValidationAuthorityId(String validationAuthorityTypeValidationAuthorityId) {
-		this.validationAuthorityTypeValidationAuthorityId = validationAuthorityTypeValidationAuthorityId;
+	public void setRValidationSources(String rValidationSources) {
+		this.rValidationSources = rValidationSources;
 	}
-
-	public String getValidationSources() {
-		return this.validationSources;
-	}
-
-	public void setValidationSources(String validationSources) {
-		this.validationSources = validationSources;
-	}
-
-	public List<Level2RelationshipRecord> getLevel2RelationshipRecords() {
-		return this.level2RelationshipRecords;
-	}
-
-	public void setLevel2RelationshipRecords(List<Level2RelationshipRecord> level2RelationshipRecords) {
-		this.level2RelationshipRecords = level2RelationshipRecords;
-	}
-
-	public Level2RelationshipRecord addLevel2RelationshipRecord(Level2RelationshipRecord level2RelationshipRecord) {
-		getLevel2RelationshipRecords().add(level2RelationshipRecord);
-		level2RelationshipRecord.setLevel1LeiRecord(this);
-
-		return level2RelationshipRecord;
-	}
-
-	public Level2RelationshipRecord removeLevel2RelationshipRecord(Level2RelationshipRecord level2RelationshipRecord) {
-		getLevel2RelationshipRecords().remove(level2RelationshipRecord);
-		level2RelationshipRecord.setLevel1LeiRecord(null);
-
-		return level2RelationshipRecord;
-	}
-
-	/*
-	 * public List<Level2ReportingException> getLevel2ReportingExceptions() { return
-	 * this.level2ReportingExceptions; }
-	 * 
-	 * public void setLevel2ReportingExceptions(List<Level2ReportingException>
-	 * level2ReportingExceptions) { this.level2ReportingExceptions =
-	 * level2ReportingExceptions; }
-	 */
-
-	/*
-	 * public Level2ReportingException
-	 * addLevel2ReportingException(Level2ReportingException
-	 * level2ReportingException) {
-	 * getLevel2ReportingExceptions().add(level2ReportingException);
-	 * level2ReportingException.setLevel1LeiRecord(this);
-	 * 
-	 * return level2ReportingException; }
-	 * 
-	 * public Level2ReportingException
-	 * removeLevel2ReportingException(Level2ReportingException
-	 * level2ReportingException) {
-	 * getLevel2ReportingExceptions().remove(level2ReportingException);
-	 * level2ReportingException.setLevel1LeiRecord(null);
-	 * 
-	 * return level2ReportingException; }
-	 */
 
 }

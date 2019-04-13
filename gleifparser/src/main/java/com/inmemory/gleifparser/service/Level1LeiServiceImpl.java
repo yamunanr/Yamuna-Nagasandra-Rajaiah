@@ -31,21 +31,21 @@ public class Level1LeiServiceImpl implements Level1LeiService {
 		if (xmlEventReader != null) {
 
 			while (xmlEventReader.hasNext()) {
-				if (XmlDataConstants.LEVEL_1_LEI_HEADER_ROOT
-						.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
-					LEIHeaderType leiHeader = GleifXmlUnmarshallerFactory.getRelationshipRecordUnmarshaller()
-							.unmarshal(xmlEventReader, LEIHeaderType.class).getValue();
-					// TODO save header record
-				} else if (XmlDataConstants.LEVEL_1_LEI_RECORDS_ROOT
-						.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
-					parseLeiRecords(xmlEventReader);
-					break;
-				} else {
-					xmlEventReader.nextEvent();
+				if (xmlEventReader.peek().isStartElement()) {
+					if (XmlDataConstants.LEVEL_1_LEI_HEADER_ROOT
+							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
+						LEIHeaderType leiHeader = GleifXmlUnmarshallerFactory.getLeiXmlUnmarshaller()
+								.unmarshal(xmlEventReader, LEIHeaderType.class).getValue();
+						// TODO save header record
+					} else if (XmlDataConstants.LEVEL_1_LEI_RECORDS_ROOT
+							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
+						parseLeiRecords(xmlEventReader);
+						break;
+					}
 				}
+				xmlEventReader.nextEvent();
 
 			}
-
 		}
 
 	}
@@ -54,7 +54,7 @@ public class Level1LeiServiceImpl implements Level1LeiService {
 		List<Level1LeiRecord> leiRecords = new ArrayList<Level1LeiRecord>();
 		Level1LeiRecord curRecord = null;
 		while (xmlEventReader.hasNext()) {
-			if (XmlDataConstants.LEVEL_1_LEI_RECORD_ROOT
+			if (xmlEventReader.peek().isStartElement() && XmlDataConstants.LEVEL_1_LEI_RECORD_ROOT
 					.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
 				LEIRecordType leiRecord = GleifXmlUnmarshallerFactory.getLeiXmlUnmarshaller()
 						.unmarshal(xmlEventReader, LEIRecordType.class).getValue();
@@ -67,9 +67,8 @@ public class Level1LeiServiceImpl implements Level1LeiService {
 					// level1LeiRecordDao.flush();
 					leiRecords.clear();
 				}
-			} else {
-				xmlEventReader.nextEvent();
 			}
+			xmlEventReader.nextEvent();
 
 		}
 		if (!leiRecords.isEmpty()) {
