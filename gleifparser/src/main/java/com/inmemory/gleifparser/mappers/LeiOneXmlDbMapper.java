@@ -51,11 +51,28 @@ public class LeiOneXmlDbMapper {
 	 * @param level1LeiRecord
 	 */
 	private static void setEntityDetails(EntityType entityType, Level1LeiRecord level1LeiRecord) {
-
-		level1LeiRecord.setLega
+		
+		if(entityType.getLegalName() != null)
+		{
+		level1LeiRecord.setEntityTypeLegalNameNameType(entityType.getLegalName().getValue());
+		level1LeiRecord.setEntityTypeLegalNameNameTypeLang(entityType.getLegalName().getLang());
+		}
+		
+		if(entityType.getTransliteratedOtherEntityNames() != null && entityType.getTransliteratedOtherEntityNames().getTransliteratedOtherEntityName() != null 
+				&& (!entityType.getTransliteratedOtherEntityNames().getTransliteratedOtherEntityName().isEmpty()))
+		{
+		
 		level1LeiRecord.setEntityTypeTransliteratedOtherEntityNamesType(entityType.getTransliteratedOtherEntityNames()
 				.getTransliteratedOtherEntityName().get(0).getType().name());
-
+		}
+		if(entityType.getOtherEntityNames() != null && entityType.getOtherEntityNames().getOtherEntityName() != null 
+				&& (!entityType.getOtherEntityNames().getTransliteratedOtherEntityName().isEmpty()))
+		{
+		
+		level1LeiRecord.setEntityTypeOtherEntityNamesType(
+				entityType.getOtherEntityNames().getOtherEntityName().get(0).getType().name());
+		}
+		
 		if (entityType.getLegalAddress() != null) {
 			setLegalAddress(entityType.getLegalAddress(), level1LeiRecord);
 		}
@@ -102,8 +119,7 @@ public class LeiOneXmlDbMapper {
 
 		level1LeiRecord.setEntityTypeLegalAddressAdditionalAddressLine(
 				entityType.getLegalAddress().getAdditionalAddressLine().get(0));
-		level1LeiRecord.setEntityTypeOtherEntityNamesType(
-				entityType.getOtherEntityNames().getOtherEntityName().get(0).getType().name());
+
 		level1LeiRecord
 				.setHqAdditionalAddressLine(entityType.getHeadquartersAddress().getAdditionalAddressLine().get(0));
 	}
@@ -155,15 +171,14 @@ public class LeiOneXmlDbMapper {
 	 * @param entity
 	 */
 	private static void setLegalAddress(AddressType legalAddress, Level1LeiRecord entity) {
-		entity.setLFirstAddressLine1(legalAddress.getFirstAddressLine());
-		entity.setLAddressNumber2(legalAddress.getAddressNumber());
-		entity.setLCity1(legalAddress.getCity());
-		entity.setLRegion1(legalAddress.getRegion());
-		entity.setLPostalcode1(legalAddress.getPostalCode());
-		entity.setLCountry1(legalAddress.getCountry());
-
-		entity.setEntityTypeLegalAddressMailRouting(legalAddress.getMailRouting());
-		entity.setEntityTypeLegalAddressAdditionalAddressLine(legalAddress.getAdditionalAddressLine().get(0));
+		entity.setELegalAddressFirstAddressLine(legalAddress.getFirstAddressLine());
+		entity.setELegalAddressAddressNumber(legalAddress.getAddressNumber());
+		entity.setELegalAddressCity(legalAddress.getCity());
+		entity.setELegalAddressRegion(legalAddress.getRegion());
+		entity.setELegalAddressPostalcode(legalAddress.getPostalCode());
+		entity.setELegalAddressCountry(legalAddress.getCountry());
+		entity.setELegalAddressMailRouting(legalAddress.getMailRouting());
+		entity.sete(legalAddress.getAdditionalAddressLine().get(0));
 		entity.setEntityTypeLegalAddressAddressNumberWithinBuilding(legalAddress.getAddressNumberWithinBuilding());
 	}
 
