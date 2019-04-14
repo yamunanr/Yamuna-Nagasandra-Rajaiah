@@ -1,45 +1,120 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" type="text/css" th:href="@{css/pure/pure.css}"/>
+
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{css/styles.css}">
 <script type="text/javascript" th:src="@{js/jquery/jquery-3.3.1.min.js}"></script>
-<script>
-$(function() {
-	$('#uploadFileButton').click(function() {
-		$('#uploadFileButton').prop('disabled', true);
-		var form = document.forms[0];
-		var formData = new FormData(form);
-		
-		$.ajax({
-			url : 'xmlFileUpload',
-			type : 'POST',
-			data : formData,
-			cache : false,
-			contentType : false,
-			processData : false
-			}).done(function( html ) {
-			    $( "#test1" ).append( html );
-			  });
-		
-	}) });
-</script>
+<script type="text/javascript" th:src="@{js/home.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
+<script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
+
 <title>Home Page</title>
 </head>
 <body>
-	<h1>Hello !</h1>
-	<p id="test1">
-		Welcome to <span th:text="${test}">Our App</span>
-	</p>
-	<form class="pure-form">
-		<fieldset>
-			<legend>Upload GLEIF ZIP File</legend>
-			<!-- <select id="xmlfiletype">
-				<option th:each="file : ${xmlFileList}" th:value="${file.key}"
-					th:text="${file.value}" />
-			</select>  -->
-			<input type="file" id="fileName" name="fileName" accept="*.zip" />
-			<button type="button" id="uploadFileButton"
-				class="pure-button pure-button-primary">Upload</button>
-		</fieldset>
-	</form>
+	<div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-xl-12">
+					<img th:src="@{images/logo_transparent.png}"
+						style="width: 200px; height: 150px;">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div class="container">
+			<div class="row" style="margin: 0px -15px; padding: 0px 0px 0px 0px;">
+				<div class="col-md-12">
+					<div>
+						<ul class="nav nav-tabs">
+							<li class="nav-item"><a class="nav-link" role="tab"
+								data-toggle="tab" href="#tab-1">File Upload</a></li>
+							<li class="nav-item"><a class="nav-link active" role="tab"
+								data-toggle="tab" href="#tab-2">Finder</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane" role="tabpanel" id="tab-1">
+								<div class="row">
+									<div class="col">
+										<hr style="opacity: 0;">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<form>
+									<div class="col-xl-4">
+										<input type="file" id="fileName" name="fileName"
+											accept="*.zip">
+									</div>
+									<div class="col-xl-2">
+										<button class="btn btn-primary" type="button"
+											id="uploadFileButton">Upload</button>
+									</div>
+								</form>
+							</div>
+							<div class="row" style="margin: 20px -15px;">
+								<div class="col">
+									<div class="card" style="background-color: rgb(247, 246, 245);">
+										<div class="card-body">
+											<h4>
+												<small class="display-inline-block pull-right"></small>
+											</h4>
+											<p>
+												Campaign Velocity: <strong class="text-danger">High
+												</strong>
+											</p>
+											<div class="progress">
+												<div class="progress-bar" aria-valuenow="70"
+													aria-valuemin="0" aria-valuemax="100" style="width: 70%;">70%</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<p>
+														Raised: $23,000<br />
+													</p>
+												</div>
+												<div class="col-md-6">
+													<p class="text-right">
+														Goal: $40,000<br />
+													</p>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane active active" role="tabpanel" id="tab-2">
+							<div class="row">
+								<div class="col" style="opacity: 0;">
+									<hr>
+								</div>
+							</div>
+							<div class="row"></div>
+							<div class="row"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>

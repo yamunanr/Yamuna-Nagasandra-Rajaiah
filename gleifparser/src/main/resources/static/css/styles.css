@@ -1,0 +1,11 @@
+body {
+  background: linear-gradient(to right, #dae2f8, #d6a4a4);
+  background: linear-gradient(to right, #ece9e6, #ffffff);
+}
+strong {
+  font-weight: bold;
+}
+
+.display-inline-block {
+  display: inline-block;
+}
