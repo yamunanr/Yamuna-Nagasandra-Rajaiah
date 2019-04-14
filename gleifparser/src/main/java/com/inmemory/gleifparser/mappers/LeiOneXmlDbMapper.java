@@ -2,14 +2,11 @@ package com.inmemory.gleifparser.mappers;
 
 import com.inmemory.gleifparser.entity.Level1LeiRecord;
 import com.inmemory.gleifparser.model.level1.AddressType;
-import com.inmemory.gleifparser.model.level1.AssociatedEntityType;
 import com.inmemory.gleifparser.model.level1.EntityType;
 import com.inmemory.gleifparser.model.level1.LEIRecordType;
-import com.inmemory.gleifparser.model.level1.LEIRecordsType;
+import com.inmemory.gleifparser.model.level1.NameType;
 import com.inmemory.gleifparser.model.level1.OtherAddressType;
-import com.inmemory.gleifparser.model.level1.RegistrationAuthorityType;
-import com.inmemory.gleifparser.model.level1.RegistrationType;
-import com.inmemory.gleifparser.model.level1.SuccessorEntityType;
+import com.inmemory.gleifparser.model.level1.OtherEntityNamesType;
 import com.inmemory.gleifparser.model.level1.TransliteratedOtherAddressType;
 import com.inmemory.gleifparser.model.level1.TransliteratedOtherEntityNamesType;
 import com.inmemory.gleifparser.utils.DateUtils;
@@ -18,16 +15,37 @@ public class LeiOneXmlDbMapper {
 
 	public static Level1LeiRecord convertFromXmlToEntityObject(LEIRecordType leiRecordType) {
 		Level1LeiRecord entity = new Level1LeiRecord();
-		
+
 		if (leiRecordType != null) {
 			entity.setLei(leiRecordType.getLEI());
-			
-			setLegalAddress(leiRecordType.getEntity().getLegalAddress(),entity);
-			setOtherAddress(entity,leiRecordType.getEntity().getOtherAddresses());
-			setHeadQuartersAddress(leiRecordType.getEntity().getHeadquartersAddress(),entity);
-			setTransliteratedOtherAddress(leiRecordType.getEntity().getTransliteratedOtherAddresses(), entity);
-			setRegistrationAuthorityAndSuccessorEntity(leiRecordType.getEntity().getRegistrationAuthority(), entity);
-		
+			if ((leiRecordType.getEntity() != null)) {
+				if ((leiRecordType.getEntity().getLegalName() != null)) {
+					setLegalName(leiRecordType.getEntity().getLegalName(), entity);
+				}
+				if ((leiRecordType.getEntity().getOtherEntityNames() != null)) {
+					setOtherEntityName(leiRecordType.getEntity().getOtherEntityNames(), entity);
+				}
+				if ((leiRecordType.getEntity().getTransliteratedOtherEntityNames() != null)) {
+					setTransOtherEntityName(leiRecordType.getEntity().getTransliteratedOtherEntityNames(), entity);
+				}
+				if ((leiRecordType.getEntity().getLegalAddress() != null)) {
+					setLegalAddress(leiRecordType.getEntity().getLegalAddress(), entity);
+				}
+				if (((leiRecordType.getEntity().getOtherAddresses() != null))
+						&& ((leiRecordType.getEntity().getOtherAddresses().getOtherAddress() != null))
+						&& (!leiRecordType.getEntity().getOtherAddresses().getOtherAddress().isEmpty())) {
+					setOtherAddress(entity, leiRecordType.getEntity().getOtherAddresses().getOtherAddress().get(0));
+				}
+				if ((leiRecordType.getEntity().getHeadquartersAddress() != null)) {
+					setHeadQuartersAddress(leiRecordType.getEntity().getHeadquartersAddress(), entity);
+				}
+				if ((leiRecordType.getEntity().getTransliteratedOtherAddresses() != null) && (!leiRecordType.getEntity()
+						.getTransliteratedOtherAddresses().getTransliteratedOtherAddress().isEmpty())) {
+					setTransliteratedOtherAddress(entity, leiRecordType.getEntity().getTransliteratedOtherAddresses()
+							.getTransliteratedOtherAddress().get(0));
+				}
+				setRegistrationAuthorityAndSuccessorEntity(entity, leiRecordType.getEntity());
+			}
 
 			if (leiRecordType.getRegistration() != null) {
 				entity.setRInitialRegistrationDate(DateUtils
@@ -37,15 +55,26 @@ public class LeiOneXmlDbMapper {
 				entity.setRRegistrationStatus(leiRecordType.getRegistration().getRegistrationStatus().name());
 				entity.setRNextRenewalDate(
 						DateUtils.convertXmlGregorianCalToDate(leiRecordType.getRegistration().getNextRenewalDate()));
-				entity.setRManagingLou(leiRecordType.getRegistration().getManagingLOU());
-				entity.setRValidationSources(leiRecordType.getRegistration().getValidationSources().name());
-				if (leiRecordType.getRegistration().getValidationAuthority() != null)
-					entity.setRValidationAuthorityId(
-							leiRecordType.getRegistration().getValidationAuthority().getValidationAuthorityID());
-				entity.setROtherValidationAuthorityId(
-						leiRecordType.getRegistration().getValidationAuthority().getOtherValidationAuthorityID());
-				entity.setRValidationAuthorityEntityId(
-						leiRecordType.getRegistration().getValidationAuthority().getValidationAuthorityEntityID());
+				if (leiRecordType.getRegistration().getManagingLOU() != null)
+					entity.setRManagingLou(leiRecordType.getRegistration().getManagingLOU());
+				if (leiRecordType.getRegistration().getValidationSources() != null)
+					entity.setRValidationSources(leiRecordType.getRegistration().getValidationSources().name());
+				if (leiRecordType.getRegistration().getValidationAuthority() != null) {
+					if ((leiRecordType.getRegistration().getValidationAuthority().getValidationAuthorityID() != null)) {
+						entity.setRValidationAuthorityId(
+								leiRecordType.getRegistration().getValidationAuthority().getValidationAuthorityID());
+					}
+					if ((leiRecordType.getRegistration().getValidationAuthority()
+							.getOtherValidationAuthorityID() != null)) {
+						entity.setROtherValidationAuthorityId(leiRecordType.getRegistration().getValidationAuthority()
+								.getOtherValidationAuthorityID());
+					}
+					if ((leiRecordType.getRegistration().getValidationAuthority()
+							.getValidationAuthorityEntityID() != null)) {
+						entity.setRValidationAuthorityEntityId(leiRecordType.getRegistration().getValidationAuthority()
+								.getValidationAuthorityEntityID());
+					}
+				}
 			}
 			if (leiRecordType.getRegistration() != null
 					&& leiRecordType.getRegistration().getOtherValidationAuthorities() != null
@@ -88,7 +117,7 @@ public class LeiOneXmlDbMapper {
 				}
 			}
 		}
-
+		entity.setEToLang(transOtherAddress.getLang());
 		entity.setEToCity(transOtherAddress.getCity());
 
 	}
@@ -114,11 +143,12 @@ public class LeiOneXmlDbMapper {
 		}
 
 		entity.setEHqCity(hqAddress.getCity());
-
+		entity.setEHqLang(hqAddress.getLang());
 	}
 
 	private static void setOtherAddress(Level1LeiRecord entity, OtherAddressType otherAddr) {
 		entity.setEORegion(otherAddr.getRegion());
+		entity.setEOAddressNumber(otherAddr.getAddressNumber());
 		entity.setEOLang(otherAddr.getLang());
 		entity.setEOPostalcode(otherAddr.getPostalCode());
 		entity.setEOMailRouting1(otherAddr.getMailRouting());
@@ -165,8 +195,28 @@ public class LeiOneXmlDbMapper {
 				}
 			}
 		}
-
+		entity.setELegalAddressLang(legalAddress.getLang());
 		entity.setELegalAddressAddressNumberWithinBuilding(legalAddress.getAddressNumberWithinBuilding());
+	}
+
+	private static void setLegalName(NameType legalName, Level1LeiRecord entity) {
+		entity.setELegalNameTypeLang(legalName.getLang());
+		entity.setELegalNameTypeValue(legalName.getValue());
+	}
+
+	private static void setOtherEntityName(OtherEntityNamesType otherEntityName, Level1LeiRecord entity) {
+		entity.setEOtherEntityNamesType(otherEntityName.getOtherEntityName().get(0).getLang());
+		entity.setEOtherEntityNamesType(otherEntityName.getOtherEntityName().get(0).getValue());
+
+	}
+
+	private static void setTransOtherEntityName(TransliteratedOtherEntityNamesType transOtherEntityName,
+			Level1LeiRecord entity) {
+		entity.setETransliteratedOtherEntityNamesType(
+				transOtherEntityName.getTransliteratedOtherEntityName().get(0).getLang());
+		entity.setETransliteratedOtherEntityNamesType(
+				transOtherEntityName.getTransliteratedOtherEntityName().get(0).getValue());
+
 	}
 
 	private static void setRegistrationAuthorityAndSuccessorEntity(Level1LeiRecord entity, EntityType entityType) {
@@ -184,20 +234,31 @@ public class LeiOneXmlDbMapper {
 			entity.setEOtherRegistrationAuthorityId(
 					entityType.getRegistrationAuthority().getOtherRegistrationAuthorityID());
 		}
-		entity.setELegalJurisdiction(entityType.getLegalJurisdiction());
-		entity.setECategoryType(entityType.getEntityCategory().name());
+		if (entityType.getLegalJurisdiction() != null) {
+			entity.setELegalJurisdiction(entityType.getLegalJurisdiction());
+		}
+		if (entityType.getEntityCategory() != null) {
+			entity.setECategoryType(entityType.getEntityCategory().name());
+		}
 		if (entityType.getLegalForm() != null) {
 			entity.setEEntityLegalFormCode(entityType.getLegalForm().getEntityLegalFormCode());
 			entity.setEOtherLegalForm(entityType.getLegalForm().getOtherLegalForm());
 		}
 		if (entityType.getAssociatedEntity() != null) {
-			entity.setEAssociatedLei(entityType.getAssociatedEntity().getAssociatedLEI());
-			entity.setEAssociatedEntityType(entityType.getAssociatedEntity().getAssociatedLEI());
-			entity.setEAssociatedEntityName(entityType.getAssociatedEntity().getAssociatedEntityName().getValue());
+			if (entityType.getAssociatedEntity().getAssociatedLEI() != null)
+				entity.setEAssociatedLei(entityType.getAssociatedEntity().getAssociatedLEI());
+			if (entityType.getAssociatedEntity().getType() != null)
+				entity.setEAssociatedEntityType(entityType.getAssociatedEntity().getType().name());
+			if (entityType.getAssociatedEntity().getAssociatedEntityName() != null)
+				entity.setEAssociatedEntityName(entityType.getAssociatedEntity().getAssociatedEntityName().getValue());
 		}
-		entity.setEEntityStatus(entityType.getEntityStatus().name());
+		if (entityType.getEntityStatus() != null) {
+			entity.setEEntityStatus(entityType.getEntityStatus().name());
+		}
 		entity.setEEntityExpirationDate(DateUtils.convertXmlGregorianCalToDate(entityType.getEntityExpirationDate()));
-		entity.setEEntityExpirationReason(entityType.getEntityExpirationReason().name());
+		if (entityType.getEntityExpirationReason() != null) {
+			entity.setEEntityExpirationReason(entityType.getEntityExpirationReason().name());
+		}
 
 	}
 

@@ -4,265 +4,258 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 
-
 /**
  * The persistent class for the LEVEL1_LEI_RECORD database table.
  * 
  */
 @Entity
-@Table(name="LEVEL1_LEI_RECORD")
-@NamedQuery(name="Level1LeiRecord.findAll", query="SELECT l FROM Level1LeiRecord l")
+@Table(name = "LEVEL1_LEI_RECORD")
+@NamedQuery(name = "Level1LeiRecord.findAll", query = "SELECT l FROM Level1LeiRecord l")
 public class Level1LeiRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String lei;
 
-	@Column(name="E_ASSOCIATED_ENTITY_NAME")
+	@Column(name = "E_ASSOCIATED_ENTITY_NAME")
 	private String eAssociatedEntityName;
 
-	@Column(name="E_ASSOCIATED_ENTITY_TYPE")
+	@Column(name = "E_ASSOCIATED_ENTITY_TYPE")
 	private String eAssociatedEntityType;
 
-	@Column(name="E_ASSOCIATED_LEI")
+	@Column(name = "E_ASSOCIATED_LEI")
 	private String eAssociatedLei;
 
-	@Column(name="E_CATEGORY_TYPE")
+	@Column(name = "E_CATEGORY_TYPE")
 	private String eCategoryType;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="E_ENTITY_EXPIRATION_DATE")
+	@Column(name = "E_ENTITY_EXPIRATION_DATE")
 	private Date eEntityExpirationDate;
 
-	@Column(name="E_ENTITY_EXPIRATION_REASON")
+	@Column(name = "E_ENTITY_EXPIRATION_REASON")
 	private String eEntityExpirationReason;
 
-	@Column(name="E_ENTITY_LEGAL_FORM_CODE")
+	@Column(name = "E_ENTITY_LEGAL_FORM_CODE")
 	private String eEntityLegalFormCode;
 
-	@Column(name="E_ENTITY_STATUS")
+	@Column(name = "E_ENTITY_STATUS")
 	private String eEntityStatus;
 
-	@Column(name="E_HQ_ADDITIONAL_ADDRESS_LINE_1")
+	@Column(name = "E_HQ_ADDITIONAL_ADDRESS_LINE_1")
 	private String eHqAdditionalAddressLine1;
 
-	@Column(name="E_HQ_ADDITIONAL_ADDRESS_LINE_2")
+	@Column(name = "E_HQ_ADDITIONAL_ADDRESS_LINE_2")
 	private String eHqAdditionalAddressLine2;
 
-	@Column(name="E_HQ_ADDITIONAL_ADDRESS_LINE_3")
+	@Column(name = "E_HQ_ADDITIONAL_ADDRESS_LINE_3")
 	private String eHqAdditionalAddressLine3;
 
-	@Column(name="E_HQ_ADDRESS_NUMBER")
+	@Column(name = "E_HQ_ADDRESS_NUMBER")
 	private String eHqAddressNumber;
 
-	@Column(name="E_HQ_ADDRESSNUMBER_WITHIN_BUILDING")
+	@Column(name = "E_HQ_ADDRESSNUMBER_WITHIN_BUILDING")
 	private String eHqAddressnumberWithinBuilding;
 
-	@Column(name="E_HQ_CITY")
+	@Column(name = "E_HQ_CITY")
 	private String eHqCity;
 
-	@Column(name="E_HQ_COUNTRY")
+	@Column(name = "E_HQ_COUNTRY")
 	private String eHqCountry;
 
-	@Column(name="E_HQ_FIRST_ADDRESS_LINE")
+	@Column(name = "E_HQ_FIRST_ADDRESS_LINE")
 	private String eHqFirstAddressLine;
 
-	@Column(name="E_HQ_LANG")
+	@Column(name = "E_HQ_LANG")
 	private String eHqLang;
 
-	@Column(name="E_HQ_MAIL_ROUTING")
+	@Column(name = "E_HQ_MAIL_ROUTING")
 	private String eHqMailRouting;
 
-	@Column(name="E_HQ_POSTAL_CODE")
+	@Column(name = "E_HQ_POSTAL_CODE")
 	private String eHqPostalCode;
 
-	@Column(name="E_HQ_REGION")
+	@Column(name = "E_HQ_REGION")
 	private String eHqRegion;
 
-	@Column(name="E_LEGAL_ADDRESS_ADDITIONAL_ADDRESS_LINE_1")
+	@Column(name = "E_LEGAL_ADDRESS_ADDITIONAL_ADDRESS_LINE_1")
 	private String eLegalAddressAdditionalAddressLine1;
 
-	@Column(name="E_LEGAL_ADDRESS_ADDITIONAL_ADDRESS_LINE_2")
+	@Column(name = "E_LEGAL_ADDRESS_ADDITIONAL_ADDRESS_LINE_2")
 	private String eLegalAddressAdditionalAddressLine2;
 
-	@Column(name="E_LEGAL_ADDRESS_ADDITIONAL_ADDRESS_LINE_3")
+	@Column(name = "E_LEGAL_ADDRESS_ADDITIONAL_ADDRESS_LINE_3")
 	private String eLegalAddressAdditionalAddressLine3;
 
-	@Column(name="E_LEGAL_ADDRESS_ADDRESS_NUMBER")
+	@Column(name = "E_LEGAL_ADDRESS_ADDRESS_NUMBER")
 	private String eLegalAddressAddressNumber;
 
-	@Column(name="E_LEGAL_ADDRESS_ADDRESS_NUMBER_WITHIN_BUILDING")
+	@Column(name = "E_LEGAL_ADDRESS_ADDRESS_NUMBER_WITHIN_BUILDING")
 	private String eLegalAddressAddressNumberWithinBuilding;
 
-	@Column(name="E_LEGAL_ADDRESS_CITY")
+	@Column(name = "E_LEGAL_ADDRESS_CITY")
 	private String eLegalAddressCity;
 
-	@Column(name="E_LEGAL_ADDRESS_COUNTRY")
+	@Column(name = "E_LEGAL_ADDRESS_COUNTRY")
 	private String eLegalAddressCountry;
 
-	@Column(name="E_LEGAL_ADDRESS_FIRST_ADDRESS_LINE")
+	@Column(name = "E_LEGAL_ADDRESS_FIRST_ADDRESS_LINE")
 	private String eLegalAddressFirstAddressLine;
 
-	@Column(name="E_LEGAL_ADDRESS_LANG")
+	@Column(name = "E_LEGAL_ADDRESS_LANG")
 	private String eLegalAddressLang;
 
-	@Column(name="E_LEGAL_ADDRESS_MAIL_ROUTING")
+	@Column(name = "E_LEGAL_ADDRESS_MAIL_ROUTING")
 	private String eLegalAddressMailRouting;
 
-	@Column(name="E_LEGAL_ADDRESS_POSTALCODE")
+	@Column(name = "E_LEGAL_ADDRESS_POSTALCODE")
 	private String eLegalAddressPostalcode;
 
-	@Column(name="E_LEGAL_ADDRESS_REGION")
+	@Column(name = "E_LEGAL_ADDRESS_REGION")
 	private String eLegalAddressRegion;
 
-	@Column(name="E_LEGAL_JURISDICTION")
+	@Column(name = "E_LEGAL_JURISDICTION")
 	private String eLegalJurisdiction;
 
-	@Column(name="E_LEGAL_NAME_TYPE_LANG")
+	@Column(name = "E_LEGAL_NAME_TYPE_LANG")
 	private String eLegalNameTypeLang;
 
-	@Column(name="E_LEGAL_NAME_TYPE_VALUE")
+	@Column(name = "E_LEGAL_NAME_TYPE_VALUE")
 	private String eLegalNameTypeValue;
 
-	@Column(name="E_O_ADDITIONAL_ADDRESS_LINE_1")
+	@Column(name = "E_O_ADDITIONAL_ADDRESS_LINE_1")
 	private String eOAdditionalAddressLine1;
 
-	@Column(name="E_O_ADDITIONAL_ADDRESS_LINE_2")
+	@Column(name = "E_O_ADDITIONAL_ADDRESS_LINE_2")
 	private String eOAdditionalAddressLine2;
 
-	@Column(name="E_O_ADDITIONAL_ADDRESS_LINE_3")
+	@Column(name = "E_O_ADDITIONAL_ADDRESS_LINE_3")
 	private String eOAdditionalAddressLine3;
 
-	@Column(name="E_O_ADDITIONAL_ADDRESS_NUMBER")
+	@Column(name = "E_O_ADDITIONAL_ADDRESS_NUMBER")
 	private String eOAdditionalAddressNumber;
 
-	@Column(name="E_O_ADDITIONAL_ADDRESS_NUMBER_WITHIN_BUILDING")
-	private String eOAdditionalAddressNumberWithinBuilding;
-
-	@Column(name="E_O_ADDRESS_NUMBER")
+	@Column(name = "E_O_ADDRESS_NUMBER")
 	private String eOAddressNumber;
 
-	@Column(name="E_O_ADDRESS_NUMBER_WITHIN_BUILDING")
+	@Column(name = "E_O_ADDRESS_NUMBER_WITHIN_BUILDING")
 	private String eOAddressNumberWithinBuilding;
 
-	@Column(name="E_O_ADDRESS_TYPE")
+	@Column(name = "E_O_ADDRESS_TYPE")
 	private String eOAddressType;
 
-	@Column(name="E_O_CITY")
+	@Column(name = "E_O_CITY")
 	private String eOCity;
 
-	@Column(name="E_O_COUNTRY")
+	@Column(name = "E_O_COUNTRY")
 	private String eOCountry;
 
-	@Column(name="E_O_FIRST_ADDRESS_LINE")
+	@Column(name = "E_O_FIRST_ADDRESS_LINE")
 	private String eOFirstAddressLine;
 
-	@Column(name="E_O_LANG")
+	@Column(name = "E_O_LANG")
 	private String eOLang;
 
-	@Column(name="E_O_MAIL_ROUTING_1")
+	@Column(name = "E_O_MAIL_ROUTING_1")
 	private String eOMailRouting1;
 
-	@Column(name="E_O_POSTALCODE")
+	@Column(name = "E_O_POSTALCODE")
 	private String eOPostalcode;
 
-	@Column(name="E_O_REGION")
+	@Column(name = "E_O_REGION")
 	private String eORegion;
 
-	@Column(name="E_OTHER_ENTITY_NAMES_TYPE")
+	@Column(name = "E_OTHER_ENTITY_NAMES_TYPE")
 	private String eOtherEntityNamesType;
 
-	@Column(name="E_OTHER_LEGAL_FORM")
+	@Column(name = "E_OTHER_LEGAL_FORM")
 	private String eOtherLegalForm;
 
-	@Column(name="E_OTHER_REGISTRATION_AUTHORITY_ID")
+	@Column(name = "E_OTHER_REGISTRATION_AUTHORITY_ID")
 	private String eOtherRegistrationAuthorityId;
 
-	@Column(name="E_REGISTRATION_AUTHORITY_ENTITY_ID")
+	@Column(name = "E_REGISTRATION_AUTHORITY_ENTITY_ID")
 	private String eRegistrationAuthorityEntityId;
 
-	@Column(name="E_REGISTRATION_AUTHORITY_ID")
+	@Column(name = "E_REGISTRATION_AUTHORITY_ID")
 	private String eRegistrationAuthorityId;
 
-	@Column(name="E_SUCCESSOR_ENTITY_NAME")
+	@Column(name = "E_SUCCESSOR_ENTITY_NAME")
 	private String eSuccessorEntityName;
 
-	@Column(name="E_SUCCESSOR_LEI")
+	@Column(name = "E_SUCCESSOR_LEI")
 	private String eSuccessorLei;
 
-	@Column(name="E_TO_ADDITIONAL_ADDRESS_LINE_1")
+	@Column(name = "E_TO_ADDITIONAL_ADDRESS_LINE_1")
 	private String eToAdditionalAddressLine1;
 
-	@Column(name="E_TO_ADDITIONAL_ADDRESS_LINE_2")
+	@Column(name = "E_TO_ADDITIONAL_ADDRESS_LINE_2")
 	private String eToAdditionalAddressLine2;
 
-	@Column(name="E_TO_ADDITIONAL_ADDRESS_LINE_3")
+	@Column(name = "E_TO_ADDITIONAL_ADDRESS_LINE_3")
 	private String eToAdditionalAddressLine3;
 
-	@Column(name="E_TO_ADDRESS_NUMBER")
+	@Column(name = "E_TO_ADDRESS_NUMBER")
 	private String eToAddressNumber;
 
-	@Column(name="E_TO_ADDRESS_NUMBER_WITHIN_BUILDING")
+	@Column(name = "E_TO_ADDRESS_NUMBER_WITHIN_BUILDING")
 	private String eToAddressNumberWithinBuilding;
 
-	@Column(name="E_TO_ADDRESS_TYPE")
+	@Column(name = "E_TO_ADDRESS_TYPE")
 	private String eToAddressType;
 
-	@Column(name="E_TO_CITY")
+	@Column(name = "E_TO_CITY")
 	private String eToCity;
 
-	@Column(name="E_TO_COUNTRY")
+	@Column(name = "E_TO_COUNTRY")
 	private String eToCountry;
 
-	@Column(name="E_TO_FIRST_ADDRESS_LINE")
+	@Column(name = "E_TO_FIRST_ADDRESS_LINE")
 	private String eToFirstAddressLine;
 
-	@Column(name="E_TO_LANG")
+	@Column(name = "E_TO_LANG")
 	private String eToLang;
 
-	@Column(name="E_TO_MAIL_ROUTING")
+	@Column(name = "E_TO_MAIL_ROUTING")
 	private String eToMailRouting;
 
-	@Column(name="E_TO_POSTALCODE")
+	@Column(name = "E_TO_POSTALCODE")
 	private String eToPostalcode;
 
-	@Column(name="E_TO_REGION")
+	@Column(name = "E_TO_REGION")
 	private String eToRegion;
 
-	@Column(name="E_TRANSLITERATED_OTHER_ENTITY_NAMES_TYPE")
+	@Column(name = "E_TRANSLITERATED_OTHER_ENTITY_NAMES_TYPE")
 	private String eTransliteratedOtherEntityNamesType;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="R_INITIAL_REGISTRATION_DATE")
+	@Column(name = "R_INITIAL_REGISTRATION_DATE")
 	private Date rInitialRegistrationDate;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="R_LAST_UPDATE_DATE")
+	@Column(name = "R_LAST_UPDATE_DATE")
 	private Date rLastUpdateDate;
 
-	@Column(name="R_MANAGING_LOU")
+	@Column(name = "R_MANAGING_LOU")
 	private String rManagingLou;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="R_NEXT_RENEWAL_DATE")
+	@Column(name = "R_NEXT_RENEWAL_DATE")
 	private Date rNextRenewalDate;
 
-	@Column(name="R_OTHER_VALIDATION_AUTHORITIES_TYPE")
-	private String rOtherValidationAuthoritiesType;
-
-	@Column(name="R_OTHER_VALIDATION_AUTHORITY_ID")
+	@Column(name = "R_OTHER_VALIDATION_AUTHORITY_ID")
 	private String rOtherValidationAuthorityId;
 
-	@Column(name="R_REGISTRATION_STATUS")
+	@Column(name = "R_REGISTRATION_STATUS")
 	private String rRegistrationStatus;
 
-	@Column(name="R_VALIDATION_AUTHORITY_ENTITY_ID")
+	@Column(name = "R_VALIDATION_AUTHORITY_ENTITY_ID")
 	private String rValidationAuthorityEntityId;
 
-	@Column(name="R_VALIDATION_AUTHORITY_ID")
+	@Column(name = "R_VALIDATION_AUTHORITY_ID")
 	private String rValidationAuthorityId;
 
-	@Column(name="R_VALIDATION_SOURCES")
+	@Column(name = "R_VALIDATION_SOURCES")
 	private String rValidationSources;
 
 	public Level1LeiRecord() {
@@ -588,14 +581,6 @@ public class Level1LeiRecord implements Serializable {
 		this.eOAdditionalAddressNumber = eOAdditionalAddressNumber;
 	}
 
-	public String getEOAdditionalAddressNumberWithinBuilding() {
-		return this.eOAdditionalAddressNumberWithinBuilding;
-	}
-
-	public void setEOAdditionalAddressNumberWithinBuilding(String eOAdditionalAddressNumberWithinBuilding) {
-		this.eOAdditionalAddressNumberWithinBuilding = eOAdditionalAddressNumberWithinBuilding;
-	}
-
 	public String getEOAddressNumber() {
 		return this.eOAddressNumber;
 	}
@@ -874,14 +859,6 @@ public class Level1LeiRecord implements Serializable {
 
 	public void setRNextRenewalDate(Date rNextRenewalDate) {
 		this.rNextRenewalDate = rNextRenewalDate;
-	}
-
-	public String getROtherValidationAuthoritiesType() {
-		return this.rOtherValidationAuthoritiesType;
-	}
-
-	public void setROtherValidationAuthoritiesType(String rOtherValidationAuthoritiesType) {
-		this.rOtherValidationAuthoritiesType = rOtherValidationAuthoritiesType;
 	}
 
 	public String getROtherValidationAuthorityId() {
