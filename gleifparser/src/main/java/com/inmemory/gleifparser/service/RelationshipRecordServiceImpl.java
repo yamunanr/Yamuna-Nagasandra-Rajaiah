@@ -61,6 +61,7 @@ public class RelationshipRecordServiceImpl extends StatusUpdaterService implemen
 	private void parseRelationshipRecords(XMLEventReader xmlEventReader) throws XMLStreamException, JAXBException {
 		List<Level2RelationshipRecord> level2relationshiprecords = new ArrayList<>();
 		Level2RelationshipRecord curRecord = null;
+		long count=0;
 		while (xmlEventReader.hasNext()) {
 			if (xmlEventReader.peek().isStartElement() && XmlDataConstants.LEVEL_2_RELATIONSHIP_RECORD
 					.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
@@ -73,6 +74,8 @@ public class RelationshipRecordServiceImpl extends StatusUpdaterService implemen
 				if (level2relationshiprecords.size() >= SAVE_RECORDS_BATCH_SIZE) {
 					 levelTwoRRDao.saveAll(level2relationshiprecords);
 					 levelTwoRRDao.flush();
+					count += 1000;
+					System.out.println("Number of records saved:" + count);
 					level2relationshiprecords.clear();
 				}
 			} else {
@@ -81,6 +84,8 @@ public class RelationshipRecordServiceImpl extends StatusUpdaterService implemen
 
 		}
 		if (!level2relationshiprecords.isEmpty()) {
+			count+=level2relationshiprecords.size();
+			System.out.println("Number of records saved:"+count);
 			levelTwoRRDao.saveAll(level2relationshiprecords);
 			levelTwoRRDao.flush();
 		}

@@ -28,7 +28,7 @@ import com.inmemory.gleifparser.utils.GleifXmlUnmarshallerFactory;
 public class ReportingExceptionServiceImpl extends StatusUpdaterService implements ReportingExceptionService {
 	@Autowired
 	private Level2ReportingExceptionDAO reportingExceptionDAO;
-	
+
 	@Autowired
 	private GleifHeaderDAO gleifHeaderDAO;
 
@@ -64,6 +64,7 @@ public class ReportingExceptionServiceImpl extends StatusUpdaterService implemen
 		List<Level2ReportingException> level2ReportingExceptions = new ArrayList<>();
 		Level2ReportingException curRecord = null;
 		logger.info("Saving Reporting Exception data to database");
+		long count = 0;
 		while (xmlEventReader.hasNext()) {
 			if (xmlEventReader.peek().isStartElement() && XmlDataConstants.LEVEL_2_REPORTING_EXCEPTION_RECORD
 					.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
@@ -75,6 +76,8 @@ public class ReportingExceptionServiceImpl extends StatusUpdaterService implemen
 				if (level2ReportingExceptions.size() >= SAVE_RECORDS_BATCH_SIZE) {
 					reportingExceptionDAO.saveAll(level2ReportingExceptions);
 					reportingExceptionDAO.flush();
+					count += 1000;
+					System.out.println("Number of records saved:" + count);
 					level2ReportingExceptions.clear();
 				}
 			} else {
@@ -83,6 +86,8 @@ public class ReportingExceptionServiceImpl extends StatusUpdaterService implemen
 
 		}
 		if (!level2ReportingExceptions.isEmpty()) {
+			count += level2ReportingExceptions.size();
+			System.out.println("Number of records saved:" + count);
 			reportingExceptionDAO.saveAll(level2ReportingExceptions);
 			reportingExceptionDAO.flush();
 		}

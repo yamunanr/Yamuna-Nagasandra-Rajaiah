@@ -33,7 +33,6 @@ public class Level1LeiServiceImpl implements Level1LeiService {
 	@Override
 	public void parseAndSaveXmlFile(XMLEventReader xmlEventReader) throws XMLStreamException, JAXBException {
 		if (xmlEventReader != null) {
-
 			while (xmlEventReader.hasNext()) {
 				if (xmlEventReader.peek().isStartElement()) {
 					if (XmlDataConstants.LEVEL_1_LEI_HEADER_ROOT
@@ -57,6 +56,7 @@ public class Level1LeiServiceImpl implements Level1LeiService {
 	private void parseLeiRecords(XMLEventReader xmlEventReader) throws JAXBException, XMLStreamException {
 		List<Level1LeiRecord> leiRecords = new ArrayList<Level1LeiRecord>();
 		Level1LeiRecord curRecord = null;
+		long count=0;
 		while (xmlEventReader.hasNext()) {
 			if (xmlEventReader.peek().isStartElement() && XmlDataConstants.LEVEL_1_LEI_RECORD_ROOT
 					.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
@@ -69,12 +69,16 @@ public class Level1LeiServiceImpl implements Level1LeiService {
 					 level1LeiRecordDao.saveAll(leiRecords);
 					 level1LeiRecordDao.flush();
 					leiRecords.clear();
+					count+=1000;
+					System.out.println("Number of records saved:"+count);
 				}
 			}
 			xmlEventReader.nextEvent();
 
 		}
 		if (!leiRecords.isEmpty()) {
+			count+=leiRecords.size();
+			System.out.println("Number of records saved:"+count);
 			level1LeiRecordDao.saveAll(leiRecords);
 			level1LeiRecordDao.flush();
 
