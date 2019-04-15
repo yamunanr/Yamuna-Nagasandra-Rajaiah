@@ -15,17 +15,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inmemory.gleifparser.constants.XmlDataConstants;
+import com.inmemory.gleifparser.dao.GleifHeaderDAO;
 import com.inmemory.gleifparser.dao.Level2ReportingExceptionDAO;
 import com.inmemory.gleifparser.entity.Level2ReportingException;
+import com.inmemory.gleifparser.mappers.HeaderMapper;
 import com.inmemory.gleifparser.mappers.Level2RepExceptionDbMapper;
 import com.inmemory.gleifparser.model.level2_rex.ExceptionHeaderType;
 import com.inmemory.gleifparser.model.level2_rex.ExceptionType;
 import com.inmemory.gleifparser.utils.GleifXmlUnmarshallerFactory;
 
 @Service
-public class ReportingExceptionServiceImpl implements ReportingExceptionService {
+public class ReportingExceptionServiceImpl extends StatusUpdaterService implements ReportingExceptionService {
 	@Autowired
 	private Level2ReportingExceptionDAO reportingExceptionDAO;
+	
+	@Autowired
+	private GleifHeaderDAO gleifHeaderDAO;
 
 	private Logger logger = LoggerFactory.getLogger(ReportingExceptionServiceImpl.class);
 
@@ -39,7 +44,7 @@ public class ReportingExceptionServiceImpl implements ReportingExceptionService 
 						ExceptionHeaderType header = GleifXmlUnmarshallerFactory
 								.getReportingExceptionsJaxbUnmarshaller()
 								.unmarshal(xmlEventReader, ExceptionHeaderType.class).getValue();
-						// TODO save header record
+						gleifHeaderDAO.saveAndFlush(HeaderMapper.convertRepExceptionHeaderToEntity(header));
 					} else if (XmlDataConstants.LEVEL_2_REPORTING_EXCEPTION_RECORDS
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
 						parseReportingExceptionRecords(xmlEventReader);
@@ -68,9 +73,8 @@ public class ReportingExceptionServiceImpl implements ReportingExceptionService 
 				level2ReportingExceptions.add(curRecord);
 				// write in batches
 				if (level2ReportingExceptions.size() >= SAVE_RECORDS_BATCH_SIZE) {
-					// TODO remove temporary comments
-					// reportingExceptionDAO.saveAll(level2ReportingExceptions);
-					// reportingExceptionDAO.flush();
+					reportingExceptionDAO.saveAll(level2ReportingExceptions);
+					reportingExceptionDAO.flush();
 					level2ReportingExceptions.clear();
 				}
 			} else {

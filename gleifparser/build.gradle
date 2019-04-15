@@ -26,9 +26,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-activemq'
 	implementation 'org.apache.activemq:activemq-broker:5.15.8'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	
 	//web jars
-	runtimeClasspath  'org.webjars:jquery:3.3.1'
+	runtimeClasspath  'org.webjars:jquery:3.4.0'
 	runtimeClasspath    'org.webjars:bootstrap:4.3.1'
 	
 	runtimeClasspath   'org.webjars:sockjs-client:1.1.2'

@@ -13,19 +13,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inmemory.gleifparser.constants.XmlDataConstants;
+import com.inmemory.gleifparser.dao.GleifHeaderDAO;
 import com.inmemory.gleifparser.dao.LevelTwoRRDao;
 import com.inmemory.gleifparser.entity.Level2RelationshipRecord;
+import com.inmemory.gleifparser.mappers.HeaderMapper;
 import com.inmemory.gleifparser.mappers.Level2RrXmlDbMapper;
 import com.inmemory.gleifparser.model.level2_rr.RRHeaderType;
 import com.inmemory.gleifparser.model.level2_rr.RelationshipRecordType;
 import com.inmemory.gleifparser.utils.GleifXmlUnmarshallerFactory;
 
 @Service
-public class RelationshipRecordServiceImpl implements RelationshipRecordService {
+public class RelationshipRecordServiceImpl extends StatusUpdaterService implements RelationshipRecordService  {
 
 	@Autowired
 	private LevelTwoRRDao levelTwoRRDao;
-
+	@Autowired
+	private GleifHeaderDAO gleifHeaderDAO;
+	
 	@Override
 	public void parseAndSaveXmlFile(XMLEventReader xmlEventReader) throws XMLStreamException, JAXBException {
 
@@ -38,7 +42,7 @@ public class RelationshipRecordServiceImpl implements RelationshipRecordService 
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
 						RRHeaderType rrHeader = GleifXmlUnmarshallerFactory.getRelationshipRecordUnmarshaller()
 								.unmarshal(xmlEventReader, RRHeaderType.class).getValue();
-						//TODO save RRheader record
+						gleifHeaderDAO.saveAndFlush(HeaderMapper.convertRRHeaderToEntity(rrHeader));
 
 					} else if (XmlDataConstants.LEVEL_2_RELATIONSHIP_RECORDS
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
@@ -67,9 +71,8 @@ public class RelationshipRecordServiceImpl implements RelationshipRecordService 
 				level2relationshiprecords.add(curRecord);
 				// write in batches
 				if (level2relationshiprecords.size() >= SAVE_RECORDS_BATCH_SIZE) {
-					// TODO remove temporarily commented lines
-					// levelTwoRRDao.saveAll(level2relationshiprecords);
-					// levelTwoRRDao.flush();
+					 levelTwoRRDao.saveAll(level2relationshiprecords);
+					 levelTwoRRDao.flush();
 					level2relationshiprecords.clear();
 				}
 			} else {

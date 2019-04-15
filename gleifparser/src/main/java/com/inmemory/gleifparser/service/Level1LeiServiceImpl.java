@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inmemory.gleifparser.constants.XmlDataConstants;
+import com.inmemory.gleifparser.dao.GleifHeaderDAO;
 import com.inmemory.gleifparser.dao.Level1LeiRecordDao;
 import com.inmemory.gleifparser.entity.Level1LeiRecord;
+import com.inmemory.gleifparser.mappers.HeaderMapper;
 import com.inmemory.gleifparser.mappers.LeiOneXmlDbMapper;
 import com.inmemory.gleifparser.model.level1.LEIHeaderType;
 import com.inmemory.gleifparser.model.level1.LEIRecordType;
@@ -25,6 +27,8 @@ public class Level1LeiServiceImpl implements Level1LeiService {
 
 	@Autowired
 	private Level1LeiRecordDao level1LeiRecordDao;
+	@Autowired
+	private GleifHeaderDAO gleifHeaderDAO;
 
 	@Override
 	public void parseAndSaveXmlFile(XMLEventReader xmlEventReader) throws XMLStreamException, JAXBException {
@@ -36,7 +40,7 @@ public class Level1LeiServiceImpl implements Level1LeiService {
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
 						LEIHeaderType leiHeader = GleifXmlUnmarshallerFactory.getLeiXmlUnmarshaller()
 								.unmarshal(xmlEventReader, LEIHeaderType.class).getValue();
-						// TODO save header record
+						gleifHeaderDAO.saveAndFlush(HeaderMapper.convertLeiHeaderToEntity(leiHeader));
 					} else if (XmlDataConstants.LEVEL_1_LEI_RECORDS_ROOT
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
 						parseLeiRecords(xmlEventReader);
@@ -62,9 +66,8 @@ public class Level1LeiServiceImpl implements Level1LeiService {
 				leiRecords.add(curRecord);
 				// write in batches
 				if (leiRecords.size() >= SAVE_RECORDS_BATCH_SIZE) {
-					// TODO remove temporarily commented lines
-					// level1LeiRecordDao.saveAll(leiRecords);
-					// level1LeiRecordDao.flush();
+					 level1LeiRecordDao.saveAll(leiRecords);
+					 level1LeiRecordDao.flush();
 					leiRecords.clear();
 				}
 			}

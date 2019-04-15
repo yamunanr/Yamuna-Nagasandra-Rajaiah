@@ -17,7 +17,7 @@ public class GleifHeader implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="gleifSequenceGen")
-	@SequenceGenerator(name="gleifSqeuenceGen",sequenceName="GLEIF_HEADER_SEQ")
+	@SequenceGenerator(name="gleifSequenceGen",sequenceName="GLEIF_HEADER_SEQ",allocationSize = 1)
 	@Column(name="GLEIF_HEADER_ID")
 	private Long gleifHeaderId;
 
