@@ -156,8 +156,6 @@ Primary key(Exception_Reason_ID),
 FOREIGN KEY (Exception_ID) REFERENCES Level2_Reporting_Exception(Exception_ID));
 
 
-
-
 Create table Level2_Relationship_Record(
 RR_ID INTEGER,
 Relationship_Status varchar(100),
@@ -175,11 +173,11 @@ Validation_Documents varchar(300),
 Start_Date Date,
 End_Date Date,
 Relationship_Period_Type varchar(100),
-Validation_Reference varchar(500),
+Validation_Reference varchar(600),
 Registration_Next_Renewal_Date Date,
 Registration_Managing_LOU varchar(500),
-Primary key(RR_ID)
---Foreign key (Relationship_Start_Node_ID) references Level1_Lei_Record(LEI)
+Primary key(RR_ID),
+Foreign key (Relationship_Start_Node_ID) references Level1_Lei_Record(LEI)
 );
 
 Create table Level2_Rr_Relationship_Qualifier(
@@ -194,10 +192,12 @@ Create table Level2_Rr_Relationship_Quantifier (
 Quantifier_RR_ID INTEGER NOT NULL,
 RR_ID INTEGER,
 Measurement_Method varchar(100),
-Quantifier_Amount INTEGER,
-Quantifier_Units INTEGER,
+Quantifier_Amount DECIMAL,
+Quantifier_Units VARCHAR(100),
 Primary key(Quantifier_RR_ID),
 FOREIGN KEY (RR_ID) REFERENCES Level2_Relationship_Record(RR_ID));
+
+
 
 
 CREATE SEQUENCE GLEIF_HEADER_SEQ INCREMENT BY 1 MAXVALUE 99999 RESET BY SELECT IFNULL(MAX(GLEIF_HEADER_ID), 0) + 1 FROM GLEIF_HEADER;
