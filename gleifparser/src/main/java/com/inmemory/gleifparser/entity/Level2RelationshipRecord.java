@@ -82,7 +82,7 @@ public class Level2RelationshipRecord implements Serializable {
 	private String relationshipStartNodeId;
 
 	//bi-directional many-to-one association to Level1LeiRecord
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="RELATIONSHIP_START_NODE_ID",insertable=false,updatable=false)
 	private Level1LeiRecord level1LeiRecord;
 

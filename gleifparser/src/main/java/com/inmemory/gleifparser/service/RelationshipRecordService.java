@@ -1,11 +1,9 @@
 package com.inmemory.gleifparser.service;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLStreamException;
 
 public interface RelationshipRecordService {
 	
-	public void parseAndSaveXmlFile(XMLEventReader xmlEventReader)  throws XMLStreamException, JAXBException ;
+	public void parseAndSaveXmlFile(XMLEventReader xmlEventReader,String subscriberId) 	throws Exception  ;
 
 }

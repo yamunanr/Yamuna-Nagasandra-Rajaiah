@@ -1,5 +1,6 @@
 package com.inmemory.gleifparser.mappers;
 
+import com.inmemory.gleifparser.constants.XmlDataConstants;
 import com.inmemory.gleifparser.entity.GleifHeader;
 import com.inmemory.gleifparser.model.level1.LEIHeaderType;
 import com.inmemory.gleifparser.model.level2_rex.ExceptionHeaderType;
@@ -13,7 +14,7 @@ public final class HeaderMapper {
 		entity.setContentDate(DateUtils
 				.convertXmlGregorianCalToDate(leiHeader.getContentDate()));
 		entity.setOriginator(leiHeader.getOriginator());
-		entity.setFileContent(leiHeader.getFileContent().name());
+		entity.setFileContent(XmlDataConstants.FILE_TYPE_LEVEL1_LEI);
 		entity.setDeltaStart(DateUtils
 				.convertXmlGregorianCalToDate(leiHeader.getDeltaStart()));
 		entity.setRecordCount(leiHeader.getRecordCount().intValue());
@@ -27,7 +28,7 @@ public final class HeaderMapper {
 		entity.setContentDate(DateUtils
 				.convertXmlGregorianCalToDate(rrHeader.getContentDate()));
 		entity.setOriginator(rrHeader.getOriginator());
-		entity.setFileContent(rrHeader.getFileContent().name());
+		entity.setFileContent(XmlDataConstants.FILE_TYPE_LEVEL2_RR);
 		entity.setDeltaStart(DateUtils
 				.convertXmlGregorianCalToDate(rrHeader.getDeltaStart()));
 		entity.setRecordCount(rrHeader.getRecordCount().intValue());
@@ -41,7 +42,7 @@ public final class HeaderMapper {
 		entity.setContentDate(DateUtils
 				.convertXmlGregorianCalToDate(exceptionHeader.getContentDate()));
 		entity.setOriginator(exceptionHeader.getOriginator());
-		entity.setFileContent(exceptionHeader.getFileContent().name());
+		entity.setFileContent(XmlDataConstants.FILE_TYPE_LEVEL2_REP_EXCEPTION);
 		entity.setDeltaStart(DateUtils
 				.convertXmlGregorianCalToDate(exceptionHeader.getDeltaStart()));
 		entity.setRecordCount(exceptionHeader.getRecordCount().intValue());

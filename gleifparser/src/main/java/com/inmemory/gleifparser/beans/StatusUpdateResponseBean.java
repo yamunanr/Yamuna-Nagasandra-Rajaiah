@@ -1,12 +1,15 @@
 package com.inmemory.gleifparser.beans;
 
-public class StatusUpdateResponseBean extends BaseResponseBean{
+public class StatusUpdateResponseBean extends BaseBean{
 
+	
 	private long totalNumberOfRecords;
 	
 	private long numberOfProcessedRecords;
 	
-	private int percentageProcessed;
+	private String percentageProcessed;
+	
+	private String status;
 
 	public long getTotalNumberOfRecords() {
 		return totalNumberOfRecords;
@@ -24,12 +27,20 @@ public class StatusUpdateResponseBean extends BaseResponseBean{
 		this.numberOfProcessedRecords = numberOfProcessedRecords;
 	}
 
-	public int getPercentageProcessed() {
+	public String getPercentageProcessed() {
 		return percentageProcessed;
 	}
 
-	public void setPercentageProcessed(int percentageProcessed) {
+	public void setPercentageProcessed(String percentageProcessed) {
 		this.percentageProcessed = percentageProcessed;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

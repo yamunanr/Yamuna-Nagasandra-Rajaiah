@@ -258,8 +258,6 @@ public class Level1LeiRecord implements Serializable {
 	@Column(name = "R_VALIDATION_SOURCES")
 	private String rValidationSources;
 
-	public Level1LeiRecord() {
-	}
 
 	public String getLei() {
 		return this.lei;

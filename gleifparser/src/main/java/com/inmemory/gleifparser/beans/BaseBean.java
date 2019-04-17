@@ -1,6 +1,6 @@
 package com.inmemory.gleifparser.beans;
 
-public class BaseResponseBean {
+public class BaseBean {
 
 	private boolean error;
 	private String message;

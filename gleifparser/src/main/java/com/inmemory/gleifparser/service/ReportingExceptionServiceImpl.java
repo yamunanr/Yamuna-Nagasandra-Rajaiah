@@ -25,7 +25,7 @@ import com.inmemory.gleifparser.model.level2_rex.ExceptionType;
 import com.inmemory.gleifparser.utils.GleifXmlUnmarshallerFactory;
 
 @Service
-public class ReportingExceptionServiceImpl extends StatusUpdaterService implements ReportingExceptionService {
+public class ReportingExceptionServiceImpl extends StatusAndTaskUpdaterService implements ReportingExceptionService {
 	@Autowired
 	private Level2ReportingExceptionDAO reportingExceptionDAO;
 
@@ -35,7 +35,7 @@ public class ReportingExceptionServiceImpl extends StatusUpdaterService implemen
 	private Logger logger = LoggerFactory.getLogger(ReportingExceptionServiceImpl.class);
 
 	@Override
-	public void parseAndSaveXmlFile(XMLEventReader xmlEventReader) throws XMLStreamException, JAXBException {
+	public void parseAndSaveXmlFile(XMLEventReader xmlEventReader,String subscriberId) throws XMLStreamException, JAXBException {
 		if (xmlEventReader != null) {
 			while (xmlEventReader.hasNext()) {
 				if (xmlEventReader.peek().isStartElement()) {
@@ -47,7 +47,7 @@ public class ReportingExceptionServiceImpl extends StatusUpdaterService implemen
 						gleifHeaderDAO.saveAndFlush(HeaderMapper.convertRepExceptionHeaderToEntity(header));
 					} else if (XmlDataConstants.LEVEL_2_REPORTING_EXCEPTION_RECORDS
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
-						parseReportingExceptionRecords(xmlEventReader);
+						parseReportingExceptionRecords(xmlEventReader, subscriberId);
 						break;
 					}
 				}
@@ -59,7 +59,7 @@ public class ReportingExceptionServiceImpl extends StatusUpdaterService implemen
 
 	}
 
-	private void parseReportingExceptionRecords(XMLEventReader xmlEventReader)
+	private void parseReportingExceptionRecords(XMLEventReader xmlEventReader,String subscriberId)
 			throws XMLStreamException, JAXBException {
 		List<Level2ReportingException> level2ReportingExceptions = new ArrayList<>();
 		Level2ReportingException curRecord = null;

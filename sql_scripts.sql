@@ -163,8 +163,8 @@ Relationship_Period_Type varchar(100),
 Validation_Reference varchar(600),
 Registration_Next_Renewal_Date Date,
 Registration_Managing_LOU varchar(500),
-Primary key(RR_ID),
-Foreign key (Relationship_Start_Node_ID) references Level1_Lei_Record(LEI)
+Primary key(RR_ID)
+--Foreign key (Relationship_Start_Node_ID) references Level1_Lei_Record(LEI)
 );
 
 Create table Level2_Rr_Relationship_Qualifier(
@@ -173,7 +173,8 @@ RR_ID INTEGER,
 Qualifier_Dimension varchar(500),
 Qualifier_Category varchar(500),
 Primary key(Qualifier_RR_ID),
-FOREIGN KEY (RR_ID) REFERENCES Level2_Relationship_Record(RR_ID));
+FOREIGN KEY (RR_ID) REFERENCES Level2_Relationship_Record(RR_ID)
+);
 
 Create table Level2_Rr_Relationship_Quantifier (
 Quantifier_RR_ID INTEGER NOT NULL,

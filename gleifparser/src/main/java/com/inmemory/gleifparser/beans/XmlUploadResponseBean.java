@@ -1,6 +1,6 @@
 package com.inmemory.gleifparser.beans;
 
-public class XmlUploadResponseBean extends BaseResponseBean {
+public class XmlUploadResponseBean extends BaseBean {
 private String webSocketSubscriptionId;
 
 public String getWebSocketSubscriptionId() {

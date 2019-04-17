@@ -32,6 +32,7 @@ public class GleifHeader implements Serializable {
 	@Column(name="FILE_CONTENT")
 	private String fileContent;
 
+	@Column(name="Originator")
 	private String originator;
 
 	@Column(name="RECORD_COUNT")

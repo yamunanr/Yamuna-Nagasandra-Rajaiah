@@ -6,5 +6,5 @@ import javax.xml.stream.XMLStreamException;
 
 public interface ReportingExceptionService {
 
-	public void parseAndSaveXmlFile(XMLEventReader xmlEventReader)  throws XMLStreamException, JAXBException ;
+	public void parseAndSaveXmlFile(XMLEventReader xmlEventReader,String subscriberId)  throws XMLStreamException, JAXBException ;
 }

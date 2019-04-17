@@ -1,9 +1,17 @@
 package com.inmemory.gleifparser.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import com.inmemory.gleifparser.constants.Constants;
 
@@ -37,9 +45,6 @@ public class Level2RrRelationshipQuantifier implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="RR_ID")
 	private Level2RelationshipRecord level2RelationshipRecord;
-
-	public Level2RrRelationshipQuantifier() {
-	}
 
 	public Long getQuantifierRrId() {
 		return this.quantifierRrId;

@@ -42,7 +42,7 @@ public class GleifFileServiceImpl implements GleifService {
 	 * Path)
 	 */
 	@Override
-	public String parseGleifFile(Path xmlFilePath) {
+	public String parseGleifFile(Path xmlFilePath, String subscriberId) {
 		boolean isExceptionOccured = false;
 		long count = 0;
 		XMLEventReader xmlEventReader = null;
@@ -53,15 +53,15 @@ public class GleifFileServiceImpl implements GleifService {
 				if (xmlEventReader.peek().isStartElement()) {
 					if (XmlDataConstants.LEVEL_1_LEI_XML_ROOT_TYPE
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
-						level1LeiService.parseAndSaveXmlFile(xmlEventReader);
+						level1LeiService.parseAndSaveXmlFile(xmlEventReader, subscriberId);
 						break;
 					} else if (XmlDataConstants.LEVEL_2_RELATIONSHIP_RECORD_XML_ROOT_TYPE
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
-						relationshipRecordService.parseAndSaveXmlFile(xmlEventReader);
+						relationshipRecordService.parseAndSaveXmlFile(xmlEventReader, subscriberId);
 						break;
 					} else if (XmlDataConstants.LEVEL_2_REPORTING_EXCEPTION_XML_ROOT_TYPE
 							.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
-						reportingExceptionService.parseAndSaveXmlFile(xmlEventReader);
+						reportingExceptionService.parseAndSaveXmlFile(xmlEventReader, subscriberId);
 						break;
 					}
 
@@ -83,7 +83,7 @@ public class GleifFileServiceImpl implements GleifService {
 		} finally {
 
 			try {
-				
+
 				Files.deleteIfExists(xmlFilePath);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -110,7 +110,7 @@ public class GleifFileServiceImpl implements GleifService {
 	@JmsListener(destination = JmsConfig.XML_PROCESSING_QUEUE)
 	public void listener(GleifJmsMessage gleifJmsMessage) {
 		Path xmlFilePath = Paths.get(gleifJmsMessage.getXmlFilePath());
-		parseGleifFile(xmlFilePath);
+		parseGleifFile(xmlFilePath, gleifJmsMessage.getSubscriberId());
 	}
 
 }

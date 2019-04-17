@@ -30,7 +30,7 @@ public class GleifUploadController {
 		String destFile = generateUniqueFileName();
 		try {
 			Path unzippefFilePath = ZipFileHandler.unzipFile(multipartFile, destFile, storageDir);
-			gleifAsyncService.processAndSaveXmlData(unzippefFilePath);
+			response.setWebSocketSubscriptionId(gleifAsyncService.processAndSaveXmlData(unzippefFilePath));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
