@@ -89,6 +89,7 @@ public class ReportingExceptionServiceImpl extends StatusAndTaskUpdaterService i
 		GleifHeader oldHeader = gleifHeaderDAO.findByFileContent(XmlDataConstants.FILE_TYPE_LEVEL2_REP_EXCEPTION);
 		GleifHeader newHeader = HeaderMapper.convertRepExceptionHeaderToEntity(header);
 		StatusUpdateResponseBean statusUpdateResponseBean = initializeStatusResponseBean(newHeader);
+		sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
 		boolean isError = false;
 		Level2ExceptionRangeBean curRangeBean = null;
 		try {

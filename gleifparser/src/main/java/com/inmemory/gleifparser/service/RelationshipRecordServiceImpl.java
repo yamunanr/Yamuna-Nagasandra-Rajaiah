@@ -84,6 +84,7 @@ public class RelationshipRecordServiceImpl extends StatusAndTaskUpdaterService i
 		GleifHeader oldHeader = gleifHeaderDAO.findByFileContent(XmlDataConstants.FILE_TYPE_LEVEL2_RR);
 		GleifHeader newHeader = HeaderMapper.convertRRHeaderToEntity(rrHeader);
 		StatusUpdateResponseBean statusUpdateResponseBean = initializeStatusResponseBean(newHeader);
+		sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
 		boolean isError = false;
 		Level2RRCurRangeBean curRangeBean = null;
 		try {

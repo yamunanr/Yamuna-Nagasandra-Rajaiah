@@ -38,7 +38,7 @@ public abstract class StatusAndTaskUpdaterService {
 		String percent = "0%";
 		DecimalFormat df = new DecimalFormat("###.##");
 		if (totalCount > 0) {
-			double percentage = ((curCount / totalCount) * 100);
+			double percentage = (((double)curCount / (double)totalCount) * 100.00);
 			percent = df.format(percentage) + "%";
 		}
 		return percent;

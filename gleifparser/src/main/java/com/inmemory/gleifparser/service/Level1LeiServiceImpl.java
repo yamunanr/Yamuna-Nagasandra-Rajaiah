@@ -73,6 +73,7 @@ public class Level1LeiServiceImpl extends StatusAndTaskUpdaterService implements
 		GleifHeader oldHeader = gleifHeaderDAO.findByFileContent(XmlDataConstants.FILE_TYPE_LEVEL1_LEI);
 		GleifHeader newHeader = HeaderMapper.convertLeiHeaderToEntity(leiHeader);
 		StatusUpdateResponseBean statusUpdateResponseBean = initializeStatusResponseBean(newHeader);
+		sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
 		boolean isError = false;
 		LevelOneLeiRangeBean curRangeBean = null;
 		try {

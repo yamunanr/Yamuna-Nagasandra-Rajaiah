@@ -34,7 +34,7 @@ PRIMARY KEY(Gleif_Header_Id));
 
 
 Create table Level1_Lei_Record (
-LEI_ID INTEGER NOT NULL;
+LEI_ID INTEGER NOT NULL,
 LEI varchar(21) NOT NULL,
 E_Legal_Name_Type_Value varchar(500),
 E_Legal_Name_Type_Lang varchar(500),
