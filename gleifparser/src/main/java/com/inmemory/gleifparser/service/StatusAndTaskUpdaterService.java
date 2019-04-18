@@ -17,6 +17,7 @@ import com.inmemory.gleifparser.WebSocketConfig;
 import com.inmemory.gleifparser.beans.BaseBean;
 import com.inmemory.gleifparser.beans.StatusUpdateResponseBean;
 import com.inmemory.gleifparser.constants.Constants;
+import com.inmemory.gleifparser.entity.GleifHeader;
 
 /**
  * @author Bhuvanesh
@@ -82,10 +83,38 @@ public abstract class StatusAndTaskUpdaterService {
 				if (!taskStatusResponse.isDone()) {
 					taskStatusResponse.cancel(true);
 				}
+				completedTasks.add(taskStatusResponse);
 			}
-			runningTasks.clear();
+			runningTasks.removeAll(completedTasks);
 		}
 		return isError;
 	}
 
+	
+	/**
+	 * @param newHeader
+	 * @return
+	 */
+	protected StatusUpdateResponseBean initializeStatusResponseBean(GleifHeader newHeader) {
+		StatusUpdateResponseBean statusUpdateResponseBean = new StatusUpdateResponseBean();
+		statusUpdateResponseBean.setTotalNumberOfRecords(newHeader.getRecordCount());
+		statusUpdateResponseBean.setNumberOfProcessedRecords(0);
+		statusUpdateResponseBean
+				.setPercentageProcessed(calculatePercentage(statusUpdateResponseBean.getNumberOfProcessedRecords(),
+						statusUpdateResponseBean.getTotalNumberOfRecords()));
+		statusUpdateResponseBean.setStatus(Constants.STATUS_IN_PROGRESS);
+		return statusUpdateResponseBean;
+	}
+	
+	/**
+	 * @param subscriberId
+	 * @param statusUpdateResponseBean
+	 */
+	protected void sendFailedStatus(String subscriberId, String message,
+			StatusUpdateResponseBean statusUpdateResponseBean) {
+		statusUpdateResponseBean.setError(true);
+		statusUpdateResponseBean.setStatus(Constants.STATUS_FAILED);
+		statusUpdateResponseBean.setMessage(message);
+		sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
+	}
 }

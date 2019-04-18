@@ -11,4 +11,6 @@ public interface GleifHeaderDAO extends JpaRepository<GleifHeader, Long> {
 
 	@Query(value = "from GleifHeader where fileContent=:fileContent")
 	GleifHeader findByFileContent(@Param("fileContent") String fileContent);
+	
+	
 }

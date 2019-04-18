@@ -34,6 +34,7 @@ PRIMARY KEY(Gleif_Header_Id));
 
 
 Create table Level1_Lei_Record (
+LEI_ID INTEGER NOT NULL;
 LEI varchar(21) NOT NULL,
 E_Legal_Name_Type_Value varchar(500),
 E_Legal_Name_Type_Lang varchar(500),
@@ -114,7 +115,7 @@ R_Validation_Sources varchar(500),
 R_Validation_Authority_ID varchar(500),
 R_Other_Validation_Authority_ID varchar(500),
 R_Validation_Authority_Entity_ID varchar(500),
-Primary key (LEI));
+Primary key (LEI_ID));
 
 
 Create table Level2_Reporting_Exception (
@@ -189,6 +190,9 @@ FOREIGN KEY (RR_ID) REFERENCES Level2_Relationship_Record(RR_ID));
 
 
 CREATE SEQUENCE GLEIF_HEADER_SEQ INCREMENT BY 1 MAXVALUE 99999 RESET BY SELECT IFNULL(MAX(GLEIF_HEADER_ID), 0) + 1 FROM GLEIF_HEADER;
+
+
+CREATE SEQUENCE LEVEL1_LEI_RECORD_SEQ INCREMENT BY 1000 MAXVALUE 9999999999 RESET BY SELECT IFNULL(MAX(LEI_ID), 0) + 1 FROM LEVEL1_LEI_RECORD;
 
 CREATE SEQUENCE LEVEL2_EXCEPTION_REASON_SEQ INCREMENT BY 1000 MAXVALUE 9999999999 RESET BY SELECT IFNULL(MAX(EXCEPTION_REASON_ID), 0) + 1 FROM LEVEL2_EXCEPTION_REASON;
 

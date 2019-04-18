@@ -9,12 +9,11 @@ import java.util.concurrent.Future;
 import javax.xml.stream.XMLEventReader;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inmemory.gleifparser.beans.BaseBean;
+import com.inmemory.gleifparser.beans.Level2RRCurRangeBean;
 import com.inmemory.gleifparser.beans.StatusUpdateResponseBean;
 import com.inmemory.gleifparser.constants.Constants;
 import com.inmemory.gleifparser.constants.XmlDataConstants;
@@ -32,7 +31,6 @@ import com.inmemory.gleifparser.utils.GleifXmlUnmarshallerFactory;
 
 @Service
 @Transactional
-
 public class RelationshipRecordServiceImpl extends StatusAndTaskUpdaterService implements RelationshipRecordService {
 
 	@Autowired
@@ -74,45 +72,31 @@ public class RelationshipRecordServiceImpl extends StatusAndTaskUpdaterService i
 		}
 
 	}
-
+	
+	
 	private void parseRelationshipRecords(XMLEventReader xmlEventReader, RRHeaderType rrHeader, String subscriberId)
 			throws Exception {
 		List<Level2RelationshipRecord> level2relationshiprecords = new ArrayList<>();
 		Level2RelationshipRecord curRecord = null;
-		GleifHeader oldRecord = gleifHeaderDAO.findByFileContent(XmlDataConstants.FILE_TYPE_LEVEL1_LEI);
-		GleifHeader gleifHeader = HeaderMapper.convertRRHeaderToEntity(rrHeader);
-		StatusUpdateResponseBean statusUpdateResponseBean = new StatusUpdateResponseBean();
-		statusUpdateResponseBean.setTotalNumberOfRecords(gleifHeader.getRecordCount());
-		statusUpdateResponseBean.setNumberOfProcessedRecords(0);
-		statusUpdateResponseBean
-				.setPercentageProcessed(calculatePercentage(statusUpdateResponseBean.getNumberOfProcessedRecords(),
-						statusUpdateResponseBean.getTotalNumberOfRecords()));
-		statusUpdateResponseBean.setStatus(Constants.STATUS_IN_PROGRESS);
-
-		// if it is not a complete file then ignore
-		if (!XmlDataConstants.FILE_CONTENT_FULL_PUBLISHED.equalsIgnoreCase(rrHeader.getFileContent().value())) {
-			statusUpdateResponseBean.setError(true);
-			statusUpdateResponseBean.setStatus(Constants.STATUS_FAILED);
-			statusUpdateResponseBean.setMessage(Constants.ONLY_FULL_PUBLISHED_FILES_ARE_SUPPORTED);
-			sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
-			return;
-		}
-		if (oldRecord != null) {
-			gleifHeaderDAO.delete(oldRecord);
-		}
-		statusUpdateResponseBean.setMessage(Constants.DELETE_OLD_RECORDS);
-		sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
-
-		qualifierDAO.deleteAll();
-		quantifierDAO.deleteAll();
-		levelTwoRRDao.deleteAll();
-		statusUpdateResponseBean.setMessage(Constants.STATUS_IN_PROGRESS);
-		sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
 
 		List<Future<BaseBean>> runningTasks = new ArrayList<>();
 		List<Future<BaseBean>> completedTasks = new ArrayList<>();
+		GleifHeader oldHeader = gleifHeaderDAO.findByFileContent(XmlDataConstants.FILE_TYPE_LEVEL2_RR);
+		GleifHeader newHeader = HeaderMapper.convertRRHeaderToEntity(rrHeader);
+		StatusUpdateResponseBean statusUpdateResponseBean = initializeStatusResponseBean(newHeader);
 		boolean isError = false;
+		Level2RRCurRangeBean curRangeBean = null;
 		try {
+			// before inserting find current records primary key ranges so it can be deleted
+			curRangeBean = findLevel2MinMaxRanges();
+			// if it is not a complete file then ignore
+			if (!XmlDataConstants.FILE_CONTENT_FULL_PUBLISHED.equalsIgnoreCase(rrHeader.getFileContent().value())) {
+				sendFailedStatus(subscriberId, Constants.ONLY_FULL_PUBLISHED_FILES_ARE_SUPPORTED,
+						statusUpdateResponseBean);
+				return;
+			}
+			
+			long currentProcessedCount = 0;
 			while (xmlEventReader.hasNext()) {
 				if (xmlEventReader.peek().isStartElement() && XmlDataConstants.LEVEL_2_RELATIONSHIP_RECORD
 						.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
@@ -124,9 +108,12 @@ public class RelationshipRecordServiceImpl extends StatusAndTaskUpdaterService i
 					// write in batches
 					if (level2relationshiprecords.size() >= SAVE_RECORDS_BATCH_SIZE) {
 						runningTasks
-								.add(asyncSaverServiceImpl.saveEntities(new ArrayList<>(level2relationshiprecords)));
-						System.out.println("RUnning tasks:" + runningTasks.size());
+								.add(asyncSaverServiceImpl.saveRREntities(new ArrayList<>(level2relationshiprecords)));
 						isError = checkAndUpdateRunningTasks(statusUpdateResponseBean, runningTasks, completedTasks);
+						if (currentProcessedCount < statusUpdateResponseBean.getNumberOfProcessedRecords()) {
+							sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
+							currentProcessedCount = statusUpdateResponseBean.getNumberOfProcessedRecords();
+						}
 						level2relationshiprecords.clear();
 						if (isError) {
 							break;
@@ -145,7 +132,7 @@ public class RelationshipRecordServiceImpl extends StatusAndTaskUpdaterService i
 			}
 
 			// do until completed tasks is zero
-			long currentProcessedCount = statusUpdateResponseBean.getNumberOfProcessedRecords();
+
 			while (!runningTasks.isEmpty()) {
 				isError = checkAndUpdateRunningTasks(statusUpdateResponseBean, runningTasks, completedTasks);
 				if (isError || currentProcessedCount < statusUpdateResponseBean.getNumberOfProcessedRecords()) {
@@ -155,14 +142,21 @@ public class RelationshipRecordServiceImpl extends StatusAndTaskUpdaterService i
 			}
 			if (!isError) {
 				statusUpdateResponseBean.setStatus(Constants.STATUS_COMPLETE);
+				// delete old records
+				deleteOldRecords(curRangeBean, oldHeader);
+				sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
+				// insert new header
+				gleifHeaderDAO.save(newHeader);
+			} else {
+				// delete newly inserted records
+				deletenewlyInsertedRecords(curRangeBean);
 				sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
 			}
 
 		} catch (Exception ex) {
-			/*
-			 * catch (JAXBException | XMLStreamException | InterruptedException |
-			 * ExecutionException | DataAccessException ex) {
-			 */
+			if (curRangeBean != null) {
+				deletenewlyInsertedRecords(curRangeBean);
+			}
 			for (Future<BaseBean> taskStatusResponse : runningTasks) {
 				if (!taskStatusResponse.isDone()) {
 					taskStatusResponse.cancel(true);
@@ -173,6 +167,50 @@ public class RelationshipRecordServiceImpl extends StatusAndTaskUpdaterService i
 			statusUpdateResponseBean.setMessage(ex.getMessage());
 			sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
 			throw ex;
+		}
+	}
+
+	private Level2RRCurRangeBean findLevel2MinMaxRanges() {
+		Level2RRCurRangeBean curRangeBean = new Level2RRCurRangeBean();
+		curRangeBean.setMinRRId(levelTwoRRDao.findMinId());
+		curRangeBean.setMaxRRId(levelTwoRRDao.findMaxId());
+		curRangeBean.setMinQualifierId(qualifierDAO.findMinId());
+		curRangeBean.setMaxQualifierId(qualifierDAO.findMaxId());
+		curRangeBean.setMinQuantifierId(quantifierDAO.findMinId());
+		curRangeBean.setMaxQuantifierId(quantifierDAO.findMaxId());
+		return curRangeBean;
+	}
+
+	private void deleteOldRecords(Level2RRCurRangeBean curRangeBean, GleifHeader oldRecord) {
+		if (curRangeBean.getMinQualifierId() != null) {
+			qualifierDAO.deleteAllRecordsInRange(curRangeBean.getMinQualifierId(), curRangeBean.getMaxQualifierId());
+		}
+		if (curRangeBean.getMinQuantifierId() != null) {
+			quantifierDAO.deleteAllRecordsInRange(curRangeBean.getMinQuantifierId(), curRangeBean.getMaxQuantifierId());
+		}
+		if (curRangeBean.getMinRRId() != null) {
+			levelTwoRRDao.deleteAllRecordsInRange(curRangeBean.getMinRRId(), curRangeBean.getMaxRRId());
+		}
+		if (oldRecord != null) {
+			gleifHeaderDAO.delete(oldRecord);
+		}
+	}
+
+	private void deletenewlyInsertedRecords(Level2RRCurRangeBean curRangeBean) {
+		if (curRangeBean.getMaxQualifierId() != null) {
+			qualifierDAO.deleteRecordKeyGreaterThan(curRangeBean.getMaxQualifierId());
+		}else {
+			qualifierDAO.deleteRecordKeyGreaterThan(0L);
+		}
+		if (curRangeBean.getMaxQuantifierId() != null) {
+			quantifierDAO.deleteRecordKeyGreaterThan(curRangeBean.getMaxQuantifierId());
+		}else {
+			quantifierDAO.deleteRecordKeyGreaterThan(0L);
+		}
+		if (curRangeBean.getMaxRRId() != null) {
+			levelTwoRRDao.deleteRecordKeyGreaterThan(curRangeBean.getMaxRRId());
+		}else {
+			levelTwoRRDao.deleteRecordKeyGreaterThan(0L);
 		}
 	}
 

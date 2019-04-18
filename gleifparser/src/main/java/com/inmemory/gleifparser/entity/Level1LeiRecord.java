@@ -2,6 +2,9 @@ package com.inmemory.gleifparser.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.inmemory.gleifparser.constants.Constants;
+
 import java.util.Date;
 
 /**
@@ -15,6 +18,12 @@ public class Level1LeiRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "LEI_ID")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="leiSequenceGen")
+	@SequenceGenerator(name="leiSequenceGen",sequenceName="LEVEL1_LEI_RECORD_SEQ",allocationSize=Constants.SEQUENCE_ALLOCATION_SIZE)
+	private Long leiId;
+	
+	@Column(name = "LEI")
 	private String lei;
 
 	@Column(name = "E_ASSOCIATED_ENTITY_NAME")

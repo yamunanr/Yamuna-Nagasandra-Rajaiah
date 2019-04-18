@@ -9,9 +9,10 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @Configuration
 public class AsyncConfig {
 	@Bean(name = "threadPoolTaskExecutor")
-    public Executor threadPoolTaskExecutor() {
-		 ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		 executor.setMaxPoolSize(5);
-        return executor;
-    }
+	public Executor threadPoolTaskExecutor() {
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setMaxPoolSize(20);
+		executor.setCorePoolSize(15);
+		return executor;
+	}
 }
