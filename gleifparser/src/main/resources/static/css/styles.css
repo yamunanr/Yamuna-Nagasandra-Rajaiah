@@ -9,3 +9,7 @@ strong {
 .display-inline-block {
   display: inline-block;
 }
+
+label{display:inline-block; }
+input{display:block;}
+

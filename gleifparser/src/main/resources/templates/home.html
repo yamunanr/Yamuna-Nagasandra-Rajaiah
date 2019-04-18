@@ -5,7 +5,11 @@
 	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{css/styles.css}">
 <link rel="stylesheet" th:href="@{fonts/font-awesome.min.css}">
-<script type="text/javascript" th:src="@{/webjars/jquery/3.4.0/jquery.min.js}"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript"
+	th:src="@{/webjars/jquery/3.4.0/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{js/home.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 <script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
@@ -25,37 +29,41 @@
 		</div>
 	</div>
 	<div>
+		<hr
+			style="BORDER-TOP: #cccccc 1px solid; BORDER-BOTTOM: medium none; HEIGHT: 2.5px">
 		<div class="container">
 			<div class="row" style="margin: 0px -15px; padding: 0px 0px 0px 0px;">
-				<div class="col-md-12">
+				<div class="col-md-12 style=" >
 					<div>
 						<ul class="nav nav-tabs">
-							<li class="nav-item"><a class="nav-link" role="tab"
-								data-toggle="tab" href="#tab-1">File Upload</a></li>
 							<li class="nav-item"><a class="nav-link active" role="tab"
+								data-toggle="tab" href="#tab-1">File Upload</a></li>
+							<li class="nav-item"><a class="nav-link" role="tab"
 								data-toggle="tab" href="#tab-2">Finder</a></li>
 						</ul>
 						<div class="tab-content">
-							<div class="tab-pane" role="tabpanel" id="tab-1">
+							<div class="tab-pane active fade show active" role="tabpanel"
+								id="tab-1">
 								<div class="row">
 									<div class="col">
 										<hr style="opacity: 0;">
 									</div>
 								</div>
-							</div>
-							<div class="row">
-								<form>
-									<div class="col-xl-4">
-										<input type="file" id="fileName" name="fileName"
-											accept="*.zip">
-									</div>
-									<div class="col-xl-2">
-										<button class="btn btn-primary" type="button"
-											id="uploadFileButton">Upload</button>
-									</div>
-								</form>
-							</div>
-							<div class="row" style="margin: 20px -15px;">
+
+								<div class="row">
+									<form>
+										<div class="col-xl-4">
+											<input type="file" id="fileName" name="fileName"
+												accept="*.zip">
+										</div>
+										<br>
+										<div class="col-xl-2">
+											<button class="btn btn-primary" type="button"
+												id="uploadFileButton">Upload</button>
+										</div>
+									</form>
+								</div>
+								<div class="row" style="margin: 20px -15px;">
 								<div class="col">
 									<div id="progressBarDiv" class="card" style="background-color: rgb(247, 246, 245);">
 										<div class="card-body">
@@ -86,15 +94,42 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="tab-pane active active" role="tabpanel" id="tab-2">
-							<div class="row">
-								<div class="col" style="opacity: 0;">
-									<hr>
+							</div>
+
+
+							<div class="tab-pane fade" role="tabpanel" id="tab-2" >
+								<div class="row">
+									<div class="col">
+										<hr style="opacity: 0;">
+									</div>
+								</div>
+								<div class="row"></div>
+								<div class="row">
+									<div class="col">
+										<b style="margin-left: 12px;">Enter One of the following
+											fields to search LEI records:</b>
+										<div class="label" style="margin-left: 14px;"><br>
+											<label>Legal Name <input type=text name=foo id=foo /></label>
+											<label style="margin-left: 90px;">Country<input
+												type=text name=bar id=bar /></label> <label
+												style="margin-left: 96px;">Status<br> <select
+												name="status" style="height: 28px;">
+													<option>Issued
+													<option>Annulled
+													<option>Lapsed
+													<option>Duplicate
+													<option>Merged
+													<option>Retired
+													<option>Pending-Transfer
+													<option>Pending-Archival
+											</select></label>
+											<button class="btn btn-primary" type="button"
+												id="uploadFileButton" style="margin-left: 100px">SEARCH</button>
+
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="row"></div>
-							<div class="row"></div>
 						</div>
 					</div>
 				</div>
@@ -103,4 +138,6 @@
 	</div>
 
 </body>
+
 </html>
+
