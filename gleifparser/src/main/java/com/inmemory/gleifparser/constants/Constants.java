@@ -5,8 +5,8 @@ public final class Constants {
 	private Constants() {
 	}
 
-	public static final int SEQUENCE_ALLOCATION_SIZE = 20;
-	public static final int SAVE_RECORDS_BATCH_SIZE = 20;
+	public static final int SEQUENCE_ALLOCATION_SIZE = 1000;
+	public static final int SAVE_RECORDS_BATCH_SIZE = 1000;
 	public static final String STATUS_IN_PROGRESS = "In Progress";
 	public static final String STATUS_FAILED = "FAILED";
 	public static final String STATUS_COMPLETE = "COMPLETE";
