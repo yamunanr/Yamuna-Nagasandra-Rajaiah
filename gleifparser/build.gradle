@@ -34,8 +34,10 @@ dependencies {
 	
 	runtimeClasspath   'org.webjars:sockjs-client:1.1.2'
 	runtimeClasspath   'org.webjars:stomp-websocket:2.3.3-1'
-	
-	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeClasspath 'org.webjars:jquery-ui:1.12.0'
+	runtimeClasspath 'org.springframework.boot:spring-boot-devtools'
+	runtimeClasspath  'org.webjars:datatables:1.10.19'
+	runtimeClasspath 'org.webjars:font-awesome:5.8.1'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

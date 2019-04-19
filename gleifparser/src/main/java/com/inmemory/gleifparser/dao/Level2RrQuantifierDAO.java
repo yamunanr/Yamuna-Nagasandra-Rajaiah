@@ -23,4 +23,6 @@ public interface Level2RrQuantifierDAO extends JpaRepository<Level2RrRelationshi
 	@Modifying
 	@Query(value = "DELETE FROM Level2_Rr_Relationship_Quantifier where Quantifier_RR_ID > ?  ", nativeQuery = true)
 	public void deleteRecordKeyGreaterThan(Long startId);
+	
+	
 }

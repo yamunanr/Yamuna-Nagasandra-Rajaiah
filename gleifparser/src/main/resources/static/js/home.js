@@ -59,65 +59,19 @@ $('.btn').on('click', function load() {
    }, 8000);
 })
 
-<script>
-$( document ).ready(function() {
 	 $("#example1").dialog({ autoOpen: false, height: 400});
 $( "#opener" ).on( "click", function() {
      $( "#example1" ).dialog( "open" );
      
    });
-} );
 
-</script>
-<head>
-<style>
 
-.dropbtn {
-	  background-color: #4CAF50;
-	  color: white;
-	  padding: 14px;
-	  font-size: 14px;
-	  border: none;
-	  cursor: pointer;
-	}
-
-	.dropbtn:hover, .dropbtn:focus {
-	  background-color: #3e8e41;
-	}
-
-	.dropdown {
-	  position: relative;
-	  display: inline-block;
-	}
-
-	.dropdown-content {
-	  display: none;
-	  position: absolute;
-	  background-color: #f9f9f9;
-	  min-width: 160px;
-	  overflow: auto;
-	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	}
-
-	.dropdown-content a {
-	  color: black;
-	  padding: 12px 16px;
-	  text-decoration: none;
-	  display: block;
-	}
-
-	.dropdown-content a:hover {background-color: #f1f1f1}
-
-	.show {display:block;}
-	</style>
-	</head>
-	<script>
-	// Get the button, and when the user clicks on it, execute myFunction
-	document.getElementById("myBtn").onclick = function() {myFunction()};
-
-	/* myFunction toggles between adding and removing the show class, which is used to hide and show the dropdown content */
-	function myFunction() {
-	  document.getElementById("myDropdown").classList.toggle("show");
-	}
-	</script>
+/*
+* toggles between adding and removing the show class,
+* which is used to hide and show the dropdown content
+*/
+("#myBtn").click(function() {
+	("#myDropdown").classList.toggle("show");
+});
+	
 });
