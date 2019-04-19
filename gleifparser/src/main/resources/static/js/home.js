@@ -51,7 +51,8 @@ function disconnectSocket() {
 
 }
 
-$('.btn').on('click', function load() {
+$('#searchButton').on('click', function load() {
+	
     var $this = $(this);
   $this.button('loading');
     setTimeout(function() {
@@ -70,8 +71,8 @@ $( "#opener" ).on( "click", function() {
 * toggles between adding and removing the show class,
 * which is used to hide and show the dropdown content
 */
-("#myBtn").click(function() {
-	("#myDropdown").classList.toggle("show");
+$("#myBtn").click(function() {
+	$("#myDropdown").classList.toggle("show");
 });
 	
 });
