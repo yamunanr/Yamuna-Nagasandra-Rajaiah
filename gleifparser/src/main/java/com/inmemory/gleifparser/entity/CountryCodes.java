@@ -20,16 +20,16 @@ public class CountryCodes implements Serializable {
 
 	@Id
 	@Column(name = "code")
-	private Long code;
+	private String code;
 
 	@Column(name = "country")
 	private String country;
 
-	public Long getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(Long code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 

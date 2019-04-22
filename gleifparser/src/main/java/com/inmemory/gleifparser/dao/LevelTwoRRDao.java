@@ -23,4 +23,6 @@ public interface LevelTwoRRDao extends JpaRepository<Level2RelationshipRecord, L
 	@Modifying
 	@Query(value = "DELETE FROM LEVEL2_RELATIONSHIP_RECORD where RR_ID > ?  ", nativeQuery = true)
 	public void deleteRecordKeyGreaterThan(Long startId);
+	
+	
 }

@@ -142,9 +142,13 @@ public class RelationshipRecordServiceImpl extends StatusAndTaskUpdaterService i
 				}
 			}
 			if (!isError) {
-				statusUpdateResponseBean.setStatus(Constants.STATUS_COMPLETE);
+				statusUpdateResponseBean.setStatus(Constants.STATUS_DELETION);
+				statusUpdateResponseBean.setMessage(Constants.DELETE_OLD_RECORDS);
+				sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
 				// delete old records
 				deleteOldRecords(curRangeBean, oldHeader);
+				statusUpdateResponseBean.setStatus(Constants.STATUS_COMPLETE);
+				statusUpdateResponseBean.setMessage(Constants.FILE_PARSED_SUCCESSFULLY);
 				sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
 				// insert new header
 				gleifHeaderDAO.save(newHeader);

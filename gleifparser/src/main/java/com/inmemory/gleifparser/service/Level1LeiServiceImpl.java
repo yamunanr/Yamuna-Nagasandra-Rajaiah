@@ -33,6 +33,7 @@ public class Level1LeiServiceImpl extends StatusAndTaskUpdaterService implements
 
 	@Autowired
 	private Level1LeiRecordDao level1LeiRecordDao;
+	
 	@Autowired
 	private GleifHeaderDAO gleifHeaderDAO;
 
@@ -129,11 +130,14 @@ public class Level1LeiServiceImpl extends StatusAndTaskUpdaterService implements
 				}
 			}
 			if (!isError) {
-				statusUpdateResponseBean.setStatus(Constants.STATUS_COMPLETE);
+				statusUpdateResponseBean.setStatus(Constants.STATUS_DELETION);
+				statusUpdateResponseBean.setMessage(Constants.DELETE_OLD_RECORDS);
+				sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
 				// delete old records
 				deleteOldRecords(curRangeBean, oldHeader);
+				statusUpdateResponseBean.setStatus(Constants.STATUS_COMPLETE);
+				statusUpdateResponseBean.setMessage(Constants.FILE_PARSED_SUCCESSFULLY);
 				sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
-				// insert new header
 				gleifHeaderDAO.save(newHeader);
 			} else {
 				// delete newly inserted records

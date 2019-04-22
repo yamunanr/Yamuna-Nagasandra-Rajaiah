@@ -1,0 +1,264 @@
+<div xmlns:th="http://www.thymeleaf.org" style="overflow: hidden">
+	<div class="col-md-12">
+		<br />
+		 <button class="btn btn-primary btn-block" type="button"
+											id="backtoResultsButton">Back to Results</button>
+		<br />
+	</div>
+	<div class="accordion col-md-12" id="accordionExample">
+		<div class="card" style="border: 1px solid grey">
+			<div class="card-header" id="headingOne">
+				<h5 class="mb-0">
+					<button class="btn  btn-block" type="button" data-toggle="collapse"
+						data-target="#collapseOne" aria-expanded="true"
+						aria-controls="collapseOne" id="headingOneBtn">Legal
+						Entity Details</button>
+				</h5>
+			</div>
+
+			<div id="collapseOne" class="collapse " aria-labelledby="headingOne"
+				data-parent="#accordionExample">
+				<div class="card-body" id="collapseOneBody">
+					<table class="table table-striped">
+						<tbody>
+							<th:block th:if="!${#strings.isEmpty(data.lei)}">
+								<tr>
+									<td class="text-info"><strong>LEI</strong></td>
+									<td class="text-primary" th:text="${data.lei}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.legalName)}">
+								<tr>
+									<td class="text-info"><strong>LEGAL NAME</strong></td>
+									<td class="text-primary" th:text="${data.legalName}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.registeredAs)}">
+								<tr>
+									<td class="text-info"><strong>Registered As</strong></td>
+									<td class="text-primary" th:text="${data.registeredAs}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.jurdiscation)}">
+								<tr>
+									<td class="text-info"><strong>Jurisdiction of
+											Formation</strong></td>
+									<td class="text-primary" th:text="${data.jurdiscation}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.legalForm)}">
+								<tr>
+									<td class="text-info"><strong>Entity Legal Form</strong></td>
+									<td class="text-primary" th:text="${data.legalForm}"></td>
+								</tr>
+							</th:block>
+
+							<th:block th:if="!${#strings.isEmpty(data.entityStatus)}">
+								<tr>
+									<td class="text-info"><strong>Entity Status</strong></td>
+									<td class="text-primary" th:text="${data.entityStatus}"></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="card" style="border: 1px solid grey">
+			<div class="card-header" id="headingTwo">
+				<h5 class="mb-0">
+					<button class="btn btn-block collapsed" type="button"
+						data-toggle="collapse" data-target="#collapseTwo"
+						aria-expanded="false" aria-controls="collapseTwo"
+						id="headingTwoBtn">Legal Address</button>
+				</h5>
+			</div>
+			<div id="collapseTwo" class="collapse " aria-labelledby="headingTwo"
+				data-parent="#accordionExample">
+				<div class="card-body" id="collapseTwoBody">
+					<table class="table table-striped ">
+						<tbody>
+							<th:block th:if="!${#strings.isEmpty(data.legalfirstAddLine)}">
+								<tr>
+									<td class="text-primary" th:text="${data.legalfirstAddLine}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.legalAddressNumber)}">
+								<tr>
+									<td class="text-primary" th:text="${data.legalAddressNumber}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.legalAddNumBuilding)}">
+								<tr>
+									<td class="text-primary" th:text="${data.legalAddNumBuilding}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.legalAddMailRouting)}">
+								<tr>
+									<td class="text-primary" th:text="${data.legalAddMailRouting}"></td>
+								</tr>
+							</th:block>
+							<th:block
+								th:if="!${#strings.isEmpty(data.legalAdditionalAddLine1)}">
+								<tr>
+									<td class="text-primary"
+										th:text="${data.legalAdditionalAddLine1}"></td>
+								</tr>
+							</th:block>
+							<th:block
+								th:if="!${#strings.isEmpty(data.legalAdditonalAddLine2)}">
+								<tr>
+									<td class="text-primary"
+										th:text="${data.legalAdditonalAddLine2}"></td>
+								</tr>
+							</th:block>
+							<th:block
+								th:if="!${#strings.isEmpty(data.legalAdditonalAddLine3)}">
+								<tr>
+									<td class="text-primary"
+										th:text="${data.legalAdditonalAddLine3}"></td>
+								</tr>
+							</th:block>
+							<th:block
+								th:if="!${#strings.isEmpty(data.legalAddressPostalCode)}">
+								<tr>
+									<td class="text-primary"
+										th:text="${data.legalAddressPostalCode}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.legalAddCity)}">
+								<tr>
+									<td class="text-primary" th:text="${data.legalAddCity}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.legalAddRegion)}">
+								<tr>
+									<td class="text-primary" th:text="${data.legalAddRegion}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.legalAddCountry)}">
+								<tr>
+									<td class="text-primary" th:text="${data.legalAddCountry}"></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="card" style="border: 1px solid grey">
+			<div class="card-header" id="headingThree">
+				<h5 class="mb-0">
+					<button class="btn btn-block collapsed" type="button"
+						data-toggle="collapse" data-target="#collapseThree"
+						aria-expanded="false" aria-controls="collapseThree"
+						id="headingThreeBtn">Registration Details</button>
+				</h5>
+			</div>
+			<div id="collapseThree" class="collapse "
+				aria-labelledby="headingThree" data-parent="#accordionExample">
+				<div class="card-body" id="collapseThreeBody">
+					<table class="table table-striped ">
+						<tbody>
+							<th:block th:if="!${#strings.isEmpty(data.regInitialDate)}">
+								<tr>
+									<td class="text-info"><strong>Registration Date</strong></td>
+									<td class="text-primary" th:text="${data.regInitialDate}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.regLastUpdateDate)}">
+								<tr>
+									<td class="text-info"><strong>Registration Last
+											Update Date</strong></td>
+									<td class="text-primary" th:text="${data.regLastUpdateDate}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.regStatus)}">
+								<tr>
+									<td class="text-info"><strong>Status</strong></td>
+									<td class="text-primary" th:text="${data.regStatus}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.regNextRenewalDate)}">
+								<tr>
+									<td class="text-info"><strong>Next Renewal Date</strong></td>
+									<td class="text-primary" th:text="${data.regNextRenewalDate}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.regLeiIssuer)}">
+								<tr>
+									<td class="text-info"><strong>LEI Issuer</strong></td>
+									<td class="text-primary" th:text="${data.regLeiIssuer}"></td>
+								</tr>
+							</th:block>
+							<th:block th:if="!${#strings.isEmpty(data.corroborationLevel)}">
+								<tr>
+									<td class="text-info"><strong>Corroboration Level</strong></td>
+									<td class="text-primary" th:text="${data.corroborationLevel}"></td>
+								</tr>
+							</th:block>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="card" style="border: 1px solid grey">
+			<div class="card-header" id="headingFour">
+				<h5 class="mb-0">
+					<button class="btn  btn-block" type="button" data-toggle="collapse"
+						data-target="#collapseFour" aria-expanded="true"
+						aria-controls="collapseFour" id="headingFourBtn">Legal
+						Relationship Details</button>
+				</h5>
+			</div>
+
+			<div id="collapseFour" class="collapse "
+				aria-labelledby="headingFour" data-parent="#accordionExample">
+				<div class="card-body" id="collapseFourBody">
+					<table class="table  table-bordered table-hover"
+						id="parentRecordsTable">
+						<thead>
+							<tr class="bg-primary">
+									<th  >Parent LEI</th>
+									<th >Legal Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block
+								th:each="leiRecord, iStat : ${data.parentLeis}">
+								<tr th:class="${iStat.even}? 'bg-danger' : 'bg-info'"
+									th:id="${leiRecord.key}">
+									<td><a href="#leiLink" th:text="${leiRecord.key}"></a></td>
+									<td th:text="${leiRecord.value}" />
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+						<br/>
+						<table class="table  table-bordered table-hover"
+						id="parentRecordsTable">
+						<thead>
+							<tr class="bg-primary">
+									<th  >Child LEI</th>
+									<th >Legal Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block
+								th:each="leiRecord, iStat : ${data.childLeis}">
+								<tr th:class="${iStat.even}? 'bg-danger' : 'bg-info'"
+									th:id="${leiRecord.key}">
+									<td><a href="#leiLink" th:text="${leiRecord.key}"></a></td>
+									<td th:text="${leiRecord.value}" />
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

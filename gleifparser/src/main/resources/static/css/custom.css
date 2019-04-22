@@ -1,0 +1,54 @@
+body {
+	/*background: linear-gradient(to right, #dae2f8, #d6a4a4);*/
+	/*background: linear-gradient(to right, #ece9e6, #ffffff);*/
+	 background-image: url("../images/background_map.jpg");
+	 background-size:cover;
+}
+
+strong {
+	font-weight: bold;
+}
+
+.display-inline-block {
+    display: inline-block;
+}
+
+
+label {
+    display: inline-block;
+}
+
+input {
+    display: block;
+}
+
+.text-green {
+	color: green;
+}
+.text-dark-grey {
+ color: #808080;
+}
+.ui-autocomplete {
+            max-height: 200px;
+            /*overflow-y: auto;*/
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+            /* add padding to account for vertical scrollbar */
+             color: #808080;
+    	border-radius: 0px;
+    	border: 1px solid #454545;
+    	   z-index: 1051;
+    	   
+            
+        } 
+
+
+
+.dropdown-autocomplete {
+position:relative;
+
+	color: #808080;
+top: 0px !important;
+    left: 0px !important;
+  
+}

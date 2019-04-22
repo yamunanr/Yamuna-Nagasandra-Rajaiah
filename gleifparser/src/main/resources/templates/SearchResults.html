@@ -1,0 +1,43 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<div class="col-md-12" style="">
+		<br /> <br />
+	</div>
+	<div class="col-md-12" style="">
+
+		<table class="table  table-bordered table-hover" id="searchResultTable">
+			<thead>
+				<tr class="bg-primary">
+					<th:block th:each="header: ${searchResult.headers}">
+						<th th:text="${header}" />
+					</th:block>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block
+					th:each="leiRecord, iStat : ${searchResult.resultPage.content}">
+						<tr th:class="${iStat.even}? 'bg-danger' : 'bg-info'" th:id="${leiRecord.lei}">
+						<td ><a href="#leiLink" th:text="${leiRecord.lei}"></a></td>
+						<td th:text="${leiRecord.legalName}" />
+						<td th:text="${leiRecord.country}" />
+						<td th:text="${leiRecord.registrationStatus}" />
+						<td th:text="${leiRecord.entityLegalForm}" />
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="col-md-12"
+		th:if="${searchResult.resultPage.totalPages > 0}">
+		
+		<nav aria-label="Page navigation">
+			<ul class="pagination"
+				th:each="pageNumber : ${searchResult.pageNumbers}">
+				<li th:class="${pageNumber==searchResult.resultPage.number + 1} ? active">
+					<a href="#searchPageLink" th:text=${pageNumber}
+						th:class="${pageNumber==searchResult.resultPage.number + 1} ? text-primary"></a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</div>

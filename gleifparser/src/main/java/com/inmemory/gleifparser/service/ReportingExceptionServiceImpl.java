@@ -81,7 +81,7 @@ public class ReportingExceptionServiceImpl extends StatusAndTaskUpdaterService i
 	private void parseReportingExceptionRecords(XMLEventReader xmlEventReader, String subscriberId, ExceptionHeaderType header)
 			throws Exception {
 	
-		List<Level2ReportingException> level2relationshiprecords = new ArrayList<>();
+		List<Level2ReportingException> level2ReportingExceptionrecords = new ArrayList<>();
 		Level2ReportingException curRecord = null;
 
 		List<Future<BaseBean>> runningTasks = new ArrayList<>();
@@ -104,23 +104,23 @@ public class ReportingExceptionServiceImpl extends StatusAndTaskUpdaterService i
 			
 			long currentProcessedCount = 0;
 			while (xmlEventReader.hasNext()) {
-				if (xmlEventReader.peek().isStartElement() && XmlDataConstants.LEVEL_2_RELATIONSHIP_RECORD
+				if (xmlEventReader.peek().isStartElement() && XmlDataConstants.LEVEL_2_REPORTING_EXCEPTION_RECORD
 						.equalsIgnoreCase(xmlEventReader.peek().asStartElement().getName().getLocalPart())) {
-					ExceptionType relationshipRecord = GleifXmlUnmarshallerFactory
+					ExceptionType reportingExceptionRecord = GleifXmlUnmarshallerFactory
 							.getReportingExceptionsJaxbUnmarshaller().unmarshal(xmlEventReader, ExceptionType.class)
 							.getValue();
-					curRecord = Level2RepExceptionDbMapper.convertFromXmlToEntityObject(relationshipRecord);
-					level2relationshiprecords.add(curRecord);
+					curRecord = Level2RepExceptionDbMapper.convertFromXmlToEntityObject(reportingExceptionRecord);
+					level2ReportingExceptionrecords.add(curRecord);
 					// write in batches
-					if (level2relationshiprecords.size() >= SAVE_RECORDS_BATCH_SIZE) {
+					if (level2ReportingExceptionrecords.size() >= SAVE_RECORDS_BATCH_SIZE) {
 						runningTasks
-								.add(asyncSaverServiceImpl.saveRecExEntities(new ArrayList<>(level2relationshiprecords)));
+								.add(asyncSaverServiceImpl.saveRecExEntities(new ArrayList<>(level2ReportingExceptionrecords)));
 						isError = checkAndUpdateRunningTasks(statusUpdateResponseBean, runningTasks, completedTasks);
 						if (currentProcessedCount < statusUpdateResponseBean.getNumberOfProcessedRecords()) {
 							sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
 							currentProcessedCount = statusUpdateResponseBean.getNumberOfProcessedRecords();
 						}
-						level2relationshiprecords.clear();
+						level2ReportingExceptionrecords.clear();
 						if (isError) {
 							break;
 						}
@@ -130,11 +130,11 @@ public class ReportingExceptionServiceImpl extends StatusAndTaskUpdaterService i
 				}
 
 			}
-			if (!level2relationshiprecords.isEmpty()) {
-				reportingExceptionDAO.saveAll(level2relationshiprecords);
+			if (!level2ReportingExceptionrecords.isEmpty()) {
+				reportingExceptionDAO.saveAll(level2ReportingExceptionrecords);
 				reportingExceptionDAO.flush();
 				statusUpdateResponseBean.setNumberOfProcessedRecords(
-						statusUpdateResponseBean.getNumberOfProcessedRecords() + level2relationshiprecords.size());
+						statusUpdateResponseBean.getNumberOfProcessedRecords() + level2ReportingExceptionrecords.size());
 			}
 
 			// do until completed tasks is zero
@@ -147,11 +147,14 @@ public class ReportingExceptionServiceImpl extends StatusAndTaskUpdaterService i
 				}
 			}
 			if (!isError) {
-				statusUpdateResponseBean.setStatus(Constants.STATUS_COMPLETE);
+				statusUpdateResponseBean.setStatus(Constants.STATUS_DELETION);
+				statusUpdateResponseBean.setMessage(Constants.DELETE_OLD_RECORDS);
+				sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
 				// delete old records
 				deleteOldRecords(curRangeBean, oldHeader);
+				statusUpdateResponseBean.setStatus(Constants.STATUS_COMPLETE);
+				statusUpdateResponseBean.setMessage(Constants.FILE_PARSED_SUCCESSFULLY);
 				sendXmlUploadStatusToSubscribers(subscriberId, statusUpdateResponseBean);
-				// insert new header
 				gleifHeaderDAO.save(newHeader);
 			} else {
 				// delete newly inserted records

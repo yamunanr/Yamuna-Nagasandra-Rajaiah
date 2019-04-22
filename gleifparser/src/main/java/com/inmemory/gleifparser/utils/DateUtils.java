@@ -1,5 +1,7 @@
 package com.inmemory.gleifparser.utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -15,6 +17,15 @@ public class DateUtils {
 					
 		}
 		return date;
+	}
+	
+	public static String convertDateToString(Date date) {
+		String retString="";
+		if(date!=null) {
+			DateFormat formatter = new SimpleDateFormat("MMM d, yyyy HH:mm a");
+			retString=formatter.format(date);
+		}
+		return retString;
 	}
 
 }
